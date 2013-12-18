@@ -17,6 +17,6 @@ class Mode{
 		$this->libelle=$libelle;
 		$this->cons=$cons;
 		$this->max=$max	;
-	}
+	}		
 }
 ?>
