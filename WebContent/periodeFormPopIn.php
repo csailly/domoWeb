@@ -1,33 +1,34 @@
 ﻿<?php
 //@TODO Récupérer la liste des modes
 //@See http://www.eyecon.ro/bootstrap-datepicker/
+$modalId= "periodFormModal";
+$periodFormJsInstance = "periodForm";
+$periodFormId = "periodForm";
 ?>
 
-<script>
-	
-</script>
+
 
 <!-- Modal -->
-<div class="modal fade" id="myModal"
-	tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="<?=$modalId?>"
+	tabindex="-1" role="dialog" aria-labelledby="<?=$modalId?>Label"
 	aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Créer une nouvelle période</h4>
+				<h4 class="modal-title" id="<?=$modalId?>Label">Créer une nouvelle période</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal" role="form" id="createPeriodForm">
-					<input type="hidden" name="action" id="createPeriodForm_action"
-						value="createPeriod">
-					<input type="hidden" name="periodId" id="createPeriodForm_periodId"
+				<form class="form-horizontal" role="form" id="<?=$periodFormId?>">
+					<input type="hidden" name="action" id="<?=$periodFormId?>_action"
+						value="none">
+					<input type="hidden" name="periodId" id="<?=$periodFormId?>_periodId"
 						value="-1">
 					<div class="form-group">
-						<label for="createPeriodForm_jour" class="col-sm-2 control-label">Jour</label>
+						<label for="<?=$periodFormId?>_day" class="col-sm-2 control-label">Jour</label>
 						<div class="col-sm-10">
-							<select class="form-control" name="day" id="createPeriodForm_day">
+							<select class="form-control" name="day" id="<?=$periodFormId?>_day">
 								<option value="-1">-</option>
 								<option value="1">Lundi</option>
 								<option value="2">Mardi</option>
@@ -39,14 +40,14 @@
 							</select>
 						</div>
 					</div>
-					<div class="input-daterange" id="createPeriodForm_datepicker">
+					<div class="input-daterange" id="<?=$periodFormId?>_datepicker">
 						<div class="form-group">
-							<label for="createPeriodForm_dateDebut"
+							<label for="<?=$periodFormId?>_startDate"
 								class="col-sm-2 control-label">Date de début</label>
 							<div class="col-sm-10">
 								<div class="input-group date">
 									<input type="date" class="form-control" name="startDate"
-										id="createPeriodForm_startDate" readonly=""
+										id="<?=$periodFormId?>_startDate" readonly=""
 										placeholder="Ex. 11/12/2013">
 									<span class="input-group-addon">
 										<i class="glyphicon glyphicon-calendar"></i>
@@ -55,12 +56,12 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="createPeriodForm_dateFin"
+							<label for="<?=$periodFormId?>_endDate"
 								class="col-sm-2 control-label">Date de fin</label>
 							<div class="col-sm-10">
 								<div class="input-group date">
 									<input type="date" class="form-control" name="endDate"
-										id="createPeriodForm_endDate" readonly=""
+										id="<?=$periodFormId?>_endDate" readonly=""
 										placeholder="Ex. 11/12/2013">
 									<span class="input-group-addon">
 										<i class="glyphicon glyphicon-calendar"></i>
@@ -71,12 +72,12 @@
 					</div>
 					<div class="bootstrap-timepicker">
 						<div class="form-group">
-							<label for="createPeriodForm_heureDebut"
+							<label for="<?=$periodFormId?>_startHour"
 								class="col-sm-2 control-label">Heure de début</label>
 							<div class="col-sm-10">
 								<div class="input-group">
 									<input type="time" class="form-control" name="startHour"
-										id="createPeriodForm_startHour" readonly=""
+										id="<?=$periodFormId?>_startHour" readonly=""
 										placeholder="Ex. 10:15" value="0:00">
 									<span class="input-group-addon">
 										<i class="glyphicon glyphicon-time"></i>
@@ -87,12 +88,12 @@
 					</div>
 					<div class="bootstrap-timepicker">
 						<div class="form-group">
-							<label for="createPeriodForm_heureFin"
+							<label for="<?=$periodFormId?>_endHour"
 								class="col-sm-2 control-label">Heure de fin</label>
 							<div class="col-sm-10">
 								<div class="input-group">
 									<input type="time" class="form-control" name="endHour"
-										id="createPeriodForm_endHour" readonly=""
+										id="<?=$periodFormId?>_endHour" readonly=""
 										placeholder="Ex. 11:15" value="1:00">
 									<span class="input-group-addon">
 										<i class="glyphicon glyphicon-time"></i>
@@ -102,10 +103,10 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="createPeriodForm_mode" class="col-sm-2 control-label">Mode</label>
+						<label for="<?=$periodFormId?>_mode" class="col-sm-2 control-label">Mode</label>
 						<div class="col-sm-10">
 							<select class="form-control" name="mode"
-								id="createPeriodForm_mode">
+								id="<?=$periodFormId?>_mode">
 								<option value="-1">-</option>
 								<option value="1">Confort</option>
 								<option value="2">Eco</option>
@@ -113,21 +114,21 @@
 						</div>
 					</div>
 				</form>
-				<div id="createPeriodForm_errorMessages" class="alert alert-danger"
+				<div id="<?=$periodFormId?>_errorMessages" class="alert alert-danger"
 					style="display: none;">
 					<strong> Merci de corriger les erreurs ci-dessous :</strong>
 					<ul>
 
 					</ul>
 				</div>
-				<div id="createPeriodForm_successMessages"
+				<div id="<?=$periodFormId?>_successMessages"
 					class="alert alert-success" style="display: none;">La période a
 					bien été ajoutée</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
 				<button type="button" class="btn btn-primary"
-					onclick='newPeriodeForm.checkNewPeriodeForm();'>Save changes</button>
+					onclick='<?=$periodFormJsInstance?>.checkFormValues();'>Enregistrer</button>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -144,18 +145,18 @@
 	};
 	
 	GenericForm.prototype = {
-		createPeriode: function (){
+		submitForm: function (){
 			$.post( "/service/DataWService.php", $( '#'+this.formId ).serialize())
 				.done(	function( data ) {							
 							//TODO #1 un caractère 3F est mis en tête de data ????? voir pourquoi
 							//TODO #2 voir pour ne pas mettre en dur newPeriodeForm mais utiliser l'attribut formId de la classe
-							newPeriodeForm.treatServerResult(data.substr(1));							
+							<?=$periodFormJsInstance?>.treatServerResult(data.substr(1));							
 						});
 		},						
 				
-		checkNewPeriodeForm: function (){
+		checkFormValues: function (){
 			//TODO for server side check debug only
-			this.createPeriode();
+			this.submitForm();
 			return;
 			//END
 
@@ -264,7 +265,7 @@
 		
 			//Submit form if all it's ok.
 			if (g_dayOrDateOk && f_startDateOk && f_endDateOk  && g_datesOk && f_startHourOk && f_endHourOk && g_hoursOk && g_modeOk) {
-				this.createPeriode();
+				this.submitForm();
 			}else {
 				$("#"+this.formId+"_errorMessages").show();
 			}				
@@ -287,7 +288,7 @@
 		},
 		
 		clearForm: function(){
-			this.resetFormulaire();	
+			this.resetForm();	
 			this.clearMessages();						
 		},
 		
@@ -299,14 +300,15 @@
 			$("#"+this.formId+"_successMessages").hide();
 		},
 		
-		resetFormulaire: function(){
+		resetForm: function(){
 			$('#'+this.formId+' :input')
-			.not(':button, :submit, :reset')		
+			.not(':button, :submit, :reset')
+			.not("#"+this.formId+"_action")
+			.not("#"+this.formId+"_periodId")		
 			.val('')
 			.removeAttr('checked')
 			.removeAttr('selected');
 			
-			$("#"+this.formId+"_action").val('createPeriod');
 			$("#"+this.formId+"_startHour").val('0:00');
 			$("#"+this.formId+"_endHour").val('1:00');
 			$("#"+this.formId+"_day").val('-1');
@@ -336,8 +338,31 @@
 				this.clearForm();
 				$("#"+this.formId+"_successMessages").show();
 			}
-		}
+		}		
+	};
+
+
+	showCreatePeriodForm = function(){
+		$('#<?=$modalId?>Label').text('Créer une nouvelle période');		
+		$("#<?=$periodFormId?>_action").val('createPeriod');
+		$("#<?=$periodFormId?>_periodId").val('-1');				
+		$('#<?=$modalId?>').modal('show');
+	};
+
+	showUpdatePeriodForm = function(periodId, day, startDate, endDate, startHour, endHour, mode){
+		$('#<?=$modalId?>Label').text('Mettre à jour la période');
+		$("#<?=$periodFormId?>_action").val('updatePeriod');
+		$("#<?=$periodFormId?>_periodId").val(periodId);
+		$("#<?=$periodFormId?>_day").val(day);
+		$("#<?=$periodFormId?>_startDate").val(startDate);
+		$("#<?=$periodFormId?>_endDate").val(endDate);
+		$("#<?=$periodFormId?>_startHour").val(startHour);
+		$("#<?=$periodFormId?>_endHour").val(endHour);		
+		$("#<?=$periodFormId?>_mode").val(mode);
+
+		//Show		
+		$('#<?=$modalId?>').modal('show');		
+	};
 
 		
-	};	
 </script>

@@ -42,8 +42,7 @@ $periodes = $dataService->getPeriodesList();
 				<th>Mode</th>
 				<th>Supprimer</th>
 				<th>
-					<span class="glyphicon glyphicon-plus" data-toggle="modal"
-						data-target="#myModal"></span>
+					<span class="glyphicon glyphicon-plus" onclick="showCreatePeriodForm();"></span>
 				</th>
 			</tr>
 		</thead>
@@ -52,32 +51,32 @@ $periodes = $dataService->getPeriodesList();
 			foreach ($periodes as $periode) {
 			$mode = $dataService->getModeById($periode->modeId);
 			?>
-			<tr id="periodesRow_<?php echo $periode->id?>">
+			<tr id="periodesRow_<?= $periode->id?>">
 				<td>
-					<?php echo $periode->id?>
+					<?=$periode->id?>
 				</td>
 				<td>
-					<?php echo $periode->getLibelleJour()?>
+					<?=$periode->getLibelleJour()?>
 				</td>
 				<td>
-					<?php echo $periode->dateDebut?>
+					<?=$periode->dateDebut?>
 				</td>
 				<td>
-					<?php echo $periode->dateFin?>
+					<?=$periode->dateFin?>
 				</td>
 				<td>
-					<?php echo $periode->heureDebut?>
+					<?=$periode->heureDebut?>
 				</td>
 				<td>
-					<?php echo $periode->heureFin?>
+					<?=$periode->heureFin?>
 				</td>
 				<td>
-					<?php echo $mode->libelle?>
+					<?=$mode->libelle?>
 				</td>
 				<td>
 					<span class="glyphicon glyphicon-trash"
-						onclick="deletePeriod(<?php echo $periode->id?>)"></span>
-					<span class="glyphicon glyphicon-pencil"></span>
+						onclick="deletePeriod(<?= $periode->id?>)"></span>
+					<span class="glyphicon glyphicon-pencil" onclick="showUpdatePeriodForm(<?=$periode->id?>,<?=$periode->jour?>,'<?=$periode->dateDebut?>','<?=$periode->dateFin?>','<?=$periode->heureDebut?>','<?=$periode->heureFin?>',<?=$periode->modeId?>);"></span>
 				</td>
 			</tr>
 			<?php
@@ -89,7 +88,7 @@ $periodes = $dataService->getPeriodesList();
 	</table>
 
 
-	<?php include './newPeriodePopup.php';?>
+	<?php include './periodeFormPopIn.php';?>
 
 	<script>
 			function deletePeriod(periodId)
@@ -107,10 +106,10 @@ $periodes = $dataService->getPeriodesList();
 					
 					}else{
 						$("tr[id=periodesRow_"+periodId+"]").remove();
-					}													
+					};													
 				}
 				);
-			}	
+			};	
 		</script>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -128,15 +127,15 @@ $periodes = $dataService->getPeriodesList();
 
 	<!-- Modal -->
 	<script>
-			var newPeriodeForm = new GenericForm("createPeriodForm");
-			$('#myModal').on('hidden.bs.modal', function (e) {
-				newPeriodeForm.clearForm();
+			var <?=$periodFormJsInstance?> = new GenericForm("<?=$periodFormId?>");
+			$('#<?=$modalId?>').on('hidden.bs.modal', function (e) {
+				<?=$periodFormJsInstance?>.clearForm();
 			});				
-		</script>
+	</script>
 
 	<!-- Date picker -->
 	<script>
-			    $('#'+newPeriodeForm.formId+'_datepicker').datepicker({
+			    $('#'+<?=$periodFormJsInstance?>.formId+'_datepicker').datepicker({
 					language: "fr",
 					autoclose: true,
 					todayHighlight: true,
@@ -153,14 +152,14 @@ $periodes = $dataService->getPeriodesList();
 
 	<!-- Time picker -->
 	<script type="text/javascript">
-			$('#'+newPeriodeForm.formId+'_startHour').timepicker({
+			$('#'+<?=$periodFormJsInstance?>.formId+'_startHour').timepicker({
 				minuteStep: 5,
 				showMeridian: false,
 				showInputs: false,
 				defaultTime: false
 			});
 		 
-			$('#'+newPeriodeForm.formId+'_endHour').timepicker({
+			$('#'+<?=$periodFormJsInstance?>.formId+'_endHour').timepicker({
 				minuteStep: 5,
 				showMeridian: false,
 				showInputs: false,
