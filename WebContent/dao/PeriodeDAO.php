@@ -9,7 +9,7 @@ class PeriodeDAO extends GenericDAO {
 	 * 
 	 * @return multitype:Periode
 	 */
-	function getPeriodesList() {
+	function getAllPeriodes() {
 		// TODO renvoyer un flux json
 		$periodes = array ();
 		

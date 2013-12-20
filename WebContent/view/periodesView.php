@@ -9,7 +9,7 @@ include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/CalendarUtils.php';
 
 $dataService = new DataService($databaseConnexion);
-$periodes = $dataService->getPeriodesList();
+$periodes = $dataService->getAllPeriodes();
 
 ?>
 

@@ -37,6 +37,23 @@ try{
 			$periodId = $_POST["periodId"];
 			echo $dataService->deletePeriode($periodId);
 			break;
+		case "createMode" :
+			$label = $_POST["label"];
+			$cons = $_POST["cons"];
+			$max = $_POST["max"];
+			echo $dataService->createMode($label, $cons, $max);
+			break;
+		case "updateMode" :
+			$modeId = $_POST["modeId"];
+			$label = $_POST["label"];
+			$cons = $_POST["cons"];
+			$max = $_POST["max"];
+			echo $dataService->updateMode($modeId, $label, $cons, $max);
+			break;
+		case "deleteMode":
+			$periodId = $_POST["modeId"];
+			echo $dataService->deleteMode($periodId);
+			break;									
 		default :
 			http_response_code(500);
 			die("Bad action");

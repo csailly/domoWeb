@@ -16,8 +16,8 @@ class DataService {
 	/**
 		* Retourne la liste des périodes.
 		*/
-	function getPeriodesList() {
-		return $this->periodeDao->getPeriodesList();
+	function getAllPeriodes() {
+		return $this->periodeDao->getAllPeriodes();
 	}
 
 	/**
@@ -71,6 +71,36 @@ class DataService {
 	 */
 	function updatePeriode($periodId, $day, $startDate, $endDate, $startHour, $endHour, $modeId){
 		return $this->periodeDao->updatePeriode($periodId, $day, $startDate, $endDate, $startHour, $endHour, $modeId);
+	}
+	
+	/**
+	 * Crée un nouveau mode
+	 * @param  label	:	le libellé du mode
+	 * @param  cons	:	la température de consigne
+	 * @param  max		:	la température maximale
+	 */
+	function createMode($label, $cons, $max){
+		return $this->modeDao->createMode($label, $cons, $max);
+	}
+	
+	/**
+	 * Met à jour le mode.
+	 * @param  modeId	:	l'identifiant du mode à mettre à jour
+	 * @param  label	:	le libellé du mode
+	 * @param  cons	:	la température de consigne
+	 * @param  max		:	la température maximale
+	 */
+	function updateMode($modeId, $label, $cons, $max){
+		return $this->modeDao->updateMode($modeId, $label, $cons, $max);
+	}
+	
+	/**
+	 * Supprime un mode.
+	 *
+	 * @param modeId : l'identifiant du mode à supprimer.
+	 */
+	function delete($modeId){
+		return $this->modeDao->delete($modeId);
 	}
 
 }

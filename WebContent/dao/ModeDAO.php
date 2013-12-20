@@ -60,7 +60,104 @@ class ModeDAO extends GenericDAO {
 		
 	}
 	
+	/**
+	 * Crée un nouveau mode
+	 * @param  $label : le libellé du mode
+	 * @param  $cons : la température de consigne
+	 * @param  $max	: la température maximale
+	 */
+	function createMode($label, $cons, $max){
+		//TODO check parameters
+		$response = array (
+				'result' => 'success'
+		);
+		
+		// Execute the query
+		$queryString = "INSERT INTO mode(libelle, cons, max) VALUES ( :label, :cons, :max)";
+		try {
+			$stmt = $this->connexion->prepare ( $queryString );
+			$stmt->execute ( array (
+					'label' => $label,
+					'cons' => $cons,
+					'max' => $max
+			) );
+		} catch ( PDOException $e ) {
+			$response ['result'] = 'error';
+			$errorsMsgs = array ();
+			$errorsMsgs ["exception"] = $e->getMessage ();
+			$errors = array (
+					'errorsMsgs' => $errorsMsgs
+			);
+			$response ['errors'] = $errors;
+		}
+		
+		return json_encode ( $response );
+	}
 	
+	/**
+	 * Met à jour le mode
+	 * @param  $modeId	:	l'identifiant du mode à mettre à jour
+	 * @param  $label	:	le libellé du mode
+	 * @param  $cons	:	la température de consigne
+	 * @param  $max		:	la température maximale
+	 */
+	function updateMode($modeId, $label, $cons, $max){
+		//TODO check parameters
+		$response = array (
+				'result' => 'success'
+		);
+		
+		// Execute the query
+		$queryString = "UPDATE mode SET libelle = :label, cons = :cons, max = :max WHERE id = :modeId";
+		try {
+			$stmt = $this->connexion->prepare ( $queryString );
+			$stmt->execute ( array (
+					'label' => $label,
+					'cons' => $cons,
+					'max' => $max,
+					'modeId' => $modeId
+			) );
+		} catch ( PDOException $e ) {
+			$response ['result'] = 'error';
+			$errorsMsgs = array ();
+			$errorsMsgs ["exception"] = $e->getMessage ();
+			$errors = array (
+					'errorsMsgs' => $errorsMsgs
+			);
+			$response ['errors'] = $errors;
+		}		
+		return json_encode ( $response );		
+	}
+	
+	/**
+	 * Supprime un mode.
+	 *
+	 * @param
+	 *        	modeId : l'identifiant du mode à supprimer.
+	 */
+	function delete($modeId) {
+		$response = array (
+				'result' => 'success'
+		);
+	
+		$queryString = "DELETE FROM mode WHERE id = :modeId";
+		try {
+			$stmt = $this->connexion->prepare ( $queryString );
+			$stmt->execute ( array (
+					'$modeId' => $modeId
+			) );
+		} catch ( PDOException $e ) {
+			$response ['result'] = 'error';
+			$errorsMsgs = array ();
+			$errorsMsgs ["exception"] = $e->getMessage ();
+			$errors = array (
+					'errorsMsgs' => $errorsMsgs
+			);
+			$response ['errors'] = $errors;
+		}
+	
+		return json_encode ( $response );
+	}
 
 }
 ?>
