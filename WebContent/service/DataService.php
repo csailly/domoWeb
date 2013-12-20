@@ -38,16 +38,31 @@ class DataService {
 
 	/**
 		*	Crée une nouvelle période.
-		*	@param day		:	le jour concerné par la période
-		*	@param startDate	:	la date de début de la période (incluse)
-		*	@param endDate	:	la date de fin de la période (incluse)
-		*	@param startHour	:	l'heure de début de la période (incluse)
-		*	@param endHour	:	l'heure de fin de la période (incluse)
-		*	@param modeId		:	l'identifiant du mode de chauffe de la période
+		*	@param day		:	le jour concerné par la période.
+		*	@param startDate	:	la date de début de la période (incluse).
+		*	@param endDate	:	la date de fin de la période (incluse).
+		*	@param startHour	:	l'heure de début de la période (incluse).
+		*	@param endHour	:	l'heure de fin de la période (incluse).
+		*	@param modeId		:	l'identifiant du mode de chauffe de la période.
 		*
 		*/
 	function createPeriode($day, $startDate, $endDate, $startHour, $endHour, $modeId){
 		return $this->periodeDao->createPeriode($day, $startDate, $endDate, $startHour, $endHour, $modeId);
+	}
+	
+	/**
+	 *	Met à jour une période.
+	 *	@param periodId	:	l'identifiant de la période.
+	 *	@param day		:	le jour concerné par la période.
+	 *	@param startDate	:	la date de début de la période (incluse).
+	 *	@param endDate	:	la date de fin de la période (incluse).
+	 *	@param startHour	:	l'heure de début de la période (incluse).
+	 *	@param endHour	:	l'heure de fin de la période (incluse).
+	 *	@param modeId		:	l'identifiant du mode de chauffe de la période.
+	 *
+	 */
+	function updatePeriode($periodId, $day, $startDate, $endDate, $startHour, $endHour, $modeId){
+		return $this->periodeDao->updatePeriode($periodId, $day, $startDate, $endDate, $startHour, $endHour, $modeId);
 	}
 
 }

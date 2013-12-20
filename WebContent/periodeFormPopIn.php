@@ -330,7 +330,9 @@ $periodFormId = "periodForm";
 				var errorsMsgs = decode.errors.errorsMsgs;
 				for(var fieldName in errorsMsgs){			
 					var msg = errorsMsgs[fieldName];
-					this.addErrorMessage(msg);
+					if (msg.length > 0){
+						this.addErrorMessage(msg);
+					}
 					this.setFieldOnError(this.formId+"_"+fieldName);
 				}
 				$("#"+this.formId+"_errorMessages").show();				

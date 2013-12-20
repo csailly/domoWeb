@@ -20,6 +20,7 @@
 <?php
 include_once '/config/config.ini';
 include_once '/service/DataService.php';
+include_once '/utils/CalendarUtils.php';
 
 $dataService = new DataService($databaseConnexion);
 $periodes = $dataService->getPeriodesList();
@@ -56,13 +57,13 @@ $periodes = $dataService->getPeriodesList();
 					<?=$periode->id?>
 				</td>
 				<td>
-					<?=$periode->getLibelleJour()?>
+					<?=CalendarUtils::getDayLabel($periode->jour)?>
 				</td>
 				<td>
-					<?=$periode->dateDebut?>
+					<?=CalendarUtils::transformDate2($periode->dateDebut)?>
 				</td>
 				<td>
-					<?=$periode->dateFin?>
+					<?=CalendarUtils::transformDate2($periode->dateFin)?>
 				</td>
 				<td>
 					<?=$periode->heureDebut?>
@@ -76,7 +77,7 @@ $periodes = $dataService->getPeriodesList();
 				<td>
 					<span class="glyphicon glyphicon-trash"
 						onclick="deletePeriod(<?= $periode->id?>)"></span>
-					<span class="glyphicon glyphicon-pencil" onclick="showUpdatePeriodForm(<?=$periode->id?>,<?=$periode->jour?>,'<?=$periode->dateDebut?>','<?=$periode->dateFin?>','<?=$periode->heureDebut?>','<?=$periode->heureFin?>',<?=$periode->modeId?>);"></span>
+					<span class="glyphicon glyphicon-pencil" onclick="showUpdatePeriodForm(<?=$periode->id?>,<?=$periode->jour?>,'<?=CalendarUtils::transformDate2($periode->dateDebut)?>','<?=CalendarUtils::transformDate2($periode->dateFin)?>','<?=$periode->heureDebut?>','<?=$periode->heureFin?>',<?=$periode->modeId?>);"></span>
 				</td>
 			</tr>
 			<?php

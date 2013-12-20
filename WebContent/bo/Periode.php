@@ -1,7 +1,5 @@
 ﻿<?php
 include_once $_SERVER['DOCUMENT_ROOT'].'/bo/Mode.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/utils/Enum.php';
-
 
 class Periode
 {
@@ -12,9 +10,6 @@ class Periode
 	public $heureDebut;
 	public $heureFin;
 	public $modeId;
-
-	private $jours;
-
 
 	/**
 	 *
@@ -33,21 +28,8 @@ class Periode
 		$this->dateFin=$dateFin;
 		$this->heureDebut=$heureDebut;
 		$this->heureFin=$heureFin;
-		$this->modeId=$modeId;
-		$this->jours = new DefinedEnum(array("1" => "Lundi", "2" => "Mardi", "3" => "Mercredi", "4" => "Jeudi", "5" => "Vendredi", "6" => "Samedi", "7" => "Dimanche"));
+		$this->modeId=$modeId;		
 	}
 
-	/**
-	 *
-	 * @return string
-	 */
-	function getLibelleJour(){
-		if(isset($this->jour) && $this->jour > 0 && $this->jour < 8){
-			$temp = ''.$this->jour;
-			return $this->jours->$temp;
-		}else{
-			return '-';
-		}
-	}
 }
 ?>

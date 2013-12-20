@@ -24,6 +24,14 @@ try{
 			echo $dataService->createPeriode($day, $startDate, $endDate, $startHour, $endHour, $mode);
 			break;
 		case "updatePeriod" :
+			$periodId = $_POST["periodId"];
+			$day = $_POST["day"];
+			$startDate = $_POST["startDate"];
+			$endDate = $_POST["endDate"];
+			$startHour = $_POST["startHour"];
+			$endHour = $_POST["endHour"];
+			$mode = $_POST["mode"];
+			echo $dataService->updatePeriode($periodId, $day, $startDate, $endDate, $startHour, $endHour, $mode);
 			break;
 		case "deletePeriod":
 			$periodId = $_POST["periodId"];
