@@ -1,4 +1,4 @@
-<head>
+﻿<head>
 	<title>DomoWeb</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Bootstrap -->
@@ -9,9 +9,9 @@
 	<link rel="stylesheet"
 		href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
 	<!-- Date picker -->
-	<link rel="stylesheet" href="css/datepicker.css" />
+	<link rel="stylesheet" href="/css/datepicker.css" />
 	<!-- Time picker -->
-	<link rel="stylesheet" href="css/bootstrap-timepicker.css" />
+	<link rel="stylesheet" href="/css/bootstrap-timepicker.css" />
 
 </head>
 

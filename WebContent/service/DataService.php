@@ -35,6 +35,14 @@ class DataService {
 	function getModeById($modeId) {
 		return $this->modeDao->getModeById($modeId);
 	}
+	
+	/**
+	 * Renvoie la liste des Modes
+	 * @return multitype:Mode
+	 */
+	function getAllModes(){
+		return $this->modeDao->getAllModes();
+	}
 
 	/**
 		*	Crée une nouvelle période.
