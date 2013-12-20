@@ -122,8 +122,7 @@ $periodFormId = "periodForm";
 					</ul>
 				</div>
 				<div id="<?=$periodFormId?>_successMessages"
-					class="alert alert-success" style="display: none;">La période a
-					bien été ajoutée</div>
+					class="alert alert-success" style="display: none;"></div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
@@ -142,6 +141,7 @@ $periodFormId = "periodForm";
 
 	var GenericForm = function(formId) {
 		this.formId = formId;
+		this.clearFormAfterSuccess = true;
 	};
 	
 	GenericForm.prototype = {
@@ -337,7 +337,9 @@ $periodFormId = "periodForm";
 				}
 				$("#"+this.formId+"_errorMessages").show();				
 			}else{
-				this.clearForm();
+				if (this.clearFormAfterSuccess){
+					this.clearForm();
+				}
 				$("#"+this.formId+"_successMessages").show();
 			}
 		}		
@@ -347,7 +349,11 @@ $periodFormId = "periodForm";
 	showCreatePeriodForm = function(){
 		$('#<?=$modalId?>Label').text('Créer une nouvelle période');		
 		$("#<?=$periodFormId?>_action").val('createPeriod');
-		$("#<?=$periodFormId?>_periodId").val('-1');				
+		$("#<?=$periodFormId?>_periodId").val('-1');
+		$("#<?=$periodFormId?>_successMessages").text('La période a été créée');
+		<?=$periodFormJsInstance?>.clearFormAfterSuccess = true;
+
+		//Show
 		$('#<?=$modalId?>').modal('show');
 	};
 
@@ -361,6 +367,8 @@ $periodFormId = "periodForm";
 		$("#<?=$periodFormId?>_startHour").val(startHour);
 		$("#<?=$periodFormId?>_endHour").val(endHour);		
 		$("#<?=$periodFormId?>_mode").val(mode);
+		$("#<?=$periodFormId?>_successMessages").text('La période a été mise à jour');
+		<?=$periodFormJsInstance?>.clearFormAfterSuccess = false;
 
 		//Show		
 		$('#<?=$modalId?>').modal('show');		

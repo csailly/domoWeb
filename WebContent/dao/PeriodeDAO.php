@@ -33,16 +33,25 @@ class PeriodeDAO extends GenericDAO {
 	 */
 	function deletePeriode($periodId) {
 		$response = array (
-				'result' => 'error' 
+				'result' => 'success' 
 		);
 		
 		$queryString = "DELETE FROM periode WHERE id = :periodId";
-		$stmt = $this->connexion->prepare ( $queryString );
-		$stmt->execute ( array (
-				'periodId' => $periodId 
-		) );
+		try {
+			$stmt = $this->connexion->prepare ( $queryString );
+			$stmt->execute ( array (
+					'periodId' => $periodId 
+			) );
+		} catch ( PDOException $e ) {
+			$response ['result'] = 'error';
+			$errorsMsgs = array ();
+			$errorsMsgs ["exception"] = $e->getMessage ();
+			$errors = array (
+					'errorsMsgs' => $errorsMsgs
+			);
+			$response ['errors'] = $errors;
+		}
 		
-		$response ['result'] = 'success';
 		return json_encode ( $response );
 	}
 	
