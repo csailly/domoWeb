@@ -15,15 +15,20 @@ if (isset($_POST["action"])){
 try{
 	switch ($action) {
 		case "createPeriod" :
+			//Get parameters
 			$day = $_POST["day"];
 			$startDate = $_POST["startDate"];
 			$endDate = $_POST["endDate"];
 			$startHour = $_POST["startHour"];
 			$endHour = $_POST["endHour"];
 			$mode = $_POST["mode"];
-			echo $dataService->createPeriode($day, $startDate, $endDate, $startHour, $endHour, $mode);
+			//Call service		
+			$response =$dataService->createPeriode($day, $startDate, $endDate, $startHour, $endHour, $mode);
+			//Send response
+			echo json_encode($response);
 			break;
 		case "updatePeriod" :
+			//Get parameters
 			$periodId = $_POST["periodId"];
 			$day = $_POST["day"];
 			$startDate = $_POST["startDate"];
@@ -31,11 +36,18 @@ try{
 			$startHour = $_POST["startHour"];
 			$endHour = $_POST["endHour"];
 			$mode = $_POST["mode"];
-			echo $dataService->updatePeriode($periodId, $day, $startDate, $endDate, $startHour, $endHour, $mode);
+			//Call service
+			$response = $dataService->updatePeriode($periodId, $day, $startDate, $endDate, $startHour, $endHour, $mode);
+			//Send response
+			echo json_encode($response);
 			break;
 		case "deletePeriod":
+			//Get parameters
 			$periodId = $_POST["periodId"];
-			echo $dataService->deletePeriode($periodId);
+			//Call service
+			$response = $dataService->deletePeriode($periodId);
+			//Send response
+			echo json_encode ( $response );
 			break;
 		case "createMode" :
 			$label = $_POST["label"];
