@@ -50,21 +50,33 @@ try{
 			echo json_encode ( $response );
 			break;
 		case "createMode" :
+			//Get parameters
 			$label = $_POST["label"];
 			$cons = $_POST["cons"];
 			$max = $_POST["max"];
-			echo $dataService->createMode($label, $cons, $max);
+			//Call service
+			$response =  $dataService->createMode($label, $cons, $max);
+			//Send response
+			echo json_encode ( $response );
 			break;
 		case "updateMode" :
+			//Get parameters
 			$modeId = $_POST["modeId"];
 			$label = $_POST["label"];
 			$cons = $_POST["cons"];
 			$max = $_POST["max"];
-			echo $dataService->updateMode($modeId, $label, $cons, $max);
+			//Call service
+			$response =  $dataService->updateMode($modeId, $label, $cons, $max);
+			//Send response
+			echo json_encode ( $response );
 			break;
 		case "deleteMode":
+			//Get parameters
 			$periodId = $_POST["modeId"];
-			echo $dataService->deleteMode($periodId);
+			//Call service
+			$response =  $dataService->deleteMode($periodId);
+			//Send response
+			echo json_encode ( $response );
 			break;									
 		default :
 			http_response_code(500);
