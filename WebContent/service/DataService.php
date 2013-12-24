@@ -1,16 +1,19 @@
 <?php
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/CalendarUtils.php';
-include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/PeriodeDAO.php';
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/AccountDAO.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/ModeDAO.php';
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/PeriodeDAO.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/TemperatureDAO.php';
 class DataService {
+	private $accountDao;
 	private $periodeDao;
 	private $modeDao;
 	private $temperatureDao;
 	function __construct($connexion) {
+		$this->accountDao = new AccountDAO ( $connexion );
 		$this->periodeDao = new PeriodeDAO ( $connexion );
 		$this->modeDao = new ModeDAO ( $connexion );
-		$this->temperatureDao = new TemperatureDAO($connexion);
+		$this->temperatureDao = new TemperatureDAO ( $connexion );
 	}
 	
 	/**
@@ -439,9 +442,52 @@ class DataService {
 		return $response;
 	}
 	
-	function getAllTemperatures(){
-		return $this->temperatureDao->getAllTemperatures();			
+	function getAllTemperatures() {
+		return $this->temperatureDao->getAllTemperatures ();
 	}
+	
+	function ckeckLogin($login,$password) {
+		$response = array (
+				'success' => true 
+		);
+		try {
+			$account = $this->accountDao->getAccountByPk ( $login );
+			if ($account === null || $account->password != $password) {
+				$response ['result'] = false;
+			}else{
+				$response ['result'] = true;
+			}
+		} catch ( PDOException $e ) {
+			$response ['success'] = false;
+			$errorsMsgs = array ();
+			$errorsMsgs ["exception"] = $e->getMessage ();
+			$errors = array (
+					'errorsMsgs' => $errorsMsgs 
+			);
+			$response ['errors'] = $errors;
+		}
+		
+		return $response;
+	}
+	
+	// function test() {
+	// $response = array (
+	// 'result' => 'success'
+	// );
+	// try {
+	
+	// } catch ( PDOException $e ) {
+	// $response ['result'] = 'error';
+	// $errorsMsgs = array ();
+	// $errorsMsgs ["exception"] = $e->getMessage ();
+	// $errors = array (
+	// 'errorsMsgs' => $errorsMsgs
+	// );
+	// $response ['errors'] = $errors;
+	// }
+	
+	// return $response;
+	// }
 }
 
 ?>

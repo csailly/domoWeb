@@ -18,4 +18,4 @@
 <!-- Main css -->
 <link rel="stylesheet" href="/css/main.css" />
 
-<?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/config/config.ini';?>
+<?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/config/config.php';?>

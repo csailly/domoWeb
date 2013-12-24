@@ -74,8 +74,8 @@ $modes = $dataService->getAllModes();
 					data: { modeId: modeId, action: "deleteMode" }
 				})
 				.done(function(data){
-					//TODO #1 un caractère 3F est mis en tête de data ????? voir pourquoi
-					var decode = $.parseJSON(data.substr(1));
+					
+					var decode = $.parseJSON(data);
 					var result = decode.result;
 					if (result === "error"){
 					

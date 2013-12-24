@@ -1,9 +1,9 @@
 <?php
-	$databaseDirectory = dirname(__FILE__).'/..';
-	$databaseFilename = '/domotique.sqlite';
+	$databaseDirectory = dirname(__FILE__).'/../';
+	$databaseFilename = 'domotique.sqlite';
 
 	//$databaseDirectory = '/home/pi/syno/';
-	//$databaseFilename = '/domotique.sqlite';
+	//$databaseFilename = 'domotique.sqlite';
 	
 	
 	

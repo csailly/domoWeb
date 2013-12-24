@@ -10,24 +10,40 @@
 <body>
 
 <?php
+
+//TODO See http://www.wikihow.com/Create-a-Secure-Login-Script-in-PHP-and-MySQL
+
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
+
 if (session_status () !== PHP_SESSION_ACTIVE) {
 	session_start ();
 }
 if ((isset ( $_SESSION ['login'] ) && $_SESSION ['login'] === 'ok')) {
 	header ( "Location: index.php" );
 }
-if (isset ( $_GET ["login"] ) && isset ( $_GET ["password"] )) {
-	$_SESSION ['login'] = "ok";
-	header ( "Location: index.php" );
+if (isset ( $_POST ["login"] , $_POST ["password"] )) {
+	$login = $_POST ["login"];
+	$password = $_POST ["password"];
+	
+	$dataService = new DataService ( $databaseConnexion );
+	$response = $dataService->ckeckLogin ( $login, $password );
+	
+	if ($response ['success'] === true && $response ['result'] === true) {
+		$_SESSION ['login'] = "ok";
+		header ( "Location: index.php" );
+	}else{
+		header ( "Location: login.php" );
+	}
 }
 
 ?>
 
 
 
-<div class="container">
-		<form class="form-signin" role="form">
+	<div class="container">
+		<form id="loginForm" class="form-signin" role="form" method="post">
 			<h2 class="form-signin-heading">Please sign in</h2>
+			<input type="hidden" name="action" value="authent">
 			<input type="text" name="login" class="form-control"
 				placeholder="Email address" required autofocus> <input
 				type="password" name="password" class="form-control"
@@ -43,6 +59,9 @@ if (isset ( $_GET ["login"] ) && isset ( $_GET ["password"] )) {
 
 
 <?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/footer.php'; ?>
-	
+
+
+
+
 </body>
 </html>

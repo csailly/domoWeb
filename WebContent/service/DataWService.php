@@ -1,5 +1,8 @@
-﻿<?php
-include_once $_SERVER['DOCUMENT_ROOT'].'/config/config.ini';
+<?php
+header('Content-Type: text/html; charset=utf-8');
+
+
+include_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/service/DataService.php';
 
 $dataService = new DataService($databaseConnexion);
@@ -25,7 +28,8 @@ try{
 			//Call service		
 			$response =$dataService->createPeriode($day, $startDate, $endDate, $startHour, $endHour, $mode);
 			//Send response
-			echo json_encode($response);
+			$json = json_encode($response);
+			echo $json;			
 			break;
 		case "updatePeriod" :
 			//Get parameters
@@ -86,5 +90,6 @@ try{
 	echo 'Exception reçue : ',  $e->getMessage(), "\n";
 	http_response_code(500);
 }
+
 
 ?>

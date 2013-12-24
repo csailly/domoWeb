@@ -78,9 +78,8 @@ $modeFormId = "modeForm";
 	GenericForm.prototype = {
 		submitForm: function (){
 			$.post( "/service/DataWService.php", $( '#'+this.formId ).serialize())
-				.done(	function( data ) {							
-							//TODO #1 un caractère 3F est mis en tête de data ????? voir pourquoi
-							<?=$modeFormJsInstance?>.treatServerResult(data.substr(1));							
+				.done(	function( data ) {
+							<?=$modeFormJsInstance?>.treatServerResult(data);							
 						});
 		},						
 				

@@ -12,9 +12,8 @@
 
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/navbar.php';
 
-include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/CalendarUtils.php';
-
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
 $dataService = new DataService ( $databaseConnexion );
 $periodes = $dataService->getAllPeriodes ();
 
@@ -90,8 +89,7 @@ $periodes = $dataService->getAllPeriodes ();
 					data: { periodId: periodId, action: "deletePeriod" }
 				})
 				.done(function(data){
-					//TODO #1 un caractère 3F est mis en tête de data ????? voir pourquoi
-					var decode = $.parseJSON(data.substr(1));
+					var decode = $.parseJSON(data);
 					var result = decode.result;
 					if (result === "error"){
 					
