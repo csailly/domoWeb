@@ -14,21 +14,7 @@ class DataService {
 	 * Retourne la liste des périodes.
 	 */
 	function getAllPeriodes() {
-		// TODO Renvoyer json
-		$response = array (
-				'result' => 'success' 
-		);
-		try {
-			return $this->periodeDao->getAllPeriodes ();
-		} catch ( PDOException $e ) {
-			$response ['result'] = 'error';
-			$errorsMsgs = array ();
-			$errorsMsgs ["exception"] = $e->getMessage ();
-			$errors = array (
-					'errorsMsgs' => $errorsMsgs 
-			);
-			$response ['errors'] = $errors;
-		}
+		return $this->periodeDao->getAllPeriodes ();
 	}
 	
 	/**
@@ -63,21 +49,7 @@ class DataService {
 	 *        	modeId : identifiant du mode.
 	 */
 	function getModeById($modeId) {
-		// TODO Renvoyer json
-		$response = array (
-				'result' => 'success' 
-		);
-		try {
-			return $this->modeDao->getModeById ( $modeId );
-		} catch ( PDOException $e ) {
-			$response ['result'] = 'error';
-			$errorsMsgs = array ();
-			$errorsMsgs ["exception"] = $e->getMessage ();
-			$errors = array (
-					'errorsMsgs' => $errorsMsgs 
-			);
-			$response ['errors'] = $errors;
-		}
+		return $this->modeDao->getModeById ( $modeId );
 	}
 	
 	/**
@@ -86,21 +58,7 @@ class DataService {
 	 * @return multitype:Mode
 	 */
 	function getAllModes() {
-		// TODO Renvoyer json
-		$response = array (
-				'result' => 'success' 
-		);
-		try {
-			return $this->modeDao->getAllModes ();
-		} catch ( PDOException $e ) {
-			$response ['result'] = 'error';
-			$errorsMsgs = array ();
-			$errorsMsgs ["exception"] = $e->getMessage ();
-			$errors = array (
-					'errorsMsgs' => $errorsMsgs 
-			);
-			$response ['errors'] = $errors;
-		}
+		return $this->modeDao->getAllModes ();
 	}
 	
 	/**
@@ -146,6 +104,7 @@ class DataService {
 					'errorsMsgs' => $errorsMsgs 
 			);
 			$response ['errors'] = $errors;
+			return $response;
 		} catch ( Exception $e ) {
 			$response ['result'] = 'error';
 			$errorsMsgs = array ();
@@ -154,9 +113,11 @@ class DataService {
 					'errorsMsgs' => $errorsMsgs 
 			);
 			$response ['errors'] = $errors;
+			return $response;
+		} finally 
+		{
+			return $response;
 		}
-		
-		return $response;
 	}
 	
 	/**
@@ -216,23 +177,7 @@ class DataService {
 	 *        	max		:	la température maximale
 	 */
 	function createMode($label, $cons, $max) {
-		// TODO check parameters
-		$response = array (
-				'result' => 'success' 
-		);
-		try {
-			return $this->modeDao->createMode ( $label, $cons, $max );
-		} catch ( PDOException $e ) {
-			$response ['result'] = 'error';
-			$errorsMsgs = array ();
-			$errorsMsgs ["exception"] = $e->getMessage ();
-			$errors = array (
-					'errorsMsgs' => $errorsMsgs 
-			);
-			$response ['errors'] = $errors;
-		}
-		
-		$response;
+		return $this->modeDao->createMode ( $label, $cons, $max );
 	}
 	
 	/**
@@ -248,22 +193,7 @@ class DataService {
 	 *        	max		:	la température maximale
 	 */
 	function updateMode($modeId, $label, $cons, $max) {
-		// TODO check parameters
-		$response = array (
-				'result' => 'success' 
-		);
-		try {
-			return $this->modeDao->updateMode ( $modeId, $label, $cons, $max );
-		} catch ( PDOException $e ) {
-			$response ['result'] = 'error';
-			$errorsMsgs = array ();
-			$errorsMsgs ["exception"] = $e->getMessage ();
-			$errors = array (
-					'errorsMsgs' => $errorsMsgs 
-			);
-			$response ['errors'] = $errors;
-		}
-		return $response;
+		return $this->modeDao->updateMode ( $modeId, $label, $cons, $max );
 	}
 	
 	/**
@@ -273,22 +203,7 @@ class DataService {
 	 *        	modeId : l'identifiant du mode à supprimer.
 	 */
 	function delete($modeId) {
-		$response = array (
-				'result' => 'success' 
-		);
-		try {
-			return $this->modeDao->delete ( $modeId );
-		} catch ( PDOException $e ) {
-			$response ['result'] = 'error';
-			$errorsMsgs = array ();
-			$errorsMsgs ["exception"] = $e->getMessage ();
-			$errors = array (
-					'errorsMsgs' => $errorsMsgs 
-			);
-			$response ['errors'] = $errors;
-		}
-		
-		return $response;
+		return $this->modeDao->delete ( $modeId );
 	}
 	
 	/**
