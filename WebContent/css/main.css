@@ -1,0 +1,43 @@
+body {
+  background-color: #eee;
+  min-height: 2000px;
+}
+
+.navbar-static-top {
+  margin-bottom: 19px;
+}
+
+
+.modesTable {
+	margin: auto;
+    max-width: 600px;
+}
+
+.modesTable th {
+	text-align: center;
+}
+
+.modesTable td {
+	text-align: center;
+}
+
+.modesTable .glyphicon {
+	margin-left: 2px;
+} 
+
+.periodesTable {
+	margin: auto;
+    max-width: 800px;
+}
+
+.periodesTable th {
+	text-align: center;
+}
+
+.periodesTable td {
+	text-align: center;
+}
+
+.periodesTable .glyphicon {
+	margin-left: 2px;
+} 

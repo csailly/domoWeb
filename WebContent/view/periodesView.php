@@ -1,22 +1,29 @@
-﻿<!DOCTYPE html>
+﻿<?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/loginCheck.php'; ?>
+<!DOCTYPE html>
 <html>
-	<?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/header.php'; ?>
+
+<head>
+		<?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/header.php'; ?>
+</head>
+
 <body>
 
 <?php
 
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/navbar.php';
+
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/CalendarUtils.php';
 
-$dataService = new DataService($databaseConnexion);
-$periodes = $dataService->getAllPeriodes();
+$dataService = new DataService ( $databaseConnexion );
+$periodes = $dataService->getAllPeriodes ();
 
 ?>
 
 
 
 
-	<table class="table table-hover">
+	<table class="table table-hover periodesTable">
 		<thead>
 			<tr>
 				<th>#</th>
@@ -26,14 +33,15 @@ $periodes = $dataService->getAllPeriodes();
 				<th>Heure de début</th>
 				<th>Heure de fin</th>
 				<th>Mode</th>
-				<th><span class="glyphicon glyphicon-plus" style="cursor: pointer;" onclick="showCreatePeriodForm();"></span></th>
+				<th><span class="glyphicon glyphicon-plus" style="cursor: pointer;"
+					onclick="showCreatePeriodForm();"></span></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php
-			foreach ($periodes as $periode) {
-			$mode = $dataService->getModeById($periode->modeId);
-			?>
+			foreach ( $periodes as $periode ) {
+				$mode = $dataService->getModeById ( $periode->modeId );
+				?>
 			<tr id="periodesRow_<?= $periode->id?>">
 				<td>
 					<?=$periode->id?>
@@ -56,15 +64,15 @@ $periodes = $dataService->getAllPeriodes();
 				<td>
 					<?=$mode->libelle?>
 				</td>
-				<td>
-					<span class="glyphicon glyphicon-trash" style="cursor: pointer;"
-						onclick="deletePeriod(<?= $periode->id?>)" ></span>
-					<span class="glyphicon glyphicon-pencil" style="cursor: pointer;" onclick="showUpdatePeriodForm(<?=$periode->id?>,<?=$periode->jour?>,'<?=CalendarUtils::transformDate2($periode->dateDebut)?>','<?=CalendarUtils::transformDate2($periode->dateFin)?>','<?=$periode->heureDebut?>','<?=$periode->heureFin?>',<?=$periode->modeId?>);"></span>
+				<td><span class="glyphicon glyphicon-trash" style="cursor: pointer;"
+					onclick="deletePeriod(<?= $periode->id?>)"></span> <span
+					class="glyphicon glyphicon-pencil" style="cursor: pointer;"
+					onclick="showUpdatePeriodForm(<?=$periode->id?>,<?=$periode->jour?>,'<?=CalendarUtils::transformDate2($periode->dateDebut)?>','<?=CalendarUtils::transformDate2($periode->dateFin)?>','<?=$periode->heureDebut?>','<?=$periode->heureFin?>',<?=$periode->modeId?>);"></span>
 				</td>
 			</tr>
 			<?php
-		}
-		?>
+			}
+			?>
 
 
 		</tbody>
@@ -142,5 +150,5 @@ $periodes = $dataService->getAllPeriodes();
 	</script>
 </body>
 </html>
-	
+
 

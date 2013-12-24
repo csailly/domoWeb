@@ -2,12 +2,15 @@
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/CalendarUtils.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/PeriodeDAO.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/ModeDAO.php';
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/TemperatureDAO.php';
 class DataService {
 	private $periodeDao;
 	private $modeDao;
+	private $temperatureDao;
 	function __construct($connexion) {
 		$this->periodeDao = new PeriodeDAO ( $connexion );
 		$this->modeDao = new ModeDAO ( $connexion );
+		$this->temperatureDao = new TemperatureDAO($connexion);
 	}
 	
 	/**
@@ -349,6 +352,10 @@ class DataService {
 		}
 		
 		return $response;
+	}
+	
+	function getAllTemperatures(){
+		return $this->temperatureDao->getAllTemperatures();			
 	}
 }
 

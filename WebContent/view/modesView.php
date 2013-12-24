@@ -1,10 +1,15 @@
-﻿<!DOCTYPE html>
+﻿<?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/loginCheck.php'; ?>
+<!DOCTYPE html>
 <html>
-	<?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/header.php'; ?>
+	
+<head>
+		<?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/header.php'; ?>
+</head>
+
 <body>
 
 <?php
-
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/navbar.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
 
 
@@ -16,7 +21,7 @@ $modes = $dataService->getAllModes();
 
 
 
-	<table class="table table-hover">
+	<table class="table table-hover modesTable">
 		<thead>
 			<tr>
 				<th>#</th>
