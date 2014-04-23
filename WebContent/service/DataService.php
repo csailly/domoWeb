@@ -37,6 +37,24 @@ class DataService {
 		}
 	}
 	
+	
+	function getCurrentPeriode() {
+		$response = array (
+				'result' => 'success'
+		);
+		try {
+			return $this->periodeDao->getCurrent ();
+		} catch ( PDOException $e ) {
+			$response ['result'] = 'error';
+			$errorsMsgs = array ();
+			$errorsMsgs ["exception"] = $e->getMessage ();
+			$errors = array (
+					'errorsMsgs' => $errorsMsgs
+			);
+			$response ['errors'] = $errors;
+		}
+	}
+	
 	/**
 	 * Supprime une période.
 	 *

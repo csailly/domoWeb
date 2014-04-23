@@ -30,13 +30,14 @@ $periodFormId = "periodForm";
 						<div class="col-sm-10">
 							<select class="form-control" name="day" id="<?=$periodFormId?>_day">
 								<option value="-1">-</option>
-								<option value="1">Lundi</option>
-								<option value="2">Mardi</option>
-								<option value="3">Mercredi</option>
-								<option value="4">Jeudi</option>
-								<option value="5">Vendredi</option>
-								<option value="6">Samedi</option>
-								<option value="7">Dimanche</option>
+								
+								<?php 
+								for ($i = 0; $i <= 6; $i++) {
+								?>
+								<option value="<?=$i?>"><?=CalendarUtils::getDayLabel($i) ?></option>
+								<?php     
+								}								
+								?>
 							</select>
 						</div>
 					</div>

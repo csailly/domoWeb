@@ -4,6 +4,40 @@ include_once $_SERVER ['DOCUMENT_ROOT'] . '/bo/Periode.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/CalendarUtils.php';
 class PeriodeDAO extends GenericDAO {
 	
+	
+	
+	/**
+	 * Retourne la période courante
+	 */
+	function getCurrent() {
+		$periode = null;
+		
+		$queryString = "select * from (";
+		$queryString .= " SELECT * FROM periode p where ";
+		//" On récupère la période à la date courante "
+		$queryString .= " ((p.dateDebut <= date('now') and p.dateFin > date('now'))     and p.heureDebut <= time('now', 'localtime') and p.heureFin > time('now', 'localtime')) ";
+		$queryString .= " or ";
+		//" Ou la période du jour calendaire "
+		$queryString .= " (p.jour = strftime('%w') and p.heureDebut <= time('now', 'localtime') and p.heureFin > time('now', 'localtime')) ";
+		//" On trie pour obtenir en priorité la période à la date courante "
+		$queryString .= " order by  p.dateDebut desc, p.dateFin asc ";
+		//" On ne retient alors que le 1er résultat "
+		$queryString .= " ) limit 1 ";
+		
+		
+		$stmt = $this->connexion->prepare ( $queryString );
+		$stmt->execute ();
+		$stmt->setFetchMode ( PDO::FETCH_OBJ ); // on dit qu'on veut que le résultat soit récupérable sous forme d'objet
+		$ligne = $stmt->fetch ();
+		
+		if ($ligne) {
+			$periode = new Periode ( $ligne->id, $ligne->jour, $ligne->dateDebut, $ligne->dateFin, $ligne->heureDebut, $ligne->heureFin, $ligne->modeId );
+		}		
+		
+		return $periode;
+	}
+	
+	
 	/**
 	 * Retourne la liste des périodes.
 	 *

@@ -107,11 +107,11 @@ class CalendarUtils {
 				"4" => "Jeudi",
 				"5" => "Vendredi",
 				"6" => "Samedi",
-				"7" => "Dimanche"
+				"0" => "Dimanche"
 		) );
 		
 		
-		if(isset($dayNbr) && $dayNbr > 0 && $dayNbr < 8){
+		if(isset($dayNbr) && $dayNbr >= 0 && $dayNbr <= 6){
 			$temp = ''.$dayNbr;
 			return $days->$temp;
 		}else{

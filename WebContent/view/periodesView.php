@@ -16,6 +16,8 @@ include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/CalendarUtils.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
 $dataService = new DataService ( $databaseConnexion );
 $periodes = $dataService->getAllPeriodes ();
+$currentPeriode = $dataService->getCurrentPeriode ();
+
 
 ?>
 
@@ -41,10 +43,22 @@ $periodes = $dataService->getAllPeriodes ();
 			foreach ( $periodes as $periode ) {
 				$mode = $dataService->getModeById ( $periode->modeId );
 				?>
-			<tr id="periodesRow_<?= $periode->id?>">
+			
+				<?php 
+				if ($currentPeriode != null && $currentPeriode->id == $periode->id) {
+				?>
+			<tr id="periodesRow_<?= $periode->id?>" style="font-weight: bold;">
+				<?php 
+				}else{
+				?>
+			<tr id="periodesRow_<?= $periode->id?>">	
+				<?php 
+				}
+				
+				?>
 				<td>
 					<?=$periode->id?>
-				</td>
+				</td>				
 				<td>
 					<?=CalendarUtils::getDayLabel($periode->jour)?>
 				</td>
