@@ -10,7 +10,8 @@
 
 <?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/navbar.php'; ?>
 
-
+<div id="main">
+</div>
 
 
 <?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/footer.php'; ?>	

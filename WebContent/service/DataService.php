@@ -2,6 +2,7 @@
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/CalendarUtils.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/AccountDAO.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/ModeDAO.php';
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/ParameterDAO.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/PeriodeDAO.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/TemperatureDAO.php';
 class DataService {
@@ -9,11 +10,13 @@ class DataService {
 	private $periodeDao;
 	private $modeDao;
 	private $temperatureDao;
+	private $parameterDao;
 	function __construct($connexion) {
 		$this->accountDao = new AccountDAO ( $connexion );
 		$this->periodeDao = new PeriodeDAO ( $connexion );
 		$this->modeDao = new ModeDAO ( $connexion );
 		$this->temperatureDao = new TemperatureDAO ( $connexion );
+		$this->parameterDao = new ParameterDAO($connexion);
 	}
 	
 	/**
@@ -485,6 +488,26 @@ class DataService {
 			$response ['errors'] = $errors;
 		}
 		
+		return $response;
+	}
+	
+	
+	function getParameter($code) {
+		$response = array (
+				'result' => 'success'
+		);
+		try {
+			return $this->parameterDao->getParameter( $code );
+		} catch ( PDOException $e ) {
+			$response ['result'] = 'error';
+			$errorsMsgs = array ();
+			$errorsMsgs ["exception"] = $e->getMessage ();
+			$errors = array (
+					'errorsMsgs' => $errorsMsgs
+			);
+			$response ['errors'] = $errors;
+		}
+	
 		return $response;
 	}
 	

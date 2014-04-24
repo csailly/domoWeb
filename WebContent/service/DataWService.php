@@ -4,8 +4,10 @@ header('Content-Type: text/html; charset=utf-8');
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/service/DataService.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/service/PoeleService.php';
 
 $dataService = new DataService($databaseConnexion);
+$poeleService = new PoeleService($databaseConnexion);
 
 $action = null;
 if (isset($_POST["action"])){
@@ -81,7 +83,23 @@ try{
 			$response =  $dataService->deleteMode($periodId);
 			//Send response
 			echo json_encode ( $response );
-			break;									
+			break;
+		case "onForced" :
+			//Get parameters
+			$value = $_POST["value"];
+			//Call service
+			$response =  $poeleService->sendOnForced($value=="true"?'TRUE':'FALSE');
+			//Send response
+			echo json_encode ( $response );
+			break;
+		case "offForced" :
+			//Get parameters
+			$value = $_POST["value"];
+			//Call service
+			$response =  $poeleService->sendOffForced($value=="true"?'TRUE':'FALSE');
+			//Send response
+			echo json_encode ( $response );
+			break;
 		default :
 			http_response_code(500);
 			die("Bad action");

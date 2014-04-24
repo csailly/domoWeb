@@ -23,6 +23,7 @@
 						<li class="dropdown-header">Administration</li>
 						<li><a href="/view/periodesView.php">Periodes</a></li>
 						<li><a href="/view/modesView.php">Modes</a></li>
+						<li><a href="/view/recapPoeleView.php">Poêle</a></li>
 					</ul></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

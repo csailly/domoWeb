@@ -1,4 +1,6 @@
 <?php
+	/* Configuration de la base de données */
+
 	$databaseDirectory = dirname(__FILE__).'/../';
 	$databaseFilename = 'domotique.sqlite';
 
@@ -16,6 +18,11 @@
 		echo 'N° : '.$e->getCode();
 		die();
 	}
+	
+	/* Les commandes externes */
+	$externalTemp = '/home/pi/scripts/tmp102.py';
+	$externalMcz = '/home/pi/main.py';
+			
 
 	
 ?>

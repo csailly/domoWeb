@@ -12,3 +12,7 @@
 	
 	<!-- Time picker -->
 	<script type="text/javascript" src="/js/bootstrap-timepicker.js"></script>
+	
+	<!-- Bootstrap-switch -->
+	<script type="text/javascript" src="/js/bootstrap-switch.js"></script>
+	

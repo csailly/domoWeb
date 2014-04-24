@@ -80,7 +80,7 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 				<td><span class="glyphicon glyphicon-trash" style="cursor: pointer;"
 					onclick="deletePeriod(<?= $periode->id?>)"></span> <span
 					class="glyphicon glyphicon-pencil" style="cursor: pointer;"
-					onclick="showUpdatePeriodForm(<?=$periode->id?>,<?=$periode->jour?>,'<?=CalendarUtils::transformDate2($periode->dateDebut)?>','<?=CalendarUtils::transformDate2($periode->dateFin)?>','<?=$periode->heureDebut?>','<?=$periode->heureFin?>',<?=$periode->modeId?>);"></span>
+					onclick="showUpdatePeriodForm(<?=$periode->id?>,<?php echo isset($periode->jour)? $periode->jour : -1 ?>,'<?=CalendarUtils::transformDate2($periode->dateDebut)?>','<?=CalendarUtils::transformDate2($periode->dateFin)?>','<?=$periode->heureDebut?>','<?=$periode->heureFin?>',<?=$periode->modeId?>);"></span>
 				</td>
 			</tr>
 			<?php
@@ -106,7 +106,7 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 					var decode = $.parseJSON(data);
 					var result = decode.result;
 					if (result === "error"){
-					
+						null;
 					}else{
 						$("tr[id=periodesRow_"+periodId+"]").remove();
 					}													
