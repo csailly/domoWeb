@@ -13,9 +13,11 @@
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/navbar.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/PoeleService.php';
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/ExternalService.php';
 
 $dataService = new DataService($databaseConnexion);
 $poeleService = new PoeleService($databaseConnexion);
+$externalService = new ExternalService();
 
 $currentPeriode = $dataService->getCurrentPeriode ();
 
@@ -35,7 +37,7 @@ $offForced = $dataService->getParameter('POELE_ARRET_FORCE')->value;
 <tbody>
 	<tr>
 		<td>Température :</td>
-		<td>5°C</td>
+		<td><?=$externalService->getCurrentTemp()?>°C</td>
 	</tr>
 	<?php 
 		if ($currentMode != null){
