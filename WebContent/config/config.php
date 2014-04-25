@@ -21,7 +21,7 @@
 	
 	/* Les commandes externes */
 	$externalTemp = '/home/pi/scripts/capteurs/tmp102/tmp102.py';
-	$externalMcz = '/home/pi/main.py';
+	$externalMcz = '/home/pi/scripts/main.py';
 			
 
 	
