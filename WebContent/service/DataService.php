@@ -11,6 +11,7 @@ class DataService {
 	private $modeDao;
 	private $temperatureDao;
 	private $parameterDao;
+	
 	function __construct($connexion) {
 		$this->accountDao = new AccountDAO ( $connexion );
 		$this->periodeDao = new PeriodeDAO ( $connexion );

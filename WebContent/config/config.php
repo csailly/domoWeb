@@ -20,8 +20,8 @@
 	}
 	
 	/* Les commandes externes */
-	$externalTemp = '/home/pi/scripts/capteurs/tmp102/tmp102.py';
-	$externalMcz = '/home/pi/scripts/main.py';
+	$externalCommandTemp = '/home/pi/scripts/capteurs/tmp102/tmp102.py';
+	$externalCommandMcz = 'sudo python /home/pi/scripts/domocore/com/nestof/domocore/main.py';
 			
 
 	

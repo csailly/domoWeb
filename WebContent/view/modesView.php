@@ -18,10 +18,12 @@ $modes = $dataService->getAllModes();
 
 ?>
 
+<div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><h3 class="panel-title">Modes</h3></div>
 
-
-
-	<table class="table table-hover modesTable">
+  <!-- Table -->
+  <table class="table table-hover modesTable">
 		<thead>
 			<tr>
 				<th>#</th>
@@ -61,6 +63,10 @@ $modes = $dataService->getAllModes();
 
 		</tbody>
 	</table>
+</div>
+
+
+	
 
 
 	<?php include  $_SERVER ['DOCUMENT_ROOT'] . '/view/modeFormPopIn.php';?>

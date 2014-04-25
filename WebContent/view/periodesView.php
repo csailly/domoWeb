@@ -23,7 +23,11 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 
 
 
+<div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><h3 class="panel-title">Périodes</h3></div>
 
+  <!-- Table -->
 	<table class="table table-hover periodesTable">
 		<thead>
 			<tr>
@@ -42,9 +46,7 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 			<?php
 			foreach ( $periodes as $periode ) {
 				$mode = $dataService->getModeById ( $periode->modeId );
-				?>
-			
-				<?php 
+
 				if ($currentPeriode != null && $currentPeriode->id == $periode->id) {
 				?>
 			<tr id="periodesRow_<?= $periode->id?>" style="font-weight: bold;">
@@ -52,10 +54,7 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 				}else{
 				?>
 			<tr id="periodesRow_<?= $periode->id?>">	
-				<?php 
-				}
-				
-				?>
+				<?php } ?>
 				<td>
 					<?=$periode->id?>
 				</td>				
@@ -90,7 +89,7 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 
 		</tbody>
 	</table>
-
+</div>
 
 	<?php include  $_SERVER ['DOCUMENT_ROOT'] . '/view/periodeFormPopIn.php';?>
 
