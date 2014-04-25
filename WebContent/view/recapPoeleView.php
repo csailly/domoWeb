@@ -66,7 +66,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 		<td colspan="2">		
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title">Mode en cours</h3>
+					<h3 class="panel-title">Mode en cours - <?=$currentMode->libelle?></h3>
 				</div>
 					<table class="table table-hover">
 					<tbody>

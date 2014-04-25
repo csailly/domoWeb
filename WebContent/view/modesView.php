@@ -16,11 +16,15 @@ include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
 $dataService = new DataService($databaseConnexion);
 $modes = $dataService->getAllModes();
 
+
+$consForced = $dataService->getParameter('TEMP_CONSIGNE_MARCHE_FORCEE')->value;
+$maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
+
 ?>
 
 <div class="panel panel-primary">
   <!-- Default panel contents -->
-  <div class="panel-heading"><h3 class="panel-title">Modes</h3></div>
+  <div class="panel-heading"><h3 class="panel-title">Modes utilisateur</h3></div>
 
   <!-- Table -->
   <table class="table table-hover modesTable">
@@ -66,6 +70,30 @@ $modes = $dataService->getAllModes();
 </div>
 
 
+
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">Mode forcé</h3>
+				</div>
+					<table class="table table-hover">
+					<tbody>
+						<tr>
+							<td>Consigne :</td>
+							<td><span class="glyphicon glyphicon-minus" style="cursor: pointer;" onclick="downConsForced();"></span>
+								<span id="consForced"></span>°C
+								<span class="glyphicon glyphicon-plus" style="cursor: pointer;"	onclick="upConsForced();"></span></td>
+						</tr>
+						<tr>
+							<td>Maxi :</td>
+							<td><span class="glyphicon glyphicon-minus" style="cursor: pointer;" onclick="downMaxiForced();"></span>
+								<span id="maxiForced"></span>°C
+								<span class="glyphicon glyphicon-plus" style="cursor: pointer;"	onclick="upMaxiForced();"></span></td>
+						</tr>		
+					</tbody>
+					</table>				
+			</div>
+
+
 	
 
 
@@ -92,6 +120,10 @@ $modes = $dataService->getAllModes();
 				);
 			}	
 	</script>
+	
+	
+
+	
 
 	<?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/footer.php'; ?>
 	
@@ -104,6 +136,60 @@ $modes = $dataService->getAllModes();
 				<?=$modeFormJsInstance?>.clearForm();
 			});				
 	</script>
+	
+		<script type="text/javascript">
+
+	//Cons Forced
+	function upConsForced(){
+		currentCons = parseFloat($('#consForced').text());
+		currentMaxi = parseFloat($('#maxiForced').text());
+
+		if (currentCons +1 >= currentMaxi){
+			return;
+		}
+
+		
+		$.post( "/service/DataWService.php", {action : "upConsForced", value : (parseFloat($('#consForced').text())+0.5) })
+		.done(	function( data ) {
+			$('#consForced').text((parseFloat($('#consForced').text())+0.5).toFixed(1));
+			});	
+	}
+
+	function downConsForced(){
+		$.post( "/service/DataWService.php", {action : "downConsForced", value : (parseFloat($('#consForced').text())-0.5) })
+		.done(	function( data ) {
+			$('#consForced').text((parseFloat($('#consForced').text())-0.5).toFixed(1));
+			});
+	}
+
+	$('#consForced').text(parseFloat(<?=$consForced ?>).toFixed(1));
+
+	//Maxi Forced
+	function upMaxiForced(){
+		$.post( "/service/DataWService.php", {action : "upMaxiForced", value : (parseFloat($('#maxiForced').text())+0.5) })
+		.done(	function( data ) {
+			$('#maxiForced').text((parseFloat($('#maxiForced').text())+0.5).toFixed(1));
+			});
+	}
+
+	function downMaxiForced(){
+		currentCons = parseFloat($('#consForced').text());
+		currentMaxi = parseFloat($('#maxiForced').text());
+
+		if (currentCons +1 >= currentMaxi){
+			return;
+		}
+		
+		$.post( "/service/DataWService.php", {action : "downMaxiForced", value : (parseFloat($('#maxiForced').text())-0.5) })
+		.done(	function( data ) {
+			$('#maxiForced').text((parseFloat($('#maxiForced').text())-0.5).toFixed(1));
+			});
+	}
+	$('#maxiForced').text(parseFloat(<?=$maxiForced ?>).toFixed(1));
+
+
+</script>
+	
 
 </body>
 </html>
