@@ -11,13 +11,7 @@
 <?php
 
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/navbar.php';
-include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
-include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/PoeleService.php';
-include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/ExternalService.php';
 
-$dataService = new DataService($databaseConnexion);
-$poeleService = new PoeleService($databaseConnexion);
-$externalService = new ExternalService($externalCommandTemp, $externalCommandMcz);
 
 $currentPeriode = $dataService->getCurrentPeriode ();
 
@@ -40,7 +34,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 <tbody>	
 	<tr>
 		<td colspan="2">		
-			<div class="panel panel-primary">
+			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">Infos</h3>
 				</div>
@@ -64,7 +58,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 	<?php  if ($currentMode != null){ ?>
 	<tr>
 		<td colspan="2">		
-			<div class="panel panel-primary">
+			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">Mode en cours - <?=$currentMode->libelle?></h3>
 				</div>
@@ -86,7 +80,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 	<?php }?>
 	<tr>
 		<td colspan="2">		
-			<div class="panel panel-primary">
+			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">Mode forcé</h3>
 				</div>
@@ -100,6 +94,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 							<td>Arrêt forcé :</td>
 							<td><input type="checkbox" name="offForcedCheckBox"></td>
 						</tr>
+						<?php  if ($currentMode == null){ ?>
 						<tr>
 							<td>Consigne :</td>
 							<td><span class="glyphicon glyphicon-minus" style="cursor: pointer;" onclick="downConsForced();"></span>
@@ -111,7 +106,8 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 							<td><span class="glyphicon glyphicon-minus" style="cursor: pointer;" onclick="downMaxiForced();"></span>
 								<span id="maxiForced"></span>°C
 								<span class="glyphicon glyphicon-plus" style="cursor: pointer;"	onclick="upMaxiForced();"></span></td>
-						</tr>		
+						</tr>
+						<?php }?>	
 					</tbody>
 					</table>				
 			</div>		
@@ -141,7 +137,8 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('size', 'mini');
 	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('onColor', 'success');
 	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('offColor', 'danger');
-	
+	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('onText', 'Allumé');
+	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('offText', 'Eteint');
 
 	
 

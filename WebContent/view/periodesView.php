@@ -11,10 +11,8 @@
 <?php
 
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/navbar.php';
-
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/CalendarUtils.php';
-include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
-$dataService = new DataService ( $databaseConnexion );
+
 $periodes = $dataService->getAllPeriodes ();
 $currentPeriode = $dataService->getCurrentPeriode ();
 
