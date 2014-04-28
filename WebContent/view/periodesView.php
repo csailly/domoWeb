@@ -22,76 +22,84 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 ?>
 
 
+<table class="table"  style="margin: auto; max-width: 674px;">
+<tbody>	
+	<tr>
+		<td>
+			<div class="panel panel-info">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading"><h3 class="panel-title">Périodes</h3></div>
+			
+			  <!-- Table -->
+				<table class="table table-hover periodesTable">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Jour</th>
+							<th>Date de début</th>
+							<th>Date de fin</th>
+							<th>Heure de début</th>
+							<th>Heure de fin</th>
+							<th>Mode</th>
+							<th><span class="glyphicon glyphicon-plus" style="cursor: pointer;"
+								onclick="showCreatePeriodForm();"></span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						foreach ( $periodes as $periode ) {
+							$mode = $dataService->getModeById ( $periode->modeId );
+			
+							if ($currentPeriode != null && $currentPeriode->id == $periode->id) {
+							?>
+						<tr id="periodesRow_<?= $periode->id?>" style="font-weight: bold;">
+							<?php 
+							}else{
+							?>
+						<tr id="periodesRow_<?= $periode->id?>">	
+							<?php } ?>
+							<td>
+								<?=$periode->id?>
+							</td>				
+							<td>
+								<?=CalendarUtils::getDayLabel($periode->jour)?>
+							</td>
+							<td>
+								<?=CalendarUtils::transformDate2($periode->dateDebut)?>
+							</td>
+							<td>
+								<?=CalendarUtils::transformDate2($periode->dateFin)?>
+							</td>
+							<td>
+								<?=$periode->heureDebut?>
+							</td>
+							<td>
+								<?=$periode->heureFin?>
+							</td>
+							<td>
+								<?=$mode->libelle?>
+							</td>
+							<td><span class="glyphicon glyphicon-trash" style="cursor: pointer;"
+								onclick="deletePeriod(<?= $periode->id?>)"></span> <span
+								class="glyphicon glyphicon-pencil" style="cursor: pointer;"
+								onclick="showUpdatePeriodForm(<?=$periode->id?>,<?php echo isset($periode->jour)? $periode->jour : -1 ?>,'<?=CalendarUtils::transformDate2($periode->dateDebut)?>','<?=CalendarUtils::transformDate2($periode->dateFin)?>','<?=$periode->heureDebut?>','<?=$periode->heureFin?>',<?=$periode->modeId?>);"></span>
+							</td>
+						</tr>
+						<?php
+						}
+						?>
+			
+			
+					</tbody>
+				</table>
+			</div>
+		</td>
+	</tr>
+</tbody>
+</table>
 
-<div class="panel panel-primary">
-  <!-- Default panel contents -->
-  <div class="panel-heading"><h3 class="panel-title">Périodes</h3></div>
 
-  <!-- Table -->
-	<table class="table table-hover periodesTable">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>Jour</th>
-				<th>Date de début</th>
-				<th>Date de fin</th>
-				<th>Heure de début</th>
-				<th>Heure de fin</th>
-				<th>Mode</th>
-				<th><span class="glyphicon glyphicon-plus" style="cursor: pointer;"
-					onclick="showCreatePeriodForm();"></span></th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php
-			foreach ( $periodes as $periode ) {
-				$mode = $dataService->getModeById ( $periode->modeId );
-
-				if ($currentPeriode != null && $currentPeriode->id == $periode->id) {
-				?>
-			<tr id="periodesRow_<?= $periode->id?>" style="font-weight: bold;">
-				<?php 
-				}else{
-				?>
-			<tr id="periodesRow_<?= $periode->id?>">	
-				<?php } ?>
-				<td>
-					<?=$periode->id?>
-				</td>				
-				<td>
-					<?=CalendarUtils::getDayLabel($periode->jour)?>
-				</td>
-				<td>
-					<?=CalendarUtils::transformDate2($periode->dateDebut)?>
-				</td>
-				<td>
-					<?=CalendarUtils::transformDate2($periode->dateFin)?>
-				</td>
-				<td>
-					<?=$periode->heureDebut?>
-				</td>
-				<td>
-					<?=$periode->heureFin?>
-				</td>
-				<td>
-					<?=$mode->libelle?>
-				</td>
-				<td><span class="glyphicon glyphicon-trash" style="cursor: pointer;"
-					onclick="deletePeriod(<?= $periode->id?>)"></span> <span
-					class="glyphicon glyphicon-pencil" style="cursor: pointer;"
-					onclick="showUpdatePeriodForm(<?=$periode->id?>,<?php echo isset($periode->jour)? $periode->jour : -1 ?>,'<?=CalendarUtils::transformDate2($periode->dateDebut)?>','<?=CalendarUtils::transformDate2($periode->dateFin)?>','<?=$periode->heureDebut?>','<?=$periode->heureFin?>',<?=$periode->modeId?>);"></span>
-				</td>
-			</tr>
-			<?php
-			}
-			?>
-
-
-		</tbody>
-	</table>
-</div>
-
-	<?php include  $_SERVER ['DOCUMENT_ROOT'] . '/view/periodeFormPopIn.php';?>
+<?php include  $_SERVER ['DOCUMENT_ROOT'] . '/view/periodeFormPopIn.php';?>
 
 	<script>
 			function deletePeriod(periodId)

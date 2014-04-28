@@ -44,14 +44,12 @@ if (isset ( $_POST ["login"] , $_POST ["password"] )) {
 		<form id="loginForm" class="form-signin" role="form" method="post">
 			<h2 class="form-signin-heading">Please sign in</h2>
 			<input type="hidden" name="action" value="authent">
-			<input type="text" name="login" class="form-control"
-				placeholder="Email address" required autofocus> <input
-				type="password" name="password" class="form-control"
-				placeholder="Password" required> <label class="checkbox"> <input
-				type="checkbox" value="remember-me"> Remember me
+			<input type="text" name="login" class="form-control" placeholder="Email address" required autofocus> 
+			<input type="password" name="password" class="form-control" placeholder="Password" required> 
+			<label class="checkbox"> 
+				<input name="remember-me" type="checkbox" value="remember-me"> Remember me
 			</label>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
-				in</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 		</form>
 	</div>
 	<!-- /container -->
