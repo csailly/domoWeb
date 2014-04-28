@@ -26,7 +26,7 @@ $poeleStatus = $dataService->getParameter('POELE_ETAT')->value;
 <tbody>	
 	<tr>
 		<td>
-			<div class="panel panel-primary">
+			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">Salon</h3>
 				</div>
@@ -70,7 +70,29 @@ $poeleStatus = $dataService->getParameter('POELE_ETAT')->value;
 	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('size', 'mini');
 	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('onColor', 'success');
 	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('offColor', 'danger');
+	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('onText', 'Allumé');
+	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('offText', 'Eteint');
 
+
+	//Poele status
+	function readPoeleStatus(){
+		$.post( "/service/DataWService.php", {action : "readPoeleStatus"})
+		.done(	function( data ) {
+				var decode = $.parseJSON(data);
+				var result = decode.result;
+				if (result === "success"){
+					var value = decode.poeleStatus == "ON" ? true : false;
+
+					$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('readonly', false);
+					$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('state', value, true);
+					$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('readonly', true);
+
+					showHideForcedLines(decode.poeleStatus, $('input[name="onForcedCheckBox"]').bootstrapSwitch('state'), $('input[name="offForcedCheckBox"]').bootstrapSwitch('state'));				
+				}
+			});		
+	}
+	setInterval(readPoeleStatus, 30000);
+	
 </script>
 
 

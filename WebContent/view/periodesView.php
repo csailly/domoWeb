@@ -26,7 +26,7 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 <tbody>	
 	<tr>
 		<td>
-			<div class="panel panel-primary">
+			<div class="panel panel-info">
 			  <!-- Default panel contents -->
 			  <div class="panel-heading"><h3 class="panel-title">Périodes</h3></div>
 			

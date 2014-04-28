@@ -27,7 +27,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 	<tr>
 		<td>
 
-			<div class="panel panel-primary">
+			<div class="panel panel-info">
 			  <!-- Default panel contents -->
 			  <div class="panel-heading"><h3 class="panel-title">Modes utilisateur</h3></div>
 			
@@ -73,7 +73,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 	</tr>
 	<tr>
 		<td>
-			<div class="panel panel-primary">
+			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">Mode forcé</h3>
 				</div>
