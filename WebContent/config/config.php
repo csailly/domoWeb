@@ -1,12 +1,15 @@
 <?php
 	/* Configuration de la base de données */
 
-	$databaseDirectory = dirname(__FILE__).'/../';
-	$databaseFilename = 'domotique.sqlite';
-
-	//$databaseDirectory = '/home/pi/syno/';
-	//$databaseFilename = 'domotique.sqlite';
 	
+
+	if (PHP_OS == "Linux"){
+		$databaseDirectory = '/home/pi/syno/';
+		$databaseFilename = 'domotique.sqlite';
+	}else{
+		$databaseDirectory = dirname(__FILE__).'/../';
+		$databaseFilename = 'domotique.sqlite';
+	}
 	
 	
 	try	{		

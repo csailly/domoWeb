@@ -95,7 +95,7 @@ try{
 			);
 			try {
 				$poeleService->sendOnForced($value=="true"?'TRUE':'FALSE');
-				$externalService->launchPoeleScript();
+				$response ['value'] = $externalService->launchPoeleScript();
 			} catch ( PDOException $e ) {
 				$response ['result'] = 'error';
 				$errorsMsgs = array ();
@@ -117,7 +117,7 @@ try{
 			);
 			try {
 				$poeleService->sendOffForced($value=="true"?'TRUE':'FALSE');
-				$externalService->launchPoeleScript();
+				$response ['value'] = $externalService->launchPoeleScript();
 			} catch ( PDOException $e ) {
 				$response ['result'] = 'error';
 				$errorsMsgs = array ();

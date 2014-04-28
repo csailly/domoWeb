@@ -153,10 +153,10 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 
 		$('input[name="onForcedCheckBox"]').on('switchChange.bootstrapSwitch', function(event, state) {
 			$.post( "/service/DataWService.php", {action : "onForced", value : state})
-			.done(	function( data ) {});
-			  console.log(this); // DOM element
-			  console.log(event); // jQuery event
-			  console.log(state); // true | false
+			.done(	function( data ) {
+						readPoeleStatus();
+					}
+				);
 			});
 
 		$('input[name="offForcedCheckBox"]').bootstrapSwitch('size', 'mini');
@@ -168,10 +168,11 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 		
 	
 		$('input[name="offForcedCheckBox"]').on('switchChange.bootstrapSwitch', function(event, state) {
-			$.post( "/service/DataWService.php", {action : "offForced", value : state});								
-			  console.log(this); // DOM element
-			  console.log(event); // jQuery event
-			  console.log(state); // true | false
+			$.post( "/service/DataWService.php", {action : "offForced", value : state})
+			.done(	function( data ) {
+						readPoeleStatus();
+					}
+				);
 			});
 
 
@@ -181,12 +182,16 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 		function showHideForcedLines(poeleStatus, onForced, offForced ){
 			$('#onForcedLine').hide();
 			$('#offForcedLine').hide();
-			if (poeleStatus == 'OFF' || onForced) {
-				$('#onForcedLine').show();
-			}else if (poeleStatus == 'ON' || offForced) {
-				$('#offForcedLine').show();
-			}
-			
+
+			if (onForced) {
+            	$('#onForcedLine').show();
+	       	}else if (offForced) {
+	        	$('#offForcedLine').show();
+	       	}else if (poeleStatus == 'OFF') {
+	        	$('#onForcedLine').show();
+	       	}else if (poeleStatus == 'ON') {
+	        	$('#offForcedLine').show();
+	       	}				
 		}
 
 		showHideForcedLines('<?=$poeleStatus?>', <?php echo ($onForced == 'TRUE')?  'true':   'false';?>, <?php echo ($offForced == 'TRUE')? 'true' : 'false';?>);
@@ -272,7 +277,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 					$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('state', value, true);
 					$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('readonly', true);
 
-
+					//TODO appeler un ws de récupératio des états forcés
 					showHideForcedLines(decode.poeleStatus, $('input[name="onForcedCheckBox"]').bootstrapSwitch('state'), $('input[name="offForcedCheckBox"]').bootstrapSwitch('state'));
 					
 				}else{
