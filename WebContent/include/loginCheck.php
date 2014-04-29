@@ -11,7 +11,7 @@ function endswith($hay, $needle) {
 session_start ();
 if (! (isset ( $_SESSION ['login'] ) && $_SESSION ['login'] != '')) {
 	if (!startswith($_SERVER['REMOTE_ADDR'], "192")){		
-		header ( "Location: login.php" );
+		header ( "Location: /login.php" );
 	}
 }
 ?> 
