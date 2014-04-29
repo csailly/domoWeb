@@ -11,13 +11,7 @@
 <?php
 
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/navbar.php';
-include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
-include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/PoeleService.php';
-include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/ExternalService.php';
 
-$dataService = new DataService($databaseConnexion);
-$poeleService = new PoeleService($databaseConnexion);
-$externalService = new ExternalService($externalCommandTemp, $externalCommandMcz);
 
 $currentPeriode = $dataService->getCurrentPeriode ();
 
@@ -40,7 +34,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 <tbody>	
 	<tr>
 		<td colspan="2">		
-			<div class="panel panel-primary">
+			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">Infos</h3>
 				</div>
@@ -64,7 +58,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 	<?php  if ($currentMode != null){ ?>
 	<tr>
 		<td colspan="2">		
-			<div class="panel panel-primary">
+			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">Mode en cours - <?=$currentMode->libelle?></h3>
 				</div>
@@ -86,7 +80,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 	<?php }?>
 	<tr>
 		<td colspan="2">		
-			<div class="panel panel-primary">
+			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">Mode forcé</h3>
 				</div>
@@ -100,6 +94,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 							<td>Arrêt forcé :</td>
 							<td><input type="checkbox" name="offForcedCheckBox"></td>
 						</tr>
+						<?php  if ($currentMode == null){ ?>
 						<tr>
 							<td>Consigne :</td>
 							<td><span class="glyphicon glyphicon-minus" style="cursor: pointer;" onclick="downConsForced();"></span>
@@ -111,7 +106,8 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 							<td><span class="glyphicon glyphicon-minus" style="cursor: pointer;" onclick="downMaxiForced();"></span>
 								<span id="maxiForced"></span>°C
 								<span class="glyphicon glyphicon-plus" style="cursor: pointer;"	onclick="upMaxiForced();"></span></td>
-						</tr>		
+						</tr>
+						<?php }?>	
 					</tbody>
 					</table>				
 			</div>		
@@ -141,7 +137,8 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('size', 'mini');
 	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('onColor', 'success');
 	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('offColor', 'danger');
-	
+	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('onText', 'Allumé');
+	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('offText', 'Eteint');
 
 	
 
@@ -153,10 +150,10 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 
 		$('input[name="onForcedCheckBox"]').on('switchChange.bootstrapSwitch', function(event, state) {
 			$.post( "/service/DataWService.php", {action : "onForced", value : state})
-			.done(	function( data ) {});
-			  console.log(this); // DOM element
-			  console.log(event); // jQuery event
-			  console.log(state); // true | false
+			.done(	function( data ) {
+						readPoeleStatus();
+					}
+				);
 			});
 
 		$('input[name="offForcedCheckBox"]').bootstrapSwitch('size', 'mini');
@@ -168,10 +165,11 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 		
 	
 		$('input[name="offForcedCheckBox"]').on('switchChange.bootstrapSwitch', function(event, state) {
-			$.post( "/service/DataWService.php", {action : "offForced", value : state});								
-			  console.log(this); // DOM element
-			  console.log(event); // jQuery event
-			  console.log(state); // true | false
+			$.post( "/service/DataWService.php", {action : "offForced", value : state})
+			.done(	function( data ) {
+						readPoeleStatus();
+					}
+				);
 			});
 
 
@@ -181,12 +179,16 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 		function showHideForcedLines(poeleStatus, onForced, offForced ){
 			$('#onForcedLine').hide();
 			$('#offForcedLine').hide();
-			if (poeleStatus == 'OFF' || onForced) {
-				$('#onForcedLine').show();
-			}else if (poeleStatus == 'ON' || offForced) {
-				$('#offForcedLine').show();
-			}
-			
+
+			if (onForced) {
+            	$('#onForcedLine').show();
+	       	}else if (offForced) {
+	        	$('#offForcedLine').show();
+	       	}else if (poeleStatus == 'OFF') {
+	        	$('#onForcedLine').show();
+	       	}else if (poeleStatus == 'ON') {
+	        	$('#offForcedLine').show();
+	       	}				
 		}
 
 		showHideForcedLines('<?=$poeleStatus?>', <?php echo ($onForced == 'TRUE')?  'true':   'false';?>, <?php echo ($offForced == 'TRUE')? 'true' : 'false';?>);
@@ -272,7 +274,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 					$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('state', value, true);
 					$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('readonly', true);
 
-
+					//TODO appeler un ws de récupératio des états forcés
 					showHideForcedLines(decode.poeleStatus, $('input[name="onForcedCheckBox"]').bootstrapSwitch('state'), $('input[name="offForcedCheckBox"]').bootstrapSwitch('state'));
 					
 				}else{

@@ -10,13 +10,7 @@
 
 <?php
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/navbar.php';
-include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
-
-
-$dataService = new DataService($databaseConnexion);
 $modes = $dataService->getAllModes();
-
-
 $consForced = $dataService->getParameter('TEMP_CONSIGNE_MARCHE_FORCEE')->value;
 $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 

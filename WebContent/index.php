@@ -22,7 +22,7 @@ $poeleStatus = $dataService->getParameter('POELE_ETAT')->value;
 ?>
 
 
-<table class="table"  style="margin: auto; max-width: 290px;">
+<table class="table"  style="margin: auto; max-width: 305px;">
 <tbody>	
 	<tr>
 		<td>
