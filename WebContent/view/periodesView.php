@@ -100,7 +100,8 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 <?php include  $_SERVER ['DOCUMENT_ROOT'] . '/view/periodeFormPopIn.php';?>
 
 	<script>
-			function deletePeriod(periodId) {
+			function deletePeriod(periodId)
+			{
 				$.ajax({
 					type: "POST",
 					url: "/service/DataWService.php",
@@ -116,7 +117,7 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 					}													
 				}
 				);
-			}
+			}	
 	</script>
 
 		<?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/footer.php'; ?>
