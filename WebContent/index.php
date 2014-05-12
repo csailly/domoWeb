@@ -33,17 +33,55 @@ $poeleStatus = $dataService->getParameter('POELE_ETAT')->value;
 					<table class="table table-hover">
 					<tbody>
 						<tr>
-							<td>Température :</td>
-							<td><span id="currentTemp"><?=$externalService->getCurrentTemp()?></span>°C</td>
-						</tr>						
+							<td colspan="2">
+								<?php if ($currentPeriode != null){?>
+								<div>
+									<div style="position: relative; left : 50px;">
+										<div style="background: -webkit-linear-gradient( top, red, orangered ); width: 20px; height: 50px; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px;"></div>
+										<div style="background: -webkit-linear-gradient( top,  orangered, orange ); width: 20px; height: 50px;">
+											<div style="position: relative; bottom: -40px; right: 45px; white-space: nowrap; font-family: fantasy;"><span id="maxTemp"><?=$currentMode->max ?></span> °C</div>
+										</div>
+										<div style="background: -webkit-linear-gradient( top, orange, orange ); width: 20px; height: 100px; border-top : 1px dashed black; border-bottom : 1px dashed black;">
+											<div id="currentTempDiv" style=" display: inline-flex; position: relative; bottom: -74px; height: 0px;">
+												<div style="width: 20px; border-bottom : 1px solid black;"></div>
+												<div style="position: relative; top: -16px; left: 5px; white-space: nowrap; font-family: fantasy; "><span id="currentTemp" style="font-size: 20pt;"></span> °C</div>
+											</div>		
+										</div>
+										<div style="background: -webkit-linear-gradient( top, orange, skyblue ); width: 20px; height: 50px;">
+											<div style="position: relative; top: -10px; right: 45px; white-space: nowrap; font-family: fantasy;"><span id="consTemp"><?=$currentMode->cons ?></span> °C</div>
+										</div>
+										<div style="background: -webkit-linear-gradient( top, skyblue, royalblue ); width: 20px; height: 50px;"></div>
+									</div>
+								</div>
+								<?php }else{?>
+								<div style="white-space: nowrap; font-family: fantasy;"><span id="currentTemp" style="font-size: 20pt;"><?=$externalService->getCurrentTemp()?></span> °C</div>
+								<?php }?>
+							</td>
+						</tr>				
 						<tr>
 							<td>Poêle :</td>
-							<td><input type="checkbox" name="poeleStatusCheckBox"></td>
+							<td style="text-align: center">
+							<?php if  ($poeleStatus == 'ON'){?>
+								<img id="poeleStatus" src="/img/led-green1.png" width="15px">
+								<br/>
+								<img id="poelePowerButton" src="/img/power-green1.png" width="45px">
+							<?php }else{?>
+								<img id="poeleStatus" src="/img/led-red1.png" width="15px">
+								<br/>
+								<img id="poelePowerButton" src="/img/power-red1.png" width="45px">
+							<?php }?>
+							</td>
 						</tr>
+						<?php if ($currentPeriode != null){?>
 						<tr>
-							<td>Mode :</td>
-							<td><?=$currentMode->libelle?> - <?=$currentMode->cons ?>°C - <?=$currentMode->max ?>°C</td>
-						</tr>								
+							<td>Période :</td>
+							<?php if ($currentPeriode->heureDebut != null){?>
+							<td><?=$currentPeriode->heureDebut?> - <?=$currentPeriode->heureFin?></td>
+							<?php }else if ($currentPeriode->dateDebut != null) {?>
+							<td><?=$currentPeriode->dateDebut?> - <?=$currentPeriode->dateFin?></td>
+							<?php }?>
+						</tr>
+						<?php }?>							
 					</tbody>
 					</table>
 			</div>
@@ -61,18 +99,26 @@ $poeleStatus = $dataService->getParameter('POELE_ETAT')->value;
 
 <!-- Bootstrap-switch -->
 <script type="text/javascript">
-	$("[name='poeleStatusCheckBox']").bootstrapSwitch();	
-	$("[name='onForcedCheckBox']").bootstrapSwitch();
-	$("[name='offForcedCheckBox']").bootstrapSwitch();
+	//Current Temp
+	function readCurrentTemp(){
+		$.post( "/service/DataWService.php", {action : "readCurrentTemp"})
+		.done(	function( data ) {
+				var decode = $.parseJSON(data);
+				var result = decode.result;
+				if (result === "success"){
+					$('#currentTemp').text(decode.currentTemp);
 
-	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('state', <?php echo  ($poeleStatus == 'ON') ? 'true': 'false';?>);	
-	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('readonly', true);
-	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('size', 'mini');
-	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('onColor', 'success');
-	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('offColor', 'danger');
-	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('onText', 'Allumé');
-	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('offText', 'Eteint');
+					var bottomValue = -83 + (decode.currentTemp - <?=$currentMode->cons ?>) * 99 / (<?=$currentMode->max ?> - <?=$currentMode->cons ?>);					
+					bottomValue = Math.min(bottomValue, 110);
+					bottomValue = Math.min(bottomValue, 170);
 
+					$('#currentTempDiv').css('bottom', bottomValue);
+				}else{
+					$('#currentTemp').text('--');
+				}
+			});
+	}
+	setInterval(readCurrentTemp, 30000);
 
 	//Poele status
 	function readPoeleStatus(){
@@ -81,17 +127,27 @@ $poeleStatus = $dataService->getParameter('POELE_ETAT')->value;
 				var decode = $.parseJSON(data);
 				var result = decode.result;
 				if (result === "success"){
-					var value = decode.poeleStatus == "ON" ? true : false;
+					if ( decode.poeleStatus == "ON"){
+						$('#poeleStatus').attr('src', "/img/led-green1.png" );
+						$('#poelePowerButton').attr('src', "/img/power-green1.png" );
+					}else{
+						$('#poeleStatus').attr('src', "/img/led-red1.png" );
+						$('#poelePowerButton').attr('src', "/img/power-red1.png" );
+					}
 
-					$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('readonly', false);
-					$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('state', value, true);
-					$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('readonly', true);
+					
 
 					showHideForcedLines(decode.poeleStatus, $('input[name="onForcedCheckBox"]').bootstrapSwitch('state'), $('input[name="offForcedCheckBox"]').bootstrapSwitch('state'));				
 				}
 			});		
 	}
 	setInterval(readPoeleStatus, 30000);
+
+	function init(){
+		readCurrentTemp();
+	}
+
+	init();
 	
 </script>
 

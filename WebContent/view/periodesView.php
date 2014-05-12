@@ -77,10 +77,8 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 							<td>
 								<?=$mode->libelle?>
 							</td>
-							<td><span class="glyphicon glyphicon-trash" style="cursor: pointer;"
-								onclick="deletePeriod(<?= $periode->id?>)"></span> <span
-								class="glyphicon glyphicon-pencil" style="cursor: pointer;"
-								onclick="showUpdatePeriodForm(<?=$periode->id?>,<?php echo isset($periode->jour)? $periode->jour : -1 ?>,'<?=CalendarUtils::transformDate2($periode->dateDebut)?>','<?=CalendarUtils::transformDate2($periode->dateFin)?>','<?=$periode->heureDebut?>','<?=$periode->heureFin?>',<?=$periode->modeId?>);"></span>
+							<td><span class="glyphicon glyphicon-trash" style="cursor: pointer;" onclick="deletePeriod(<?= $periode->id?>)"></span> 
+								<span class="glyphicon glyphicon-pencil" style="cursor: pointer;" onclick="showUpdatePeriodForm(<?=$periode->id?>,<?php echo isset($periode->jour)? $periode->jour : -1 ?>,'<?=CalendarUtils::transformDate2($periode->dateDebut)?>','<?=CalendarUtils::transformDate2($periode->dateFin)?>','<?=$periode->heureDebut?>','<?=$periode->heureFin?>',<?=$periode->modeId?>);"></span>
 							</td>
 						</tr>
 						<?php

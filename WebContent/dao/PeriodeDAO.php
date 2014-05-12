@@ -15,7 +15,7 @@ class PeriodeDAO extends GenericDAO {
 		$queryString = "select * from (";
 		$queryString .= " SELECT * FROM periode p where ";
 		//" On récupère la période à la date courante "
-		$queryString .= " ((p.dateDebut <= date('now') and p.dateFin > date('now'))     and p.heureDebut <= time('now', 'localtime') and p.heureFin > time('now', 'localtime')) ";
+		$queryString .= " ((p.dateDebut <= date('now') and p.dateFin >= date('now'))     and p.heureDebut <= time('now', 'localtime') and p.heureFin > time('now', 'localtime')) ";
 		$queryString .= " or ";
 		//" Ou la période du jour calendaire "
 		$queryString .= " (p.jour = strftime('%w') and p.heureDebut <= time('now', 'localtime') and p.heureFin > time('now', 'localtime')) ";

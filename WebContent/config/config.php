@@ -24,7 +24,7 @@
 	
 	/* Les commandes externes */
 	$externalCommandTemp = '/home/pi/scripts/capteurs/tmp102/tmp102.py';
-	$externalCommandMcz = 'sudo python /home/pi/scripts/domocore/com/nestof/domocore/main.py';
+	$externalCommandMcz = 'sudo python /home/pi/scripts/domocore/com/nestof/domocore/main.py  >> /home/pi/syno/domocore.log 2>&1';
 			
 
 	

@@ -155,8 +155,8 @@ $periodFormId = "periodForm";
 				
 		checkFormValues: function (){
 			//TODO for server side check debug only
-			this.submitForm();
-			return;
+			//this.submitForm();
+			//return;
 			//END
 
 		
