@@ -176,22 +176,6 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 
 
 
-		function showHideForcedLines(poeleStatus, onForced, offForced ){
-			$('#onForcedLine').hide();
-			$('#offForcedLine').hide();
-
-			if (onForced) {
-            	$('#onForcedLine').show();
-	       	}else if (offForced) {
-	        	$('#offForcedLine').show();
-	       	}else if (poeleStatus == 'OFF') {
-	        	$('#onForcedLine').show();
-	       	}else if (poeleStatus == 'ON') {
-	        	$('#offForcedLine').show();
-	       	}				
-		}
-
-		showHideForcedLines('<?=$poeleStatus?>', <?php echo ($onForced == 'TRUE')?  'true':   'false';?>, <?php echo ($offForced == 'TRUE')? 'true' : 'false';?>);
 
 	
 </script>

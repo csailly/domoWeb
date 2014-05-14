@@ -15,10 +15,12 @@ class PoeleService {
 		
 	function sendOnForced($value) {
 		$this->parameterDao->saveParameter( 'POELE_MARCHE_FORCEE', $value );
+		$this->parameterDao->saveParameter( 'POELE_ARRET_FORCE', !$value );
 	}
 	
 	function sendOffForced($value) {
 		$this->parameterDao->saveParameter( 'POELE_ARRET_FORCE', $value );
+		$this->parameterDao->saveParameter( 'POELE_MARCHE_FORCEE', !$value );
 	}
 	
 	

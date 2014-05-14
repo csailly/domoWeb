@@ -13,12 +13,11 @@
 	href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
 <!-- Date picker -->
 <link rel="stylesheet" href="/css/datepicker.css" />
-<!-- Time picker -->
-<link rel="stylesheet" href="/css/bootstrap-timepicker.css" />
 <!-- Clock picker -->
 <link rel="stylesheet" href="/css/bootstrap-clockpicker.css" />
 <!-- Bootstrap-switch -->
 <link rel="stylesheet" href="/css/bootstrap-switch.css" />
+
 
 <!-- Main css -->
 <link rel="stylesheet" href="/css/main.css" />

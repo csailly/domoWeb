@@ -33,6 +33,30 @@ $poeleStatus = $dataService->getParameter('POELE_ETAT')->value;
 					<table class="table table-hover">
 					<tbody>
 						<tr>
+							<td colspan="2" style="text-align: center;">
+								<div class="btn-group" data-toggle="buttons">
+								    <label class="btn btn-primary">
+								        <input type="radio" name="options" value="auto">Auto
+								    </label>
+								    <label class="btn btn-primary">
+								        <input type="radio" name="options" value="manu">Manu
+								    </label>
+								    <label class="btn btn-primary">
+								        <input type="radio" name="options" value="arret">Stop
+								    </label>
+								</div>													
+							</td>
+						</tr>				
+						<tr>
+							<td colspan="2" style="text-align: center">
+							<?php if  ($poeleStatus == 'ON'){?>
+								<img id="poelePowerButton" src="/img/power-green1.png" width="45px" style="cursor: pointer">
+							<?php }else{?>
+								<img id="poelePowerButton" src="/img/power-red1.png" width="45px" style="cursor: pointer">
+							<?php }?>
+							</td>
+						</tr>
+						<tr>
 							<td colspan="2">
 								<?php if ($currentPeriode != null){?>
 								<div>
@@ -56,20 +80,6 @@ $poeleStatus = $dataService->getParameter('POELE_ETAT')->value;
 								<?php }else{?>
 								<div style="white-space: nowrap; font-family: fantasy;"><span id="currentTemp" style="font-size: 20pt;"><?=$externalService->getCurrentTemp()?></span> °C</div>
 								<?php }?>
-							</td>
-						</tr>				
-						<tr>
-							<td>Poêle :</td>
-							<td style="text-align: center">
-							<?php if  ($poeleStatus == 'ON'){?>
-								<img id="poeleStatus" src="/img/led-green1.png" width="15px">
-								<br/>
-								<img id="poelePowerButton" src="/img/power-green1.png" width="45px">
-							<?php }else{?>
-								<img id="poeleStatus" src="/img/led-red1.png" width="15px">
-								<br/>
-								<img id="poelePowerButton" src="/img/power-red1.png" width="45px">
-							<?php }?>
 							</td>
 						</tr>
 						<?php if ($currentPeriode != null){?>
@@ -128,16 +138,10 @@ $poeleStatus = $dataService->getParameter('POELE_ETAT')->value;
 				var result = decode.result;
 				if (result === "success"){
 					if ( decode.poeleStatus == "ON"){
-						$('#poeleStatus').attr('src', "/img/led-green1.png" );
 						$('#poelePowerButton').attr('src', "/img/power-green1.png" );
 					}else{
-						$('#poeleStatus').attr('src', "/img/led-red1.png" );
 						$('#poelePowerButton').attr('src', "/img/power-red1.png" );
-					}
-
-					
-
-					showHideForcedLines(decode.poeleStatus, $('input[name="onForcedCheckBox"]').bootstrapSwitch('state'), $('input[name="offForcedCheckBox"]').bootstrapSwitch('state'));				
+					}									
 				}
 			});		
 	}
@@ -148,6 +152,27 @@ $poeleStatus = $dataService->getParameter('POELE_ETAT')->value;
 	}
 
 	init();
+
+	$("#poelePowerButton").click(
+		function(){
+			if($('#poelePowerButton').attr('src')  === "/img/power-green1.png"){
+				$('#poelePowerButton').attr('src', "/img/power-blue1.png" );
+				$.post( "/service/DataWService.php", {action : "offForced", value : true})
+				.done(	function( data ) {
+							readPoeleStatus();
+						}
+					);
+				
+			}else if($('#poelePowerButton').attr('src')  === "/img/power-red1.png"){
+				$('#poelePowerButton').attr('src', "/img/power-blue1.png" );
+				$.post( "/service/DataWService.php", {action : "onForced", value : true})
+				.done(	function( data ) {
+							readPoeleStatus();
+						}
+					);
+			} 
+		}
+	);
 	
 </script>
 

@@ -1,5 +1,5 @@
 ﻿	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<!-- Latest compiled and minified JavaScript -->
@@ -9,9 +9,6 @@
 	<!-- Date picker -->
 	<script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript" src="/js/locales/bootstrap-datepicker.fr.js" charset="UTF-8"></script>
-	
-	<!-- Time picker -->
-	<script type="text/javascript" src="/js/bootstrap-timepicker.js"></script>
 	
 	<!-- Clock picker -->
 	<script type="text/javascript" src="/js/bootstrap-clockpicker.js"></script>
