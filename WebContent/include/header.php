@@ -15,6 +15,8 @@
 <link rel="stylesheet" href="/css/datepicker.css" />
 <!-- Time picker -->
 <link rel="stylesheet" href="/css/bootstrap-timepicker.css" />
+<!-- Clock picker -->
+<link rel="stylesheet" href="/css/bootstrap-clockpicker.css" />
 <!-- Bootstrap-switch -->
 <link rel="stylesheet" href="/css/bootstrap-switch.css" />
 

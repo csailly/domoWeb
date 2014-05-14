@@ -13,6 +13,9 @@
 	<!-- Time picker -->
 	<script type="text/javascript" src="/js/bootstrap-timepicker.js"></script>
 	
+	<!-- Clock picker -->
+	<script type="text/javascript" src="/js/bootstrap-clockpicker.js"></script>
+	
 	<!-- Bootstrap-switch -->
 	<script type="text/javascript" src="/js/bootstrap-switch.js"></script>
 	

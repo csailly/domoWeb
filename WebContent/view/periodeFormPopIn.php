@@ -47,7 +47,7 @@ $periodFormId = "periodForm";
 								class="col-sm-2 control-label">Date de début</label>
 							<div class="col-sm-10">
 								<div class="input-group date">
-									<input type="date" class="form-control" name="startDate"
+									<input type="text" class="form-control" name="startDate"
 										id="<?=$periodFormId?>_startDate" readonly=""
 										placeholder="Ex. 11/12/2013">
 									<span class="input-group-addon">
@@ -61,7 +61,7 @@ $periodFormId = "periodForm";
 								class="col-sm-2 control-label">Date de fin</label>
 							<div class="col-sm-10">
 								<div class="input-group date">
-									<input type="date" class="form-control" name="endDate"
+									<input type="text" class="form-control" name="endDate"
 										id="<?=$periodFormId?>_endDate" readonly=""
 										placeholder="Ex. 11/12/2013">
 									<span class="input-group-addon">
@@ -71,35 +71,29 @@ $periodFormId = "periodForm";
 							</div>
 						</div>
 					</div>
-					<div class="bootstrap-timepicker">
-						<div class="form-group">
-							<label for="<?=$periodFormId?>_startHour"
-								class="col-sm-2 control-label">Heure de début</label>
-							<div class="col-sm-10">
-								<div class="input-group">
-									<input type="time" class="form-control" name="startHour"
-										id="<?=$periodFormId?>_startHour" readonly=""
-										placeholder="Ex. 10:15" value="0:00">
-									<span class="input-group-addon">
-										<i class="glyphicon glyphicon-time"></i>
-									</span>
-								</div>
+					<div class="form-group">
+						<label for="<?=$periodFormId?>_startHour"
+									class="col-sm-2 control-label">Heure de début</label>
+						<div class="col-sm-10">
+							<div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">							
+							    <input type="text" class="form-control" name="startHour"
+												id="<?=$periodFormId?>_startHour" placeholder="Ex. 10:15" value="" readonly>
+							    <span class="input-group-addon">
+							        <span class="glyphicon glyphicon-time"></span>
+							    </span>
 							</div>
 						</div>
 					</div>
-					<div class="bootstrap-timepicker">
-						<div class="form-group">
-							<label for="<?=$periodFormId?>_endHour"
-								class="col-sm-2 control-label">Heure de fin</label>
-							<div class="col-sm-10">
-								<div class="input-group">
-									<input type="time" class="form-control" name="endHour"
-										id="<?=$periodFormId?>_endHour" readonly=""
-										placeholder="Ex. 11:15" value="1:00">
-									<span class="input-group-addon">
-										<i class="glyphicon glyphicon-time"></i>
-									</span>
-								</div>
+					<div class="form-group">
+						<label for="<?=$periodFormId?>_endHour"
+									class="col-sm-2 control-label">Heure de fin</label>
+						<div class="col-sm-10">
+							<div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">							
+							    <input type="text" class="form-control" name="endHour"
+												id="<?=$periodFormId?>_endHour" placeholder="Ex. 10:15" value="" readonly>
+							    <span class="input-group-addon">
+							        <span class="glyphicon glyphicon-time"></span>
+							    </span>
 							</div>
 						</div>
 					</div>

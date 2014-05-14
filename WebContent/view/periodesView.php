@@ -146,22 +146,26 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 					}
 				});		
 	</script>
+	<!-- Clock picker -->
+	<script type="text/javascript">
+		$('.clockpicker').clockpicker();
+	</script>
 
 	<!-- Time picker -->
-	<script type="text/javascript">
+<!-- 	<script type="text/javascript"> -->
 			$('#'+<?=$periodFormJsInstance?>.formId+'_startHour').timepicker({
-				minuteStep: 5,
-				showMeridian: false,
-				showInputs: false,
-				defaultTime: false
-			});
+// 				minuteStep: 5,
+// 				showMeridian: false,
+// 				showInputs: false,
+// 				defaultTime: false
+// 			});
 		 
 			$('#'+<?=$periodFormJsInstance?>.formId+'_endHour').timepicker({
-				minuteStep: 5,
-				showMeridian: false,
-				showInputs: false,
-				defaultTime: false
-			});		
+// 				minuteStep: 5,
+// 				showMeridian: false,
+// 				showInputs: false,
+// 				defaultTime: false
+// 			});		
 	</script>
 </body>
 </html>
