@@ -1,7 +1,7 @@
 ﻿<?php include $_SERVER ['DOCUMENT_ROOT'] . '/include/loginCheck.php'; ?>
 <!DOCTYPE html>
 <html>
-	
+
 <head>
 		<?php include $_SERVER ['DOCUMENT_ROOT'] . '/include/header.php'; ?>
 </head>
