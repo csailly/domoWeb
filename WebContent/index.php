@@ -19,7 +19,7 @@ if ($currentPeriode != null){
 	$currentMode = $dataService->getModeById ( $currentPeriode->modeId );
 }
 $poeleStatus = $dataService->getParameter('POELE_ETAT')->value;
-$poeleConfog = $dataService->getParameter('POELE_CONFIG')->value;
+$poeleConfig = $dataService->getParameter('POELE_CONFIG')->value;
 ?>
 
 
@@ -37,13 +37,13 @@ $poeleConfog = $dataService->getParameter('POELE_CONFIG')->value;
 							<td colspan="2" style="text-align: center;">
 								<div class="btn-group" data-toggle="buttons">
 								    <label class="btn btn-primary">
-								        <input type="radio" name="options" value="auto">Auto
+								        <input type="radio" name="poeleConfig" value="auto">Auto
 								    </label>
 								    <label class="btn btn-primary">
-								        <input type="radio" name="options" value="manu">Manu
+								        <input type="radio" name="poeleConfig" value="manu">Manu
 								    </label>
 								    <label class="btn btn-primary">
-								        <input type="radio" name="options" value="arret">Stop
+								        <input type="radio" name="poeleConfig" value="stop">Stop
 								    </label>
 								</div>													
 							</td>
@@ -172,6 +172,27 @@ $poeleConfog = $dataService->getParameter('POELE_CONFIG')->value;
 						}
 					);
 			} 
+		}
+	);
+
+
+	
+	if ("<?=$poeleConfig?>" === "MANU"){
+		$('input:radio[name=poeleConfig]').filter('[value=manu]').parent().toggleClass('active');
+		//$('input:radio[name=poeleConfig]').filter('[value=manu]').attr('checked',true);
+	}else if ("<?=$poeleConfig?>" === "AUTO"){
+		$('input:radio[name=poeleConfig]').filter('[value=auto]').parent().toggleClass('active');
+		//$('input:radio[name=poeleConfig]').filter('[value=auto]').attr('checked',true);
+	}else if ("<?=$poeleConfig?>" === "STOP"){
+		$('input:radio[name=poeleConfig]').filter('[value=stop]').parent().toggleClass('active');
+		//$('input:radio[name=poeleConfig]').filter('[value=stop]').attr('checked',true);
+	}else{
+
+	}
+
+	$('.btn').click(
+		function(e){
+			alert($(this).children().attr('value'));
 		}
 	);
 	
