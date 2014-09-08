@@ -19,6 +19,7 @@ if ($currentPeriode != null){
 	$currentMode = $dataService->getModeById ( $currentPeriode->modeId );
 }
 $poeleStatus = $dataService->getParameter('POELE_ETAT')->value;
+$poeleConfog = $dataService->getParameter('POELE_CONFIG')->value;
 ?>
 
 
