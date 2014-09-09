@@ -34,13 +34,13 @@ if ($currentPeriode != null){
 						<tr>
 							<td colspan="2" style="text-align: center;">
 								<div class="btn-group" data-toggle="buttons">
-								    <label class="btn btn-primary">
+								    <label id="poeleConfigAuto" class="btn btn-primary">
 								        <input type="radio" name="poeleConfig" value="AUTO">Auto
 								    </label>
-								    <label class="btn btn-primary">
+								    <label id="poeleConfigManu" class="btn btn-primary">
 								        <input type="radio" name="poeleConfig" value="MANU">Manu
 								    </label>
-								    <label class="btn btn-primary">
+								    <label id="poeleConfigStop" class="btn btn-primary">
 								        <input type="radio" name="poeleConfig" value="STOP">Stop
 								    </label>
 								</div>													
@@ -172,21 +172,23 @@ if ($currentPeriode != null){
 				var decode = $.parseJSON(data);
 				var result = decode.result;
 				if (result === "success"){
+					$('input:radio[name=poeleConfig]').filter('[value=MANU]').parent().removeClass('active');
+					$('input:radio[name=poeleConfig]').filter('[value=AUTO]').parent().removeClass('active');
+					$('input:radio[name=poeleConfig]').filter('[value=STOP]').parent().removeClass('active');
+					
 					if (decode.poeleConfig === "MANU"){
 						$('input:radio[name=poeleConfig]').filter('[value=MANU]').parent().addClass('active');
 					}else if (decode.poeleConfig === "AUTO"){
 						$('input:radio[name=poeleConfig]').filter('[value=AUTO]').parent().addClass('active');
 					}else if (decode.poeleConfig === "STOP"){
 						$('input:radio[name=poeleConfig]').filter('[value=STOP]').parent().addClass('active');
-					}else{
-				
 					}									
 				}
 			});
 	}
 	setInterval(readPoeleConfig, 30000);
 
-	$('.btn').click(
+	$('#poeleConfigAuto, #poeleConfigManu, #poeleConfigStop').click(
 		function(e){
 			$.post( "/service/DataWService.php", {action : "savePoeleConfiguration", value : $(this).children().attr('value')})
 			.done(	function( data ) {
