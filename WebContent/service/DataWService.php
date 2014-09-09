@@ -278,6 +278,30 @@ try {
 			// Send response
 			echo json_encode ( $response );
 			break;
+		case "savePoeleConfiguration" :
+			// Get parameters
+			$value = $_POST ["value"];
+			//TODO Check parameter
+			
+			// Call services
+			$response = array (
+					'result' => 'success' 
+			);
+			try {
+				$poeleConfig = $poeleService->savePoeleConfiguration($value);
+				$response ['value'] = $externalService->launchPoeleScript ();				
+			} catch ( PDOException $e ) {
+				$response ['result'] = 'error';
+				$errorsMsgs = array ();
+				$errorsMsgs ["exception"] = $e->getMessage ();
+				$errors = array (
+						'errorsMsgs' => $errorsMsgs 
+				);
+				$response ['errors'] = $errors;
+			}
+			// Send response
+			echo json_encode ( $response );
+			break;
 		default :
 			http_response_code ( 500 );
 			die ( "Bad action" );

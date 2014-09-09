@@ -28,11 +28,14 @@ class PoeleService {
 		$this->parameterDao->saveParameter( 'TEMP_CONSIGNE_MARCHE_FORCEE', $value);
 	}
 	
-
-	
-	
 	function saveMaxiForced($value){
 		$this->parameterDao->saveParameter( 'TEMP_MAXI_MARCHE_FORCEE', $value);
+	}
+	
+	function  savePoeleConfiguration($value){
+		$this->parameterDao->saveParameter( 'POELE_CONFIG', $value);
+		$poeleEtat = $this->parameterDao->getParameter( 'POELE_ETAT', $value);
+		$this->parameterDao->saveParameter( 'ORDRE_MANU', $poeleEtat->value);
 	}
 	
 

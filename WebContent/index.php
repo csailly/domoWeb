@@ -18,8 +18,6 @@ $currentMode = null;
 if ($currentPeriode != null){
 	$currentMode = $dataService->getModeById ( $currentPeriode->modeId );
 }
-$poeleStatus = $dataService->getParameter('POELE_ETAT')->value;
-$poeleConfig = $dataService->getParameter('POELE_CONFIG')->value;
 ?>
 
 
@@ -37,24 +35,20 @@ $poeleConfig = $dataService->getParameter('POELE_CONFIG')->value;
 							<td colspan="2" style="text-align: center;">
 								<div class="btn-group" data-toggle="buttons">
 								    <label class="btn btn-primary">
-								        <input type="radio" name="poeleConfig" value="auto">Auto
+								        <input type="radio" name="poeleConfig" value="AUTO">Auto
 								    </label>
 								    <label class="btn btn-primary">
-								        <input type="radio" name="poeleConfig" value="manu">Manu
+								        <input type="radio" name="poeleConfig" value="MANU">Manu
 								    </label>
 								    <label class="btn btn-primary">
-								        <input type="radio" name="poeleConfig" value="stop">Stop
+								        <input type="radio" name="poeleConfig" value="STOP">Stop
 								    </label>
 								</div>													
 							</td>
 						</tr>				
 						<tr>
-							<td colspan="2" style="text-align: center">
-							<?php if  ($poeleStatus == 'ON'){?>
-								<img id="poelePowerButton" src="/img/power-green1.png" width="45px" style="cursor: pointer">
-							<?php }else{?>
-								<img id="poelePowerButton" src="/img/power-red1.png" width="45px" style="cursor: pointer">
-							<?php }?>
+							<td colspan="2" style="text-align: center">							
+								<img id="poelePowerButton" src="/img/power-blue1.png" width="45px" style="cursor: pointer">							
 							</td>
 						</tr>
 						<tr>
@@ -148,11 +142,7 @@ $poeleConfig = $dataService->getParameter('POELE_CONFIG')->value;
 	}
 	setInterval(readPoeleStatus, 30000);
 
-	function init(){
-		readCurrentTemp();
-	}
 
-	init();
 
 	$("#poelePowerButton").click(
 		function(){
@@ -175,26 +165,48 @@ $poeleConfig = $dataService->getParameter('POELE_CONFIG')->value;
 		}
 	);
 
-
-	
-	if ("<?=$poeleConfig?>" === "MANU"){
-		$('input:radio[name=poeleConfig]').filter('[value=manu]').parent().toggleClass('active');
-		//$('input:radio[name=poeleConfig]').filter('[value=manu]').attr('checked',true);
-	}else if ("<?=$poeleConfig?>" === "AUTO"){
-		$('input:radio[name=poeleConfig]').filter('[value=auto]').parent().toggleClass('active');
-		//$('input:radio[name=poeleConfig]').filter('[value=auto]').attr('checked',true);
-	}else if ("<?=$poeleConfig?>" === "STOP"){
-		$('input:radio[name=poeleConfig]').filter('[value=stop]').parent().toggleClass('active');
-		//$('input:radio[name=poeleConfig]').filter('[value=stop]').attr('checked',true);
-	}else{
-
+	//Poele configuration
+	function readPoeleConfig(){	
+		$.post( "/service/DataWService.php", {action : "readPoeleConfiguration"})
+		.done(	function( data ) {
+				var decode = $.parseJSON(data);
+				var result = decode.result;
+				if (result === "success"){
+					if (decode.poeleConfig === "MANU"){
+						$('input:radio[name=poeleConfig]').filter('[value=MANU]').parent().addClass('active');
+					}else if (decode.poeleConfig === "AUTO"){
+						$('input:radio[name=poeleConfig]').filter('[value=AUTO]').parent().addClass('active');
+					}else if (decode.poeleConfig === "STOP"){
+						$('input:radio[name=poeleConfig]').filter('[value=STOP]').parent().addClass('active');
+					}else{
+				
+					}									
+				}
+			});
 	}
+	setInterval(readPoeleConfig, 30000);
 
 	$('.btn').click(
 		function(e){
-			alert($(this).children().attr('value'));
+			$.post( "/service/DataWService.php", {action : "savePoeleConfiguration", value : $(this).children().attr('value')})
+			.done(	function( data ) {
+						init();
+					}
+				);
 		}
 	);
+
+	function init(){
+		readCurrentTemp();
+		readPoeleStatus();
+		readPoeleConfig();
+	}
+
+	
+	
+	$( document ).ready(function() {
+		init();
+	});
 	
 </script>
 
