@@ -16,3 +16,26 @@
 	<!-- Bootstrap-switch -->
 	<script type="text/javascript" src="/js/bootstrap-switch.js"></script>
 	
+	<script>
+		<!-- Fenêtre de chargement -->
+		var myLoading;
+		myLoading = myLoading || (function () {
+		    var pleaseWaitDiv = $('<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="overflow: hidden;"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h1>Processing...</h1></div><div class="modal-body"><div class="progress progress-striped active"><div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div></div></div></div></div>');
+		    return {
+		        showPleaseWait: function() {
+		            pleaseWaitDiv.modal();
+		        },
+		        hidePleaseWait: function () {
+		            pleaseWaitDiv.modal('hide');
+		        },
+	
+		    };
+		})();
+		
+		myLoading.showPleaseWait();
+
+		$( document ).ready(function() {
+			myLoading.hidePleaseWait();
+		});
+	</script>
+	

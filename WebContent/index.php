@@ -209,6 +209,16 @@ if ($currentPeriode != null){
 	$( document ).ready(function() {
 		init();
 	});
+
+
+
+
+
+
+
+
+
+	
 	
 </script>
 
