@@ -302,6 +302,42 @@ try {
 			// Send response
 			echo json_encode ( $response );
 			break;
+		case "getCurrentPeriodeAndMode" :
+				// Call services
+				$response = array (
+						'result' => 'success'
+				);
+				try {
+					$poeleConfig = $dataService->getParameter ( 'POELE_CONFIG' )->value;
+					if($poeleConfig === "AUTO"){										
+						$currentPeriode = $dataService->getCurrentPeriode ();
+						$currentMode = null;
+						if ($currentPeriode != null){
+							$currentMode = $dataService->getModeById ( $currentPeriode->modeId );
+						}
+						$response ['currentPeriode'] = $currentPeriode;
+						$response ['currentMode'] = $currentMode;
+					}else if($poeleConfig === "MANU"){						
+						$max = $dataService->getParameter ( 'TEMP_MAXI_MARCHE_FORCEE' )->value;
+						$cons = $dataService->getParameter('TEMP_CONSIGNE_MARCHE_FORCEE')->value;
+						
+						$currentMode  = new Mode(-1, 'Manuel', $cons, $max);
+
+						$response ['currentPeriode'] = null;
+						$response ['currentMode'] = $currentMode;
+					}
+				} catch ( PDOException $e ) {
+					$response ['result'] = 'error';
+					$errorsMsgs = array ();
+					$errorsMsgs ["exception"] = $e->getMessage ();
+					$errors = array (
+							'errorsMsgs' => $errorsMsgs
+					);
+					$response ['errors'] = $errors;
+				}
+				// Send response
+				echo json_encode ( $response );
+				break;
 		default :
 			http_response_code ( 500 );
 			die ( "Bad action" );
