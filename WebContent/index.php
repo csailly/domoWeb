@@ -62,7 +62,7 @@
 										<div style="background: -webkit-linear-gradient( top, skyblue, royalblue ); width: 20px; height: 50px;"></div>
 									</div>
 								</div>								
-								<div id="oneTempView" style="white-space: nowrap; font-family: fantasy; display : none;"><span id="currentTemp2" style="font-size: 20pt;"></span> °C</div>								
+								<div id="oneTempView" style="white-space: nowrap; font-family: fantasy; display : none; text-align: center;"><span id="currentTemp2" style="font-size: 20pt;"></span> °C</div>								
 							</td>
 						</tr>						
 						<tr id="currentPeriodeDatetime" style="display: none;">
