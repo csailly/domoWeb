@@ -23,9 +23,14 @@
 	}
 	
 	/* Les commandes externes */
-	$externalCommandTemp = '/home/pi/scripts/capteurs/tmp102/tmp102.py';
-	$externalCommandMcz = 'sudo python /home/pi/scripts/domoCore/run.py  >> /home/pi/log/domocore.log 2>&1';
-			
-
+	if (PHP_OS == "Linux"){
+		$externalCommandTemp = '/home/pi/scripts/capteurs/tmp102/tmp102.py';
+		$externalCommandMcz = 'sudo python /home/pi/scripts/domoCore/run.py  >> /home/pi/log/domocore.log 2>&1';
+	}else{
+		$externalCommandTemp = 'D:\+sandbox\python3.4.0\python.exe D:\+sandbox\work\domocore\com\nestof\domocore\service\TempServiceDev.py';
+		$externalCommandMcz = 'D:\+sandbox\python3.4.0\python.exe D:\+sandbox\work\domocore\run.py';
+	}
+	
+	
 	
 ?>
