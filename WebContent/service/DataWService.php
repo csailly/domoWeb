@@ -86,7 +86,7 @@ try {
 			// Send response
 			echo json_encode ( $response );
 			break;
-		case "onForced" :
+		case "onOrder" :
 			// Get parameters
 			$value = $_POST ["value"];
 			// Call service
@@ -116,7 +116,7 @@ try {
 			// Send response
 			echo json_encode ( $response );
 			break;
-		case "offForced" :
+		case "offOrder" :
 			// Get parameters
 			$value = $_POST ["value"];
 			// Call services

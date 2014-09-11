@@ -186,14 +186,14 @@
 			function(){
 				if($('#poelePowerButton').attr('src')  === "/img/power-green1.png"){
 					$('#poelePowerButton').attr('src', "/img/power-blue1.png" );
-					$.post( "/service/DataWService.php", {action : "offForced", value : true})
+					$.post( "/service/DataWService.php", {action : "offOrder", value : true})
 					.done(	function( data ) {
 								readPoeleStatus();
 							}
 						);				
 				}else if($('#poelePowerButton').attr('src')  === "/img/power-red1.png"){
 					$('#poelePowerButton').attr('src', "/img/power-blue1.png" );
-					$.post( "/service/DataWService.php", {action : "onForced", value : true})
+					$.post( "/service/DataWService.php", {action : "onOrder", value : true})
 					.done(	function( data ) {
 								readPoeleStatus();
 							}
