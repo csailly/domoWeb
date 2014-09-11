@@ -94,8 +94,16 @@ try {
 					'result' => 'success' 
 			);
 			try {
-				$poeleService->sendOnForced ( $value == "true" ? 'TRUE' : 'FALSE' );
-				$response ['value'] = $externalService->launchPoeleScript ();
+				$poeleConfig = $dataService->getParameter ( 'POELE_CONFIG' )->value;
+				
+				if($poeleConfig === "AUTO"){				
+					$poeleService->sendOnForced ( $value == "true" ? 'TRUE' : 'FALSE' );
+					$response ['value'] = $externalService->launchPoeleScript ();
+				}elseif ($poeleConfig == "MANU"){
+					$poeleService->sendOnManual();
+					$response ['value'] = $externalService->launchPoeleScript ();
+				}
+				
 			} catch ( PDOException $e ) {
 				$response ['result'] = 'error';
 				$errorsMsgs = array ();
@@ -116,8 +124,14 @@ try {
 					'result' => 'success' 
 			);
 			try {
-				$poeleService->sendOffForced ( $value == "true" ? 'TRUE' : 'FALSE' );
-				$response ['value'] = $externalService->launchPoeleScript ();
+				$poeleConfig = $dataService->getParameter ( 'POELE_CONFIG' )->value;
+				if($poeleConfig === "AUTO"){
+					$poeleService->sendOffForced ( $value == "true" ? 'TRUE' : 'FALSE' );
+					$response ['value'] = $externalService->launchPoeleScript ();
+				}elseif ($poeleConfig == "MANU"){
+					$poeleService->sendOffManual();
+					$response ['value'] = $externalService->launchPoeleScript ();
+				}
 			} catch ( PDOException $e ) {
 				$response ['result'] = 'error';
 				$errorsMsgs = array ();
