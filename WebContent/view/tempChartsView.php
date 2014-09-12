@@ -54,9 +54,10 @@ $(function () {
                 text: 'Historique températures'
             },
             subtitle: {
-                text: document.ontouchstart === undefined ?
-                    'Click and drag in the plot area to zoom in' :
-                    'Pinch the chart to zoom in'
+                //text: document.ontouchstart === undefined ?
+                //    'Click and drag in the plot area to zoom in' :
+                //    'Pinch the chart to zoom in'
+            	text: 'Salon'
             },
             xAxis: {
                 type: 'datetime',
@@ -116,6 +117,12 @@ $(function () {
 
 	<script src="http://code.highcharts.com/highcharts.js"></script>
 	<script src="http://code.highcharts.com/modules/exporting.js"></script>
+	
+	<script>
+		$( document ).ready(function() {
+			myLoading.hidePleaseWait();
+		});
+	</script>
 
 </body>
 

@@ -20,12 +20,12 @@ if ($currentPeriode != null){
 	$currentMode = $dataService->getModeById ( $currentPeriode->modeId );
 }
 
-$poeleStatus = $dataService->getParameter('POELE_ETAT')->value;
-$onForced = $dataService->getParameter('POELE_MARCHE_FORCEE')->value;
-$offForced = $dataService->getParameter('POELE_ARRET_FORCE')->value;
+$poeleStatus = $dataService->getParameter(Constants::POELE_ETAT)->value;
+$onForced = $dataService->getParameter(Constants::POELE_MARCHE_FORCEE)->value;
+$offForced = $dataService->getParameter(Constants::POELE_ARRET_FORCE)->value;
 
-$consForced = $dataService->getParameter('TEMP_CONSIGNE_MARCHE_FORCEE')->value;
-$maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
+$consForced = $dataService->getParameter(Constants::TEMP_CONSIGNE_MARCHE_FORCEE)->value;
+$maxiForced = $dataService->getParameter(Constants::TEMP_MAXI_MARCHE_FORCEE)->value;
 
 ?>
 
@@ -132,7 +132,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 	$("[name='onForcedCheckBox']").bootstrapSwitch();
 	$("[name='offForcedCheckBox']").bootstrapSwitch();
 
-	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('state', <?php echo  ($poeleStatus == 'ON') ? 'true': 'false';?>);	
+	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('state', <?php echo  ($poeleStatus === Constants::POELE_ETAT_ON) ? 'true': 'false';?>);	
 	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('readonly', true);
 	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('size', 'mini');
 	$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('onColor', 'success');
@@ -146,7 +146,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 		$('input[name="onForcedCheckBox"]').bootstrapSwitch('size', 'mini');
 		$('input[name="onForcedCheckBox"]').bootstrapSwitch('onColor', 'success');
 		$('input[name="onForcedCheckBox"]').bootstrapSwitch('offColor', 'danger');
-		$('input[name="onForcedCheckBox"]').bootstrapSwitch('state', <?php echo ($onForced == 'TRUE')?  'true':   'false';?>);
+		$('input[name="onForcedCheckBox"]').bootstrapSwitch('state', <?php echo ($onForced === Constants::POELE_MARCHE_FORCEE_ON)?  'true':   'false';?>);
 
 		$('input[name="onForcedCheckBox"]').on('switchChange.bootstrapSwitch', function(event, state) {
 			$.post( "/service/DataWService.php", {action : "onForced", value : state})
@@ -159,7 +159,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 		$('input[name="offForcedCheckBox"]').bootstrapSwitch('size', 'mini');
 		$('input[name="offForcedCheckBox"]').bootstrapSwitch('onColor', 'success');
 		$('input[name="offForcedCheckBox"]').bootstrapSwitch('offColor', 'danger');
-		$('input[name="offForcedCheckBox"]').bootstrapSwitch('state', <?php echo ($offForced == 'TRUE')? 'true' : 'false';?>);
+		$('input[name="offForcedCheckBox"]').bootstrapSwitch('state', <?php echo ($offForced === Constants::POELE_ARRET_FORCE_ON)? 'true' : 'false';?>);
 	
 	
 		
@@ -252,7 +252,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 				var decode = $.parseJSON(data);
 				var result = decode.result;
 				if (result === "success"){
-					var value = decode.poeleStatus == "ON" ? true : false;
+					var value = decode.poeleStatus == "<?=Constants::POELE_ETAT_ON?>" ? true : false;
 
 					$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('readonly', false);
 					$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('state', value, true);
@@ -267,6 +267,10 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 			});		
 	}
 	setInterval(readPoeleStatus, 30000);
+
+	$( document ).ready(function() {
+		myLoading.hidePleaseWait();
+	});
 
 </script>
 	

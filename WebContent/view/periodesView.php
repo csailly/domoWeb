@@ -112,7 +112,7 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 						null;
 					}else{
 						$("tr[id=periodesRow_"+periodId+"]").remove();
-					}												
+					}
 				}
 				);
 			}	
@@ -149,6 +149,12 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 	<!-- Clock picker -->
 	<script>
 		$('.clockpicker').clockpicker();
+	</script>
+	
+	<script>
+		$( document ).ready(function() {
+			myLoading.hidePleaseWait();
+		});
 	</script>
 
 </body>

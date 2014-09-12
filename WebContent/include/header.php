@@ -28,6 +28,7 @@
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/PoeleService.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/ExternalService.php';
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/Constants.php';
 
 $dataService = new DataService($databaseConnexion);
 $poeleService = new PoeleService($databaseConnexion);

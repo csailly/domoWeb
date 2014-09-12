@@ -5,6 +5,7 @@ include_once $_SERVER ['DOCUMENT_ROOT'] . '/config/config.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/PoeleService.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/ExternalService.php';
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/Constants.php';
 
 $dataService = new DataService ( $databaseConnexion );
 $poeleService = new PoeleService ( $databaseConnexion );
@@ -94,12 +95,12 @@ try {
 					'result' => 'success' 
 			);
 			try {
-				$poeleConfig = $dataService->getParameter ( 'POELE_CONFIG' )->value;
+				$poeleConfig = $dataService->getParameter ( Constants::POELE_CONFIG )->value;
 				
-				if($poeleConfig === "AUTO"){				
-					$poeleService->sendOnForced ( $value == "true" ? 'TRUE' : 'FALSE' );
+				if($poeleConfig === Constants::POELE_CONFIG_AUTO){				
+					$poeleService->sendOnForced ( $value == "true" ? Constants::POELE_MARCHE_FORCEE_ON : Constants::POELE_MARCHE_FORCEE_OFF );
 					$response ['value'] = $externalService->launchPoeleScript ();
-				}elseif ($poeleConfig == "MANU"){
+				}elseif ($poeleConfig == Constants::POELE_CONFIG_MANU){
 					$poeleService->sendOnManual();
 					$response ['value'] = $externalService->launchPoeleScript ();
 				}
@@ -124,11 +125,11 @@ try {
 					'result' => 'success' 
 			);
 			try {
-				$poeleConfig = $dataService->getParameter ( 'POELE_CONFIG' )->value;
-				if($poeleConfig === "AUTO"){
-					$poeleService->sendOffForced ( $value == "true" ? 'TRUE' : 'FALSE' );
+				$poeleConfig = $dataService->getParameter ( Constants::POELE_CONFIG )->value;
+				if($poeleConfig === Constants::POELE_CONFIG_AUTO){
+					$poeleService->sendOffForced ( $value == "true" ? Constants::POELE_ARRET_FORCE_ON : Constants::POELE_ARRET_FORCE_OFF );
 					$response ['value'] = $externalService->launchPoeleScript ();
-				}elseif ($poeleConfig == "MANU"){
+				}elseif ($poeleConfig == Constants::POELE_CONFIG_MANU){
 					$poeleService->sendOffManual();
 					$response ['value'] = $externalService->launchPoeleScript ();
 				}
@@ -258,7 +259,7 @@ try {
 					'result' => 'success' 
 			);
 			try {
-				$poeleStatus = $dataService->getParameter ( 'POELE_ETAT' )->value;
+				$poeleStatus = $dataService->getParameter ( Constants::POELE_ETAT )->value;
 				$response ['poeleStatus'] = $poeleStatus;
 			} catch ( PDOException $e ) {
 				$response ['result'] = 'error';
@@ -278,7 +279,7 @@ try {
 					'result' => 'success' 
 			);
 			try {
-				$poeleConfig = $dataService->getParameter ( 'POELE_CONFIG' )->value;
+				$poeleConfig = $dataService->getParameter ( Constants::POELE_CONFIG )->value;
 				$response ['poeleConfig'] = $poeleConfig;
 			} catch ( PDOException $e ) {
 				$response ['result'] = 'error';
@@ -316,14 +317,14 @@ try {
 			// Send response
 			echo json_encode ( $response );
 			break;
-		case "getCurrentPeriodeAndMode" :
+		case "readCurrentPeriodeAndMode" :
 				// Call services
 				$response = array (
 						'result' => 'success'
 				);
 				try {
-					$poeleConfig = $dataService->getParameter ( 'POELE_CONFIG' )->value;
-					if($poeleConfig === "AUTO"){										
+					$poeleConfig = $dataService->getParameter ( Constants::POELE_CONFIG )->value;
+					if($poeleConfig === Constants::POELE_CONFIG_AUTO){										
 						$currentPeriode = $dataService->getCurrentPeriode ();
 						$currentMode = null;
 						if ($currentPeriode != null){
@@ -331,9 +332,9 @@ try {
 						}
 						$response ['currentPeriode'] = $currentPeriode;
 						$response ['currentMode'] = $currentMode;
-					}else if($poeleConfig === "MANU"){						
-						$max = $dataService->getParameter ( 'TEMP_MAXI_MARCHE_FORCEE' )->value;
-						$cons = $dataService->getParameter('TEMP_CONSIGNE_MARCHE_FORCEE')->value;
+					}else if($poeleConfig === Constants::POELE_CONFIG_MANU){						
+						$max = $dataService->getParameter ( Constants::TEMP_MAXI_MARCHE_FORCEE )->value;
+						$cons = $dataService->getParameter(Constants::TEMP_CONSIGNE_MARCHE_FORCEE)->value;
 						
 						$currentMode  = new Mode(-1, 'Manuel', $cons, $max);
 

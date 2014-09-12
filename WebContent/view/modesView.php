@@ -179,6 +179,10 @@ function deleteMode(modeId) {
 	$('#maxiForced').text(parseFloat(<?=$maxiForced ?>).toFixed(1));
 
 
+	$( document ).ready(function() {
+		myLoading.hidePleaseWait();
+	});
+	
 </script>
 	
 

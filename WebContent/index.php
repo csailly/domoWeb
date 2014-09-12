@@ -26,13 +26,13 @@
 							<td colspan="2" style="text-align: center;">
 								<div class="btn-group" data-toggle="buttons">
 								    <label id="poeleConfigAuto" class="btn btn-primary">
-								        <input type="radio" name="poeleConfig" value="AUTO">Auto
+								        <input type="radio" name="poeleConfig" value="<?=Constants::POELE_CONFIG_AUTO?>">Auto
 								    </label>
 								    <label id="poeleConfigManu" class="btn btn-primary">
-								        <input type="radio" name="poeleConfig" value="MANU">Manu
+								        <input type="radio" name="poeleConfig" value="<?=Constants::POELE_CONFIG_MANU?>">Manu
 								    </label>
 								    <label id="poeleConfigStop" class="btn btn-primary">
-								        <input type="radio" name="poeleConfig" value="STOP">Stop
+								        <input type="radio" name="poeleConfig" value="<?=Constants::POELE_CONFIG_STOP?>">Stop
 								    </label>
 								</div>													
 							</td>
@@ -116,7 +116,7 @@
 				var decode = $.parseJSON(data);
 				var result = decode.result;
 				if (result === "success"){
-					if ( decode.poeleStatus == "ON"){
+					if ( decode.poeleStatus == "<?=Constants::POELE_ETAT_ON?>"){
 						$('#poelePowerButton').attr('src', "/img/power-green1.png" );
 					}else{
 						$('#poelePowerButton').attr('src', "/img/power-red1.png" );
@@ -126,8 +126,8 @@
 	}
 	
 	//Current Periode and Mode
-	function getCurrentPeriodeAndMode(){
-		$.post( "/service/DataWService.php", {action : "getCurrentPeriodeAndMode"})
+	function readCurrentPeriodeAndMode(){
+		$.post( "/service/DataWService.php", {action : "readCurrentPeriodeAndMode"})
 		.done(	function( data ) {
 				var decode = $.parseJSON(data);
 				var result = decode.result;
@@ -167,16 +167,16 @@
 				var decode = $.parseJSON(data);
 				var result = decode.result;
 				if (result === "success"){
-					$('input:radio[name=poeleConfig]').filter('[value=MANU]').parent().removeClass('active');
-					$('input:radio[name=poeleConfig]').filter('[value=AUTO]').parent().removeClass('active');
-					$('input:radio[name=poeleConfig]').filter('[value=STOP]').parent().removeClass('active');
+					$('input:radio[name=poeleConfig]').filter('[value=<?=Constants::POELE_CONFIG_MANU?>]').parent().removeClass('active');
+					$('input:radio[name=poeleConfig]').filter('[value=<?=Constants::POELE_CONFIG_AUTO?>]').parent().removeClass('active');
+					$('input:radio[name=poeleConfig]').filter('[value=<?=Constants::POELE_CONFIG_STOP?>]').parent().removeClass('active');
 					
-					if (decode.poeleConfig === "MANU"){
-						$('input:radio[name=poeleConfig]').filter('[value=MANU]').parent().addClass('active');
-					}else if (decode.poeleConfig === "AUTO"){
-						$('input:radio[name=poeleConfig]').filter('[value=AUTO]').parent().addClass('active');
-					}else if (decode.poeleConfig === "STOP"){
-						$('input:radio[name=poeleConfig]').filter('[value=STOP]').parent().addClass('active');
+					if (decode.poeleConfig === "<?=Constants::POELE_CONFIG_MANU?>"){
+						$('input:radio[name=poeleConfig]').filter('[value=<?=Constants::POELE_CONFIG_MANU?>]').parent().addClass('active');
+					}else if (decode.poeleConfig === "<?=Constants::POELE_CONFIG_AUTO?>"){
+						$('input:radio[name=poeleConfig]').filter('[value=<?=Constants::POELE_CONFIG_AUTO?>]').parent().addClass('active');
+					}else if (decode.poeleConfig === "<?=Constants::POELE_CONFIG_STOP?>"){
+						$('input:radio[name=poeleConfig]').filter('[value=<?=Constants::POELE_CONFIG_STOP?>]').parent().addClass('active');
 					}									
 				}
 			});
@@ -184,11 +184,13 @@
 
 	$("#poelePowerButton").click(
 			function(){
+				myLoading.showPleaseWait();
 				if($('#poelePowerButton').attr('src')  === "/img/power-green1.png"){
 					$('#poelePowerButton').attr('src', "/img/power-blue1.png" );
 					$.post( "/service/DataWService.php", {action : "offOrder", value : true})
 					.done(	function( data ) {
 								readPoeleStatus();
+								myLoading.hidePleaseWait();
 							}
 						);				
 				}else if($('#poelePowerButton').attr('src')  === "/img/power-red1.png"){
@@ -196,6 +198,7 @@
 					$.post( "/service/DataWService.php", {action : "onOrder", value : true})
 					.done(	function( data ) {
 								readPoeleStatus();
+								myLoading.hidePleaseWait();
 							}
 						);
 				} 
@@ -204,9 +207,11 @@
 
 	$('#poeleConfigAuto, #poeleConfigManu, #poeleConfigStop').click(
 		function(e){
+			myLoading.showPleaseWait();
 			$.post( "/service/DataWService.php", {action : "savePoeleConfiguration", value : $(this).children().attr('value')})
 			.done(	function( data ) {
 						init();
+						myLoading.hidePleaseWait();
 					}
 				);
 		}
@@ -215,11 +220,12 @@
 	function init(){
 		readPoeleConfig();
 		readPoeleStatus();
-		getCurrentPeriodeAndMode();		
+		readCurrentPeriodeAndMode();		
 	}
 			
 	$( document ).ready(function() {
 		init();
+		myLoading.hidePleaseWait();
 		setInterval(init, 30000);
 	});
 

@@ -18,7 +18,8 @@ include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
 if (session_status () !== PHP_SESSION_ACTIVE) {
 	session_start ();
 }
-if ((isset ( $_SESSION ['login'] ) && $_SESSION ['login'] === 'ok')) {
+
+if ((isset ( $_SESSION ['login'] ) && $_SESSION ['login'] === 'ok') || isset($_COOKIE["logged"])) {
 	header ( "Location: index.php" );
 }
 if (isset ( $_POST ["login"] , $_POST ["password"] )) {
@@ -29,7 +30,11 @@ if (isset ( $_POST ["login"] , $_POST ["password"] )) {
 	$response = $dataService->ckeckLogin ( $login, $password );
 	
 	if ($response ['success'] === true && $response ['result'] === true) {
-		$_SESSION ['login'] = "ok";
+		$_SESSION ['login'] = "ok";		
+		if (isset ( $_POST ["remember-me"])){
+			$expire = 24*3600;//24 heures
+			setcookie("logged",$_POST ["login"],time()+$expire);
+		}
 		header ( "Location: index.php" );
 	}else{
 		header ( "Location: login.php" );
@@ -58,7 +63,9 @@ if (isset ( $_POST ["login"] , $_POST ["password"] )) {
 
 <?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/footer.php'; ?>
 
-
+<script>
+myLoading.hidePleaseWait();
+</script>
 
 
 </body>

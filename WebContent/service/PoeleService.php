@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/CalendarUtils.php';
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/Constants.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/AccountDAO.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/ModeDAO.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/ParameterDAO.php';
@@ -15,36 +16,36 @@ class PoeleService {
 	
 		
 	function sendOnForced($value) {
-		$this->parameterDao->saveParameter( 'POELE_MARCHE_FORCEE', $value );
-		$this->parameterDao->saveParameter( 'POELE_ARRET_FORCE', !$value );
+		$this->parameterDao->saveParameter( Constants::POELE_MARCHE_FORCEE, $value );
+		$this->parameterDao->saveParameter( Constants::POELE_ARRET_FORCE, !$value );
 	}
 	
 	function sendOffForced($value) {
-		$this->parameterDao->saveParameter( 'POELE_ARRET_FORCE', $value );
-		$this->parameterDao->saveParameter( 'POELE_MARCHE_FORCEE', !$value );
+		$this->parameterDao->saveParameter( Constants::POELE_ARRET_FORCE, $value );
+		$this->parameterDao->saveParameter( Constants::POELE_MARCHE_FORCEE, !$value );
 	}
 	
 	function sendOnManual() {
-		$this->parameterDao->saveParameter( 'ORDRE_MANU', 'ON' );
+		$this->parameterDao->saveParameter( Constants::ORDRE_MANU, Constants::ORDRE_MANU_ON );
 	}
 	
 	function sendOffManual() {
-		$this->parameterDao->saveParameter( 'ORDRE_MANU', 'OFF' );
+		$this->parameterDao->saveParameter( Constants::ORDRE_MANU, Constants::ORDRE_MANU_OFF );
 	}
 	
 	
 	function saveConsForced($value){
-		$this->parameterDao->saveParameter( 'TEMP_CONSIGNE_MARCHE_FORCEE', $value);
+		$this->parameterDao->saveParameter( Constants::TEMP_CONSIGNE_MARCHE_FORCEE, $value);
 	}
 	
 	function saveMaxiForced($value){
-		$this->parameterDao->saveParameter( 'TEMP_MAXI_MARCHE_FORCEE', $value);
+		$this->parameterDao->saveParameter( Constants::TEMP_MAXI_MARCHE_FORCEE, $value);
 	}
 	
 	function  savePoeleConfiguration($value){
-		$this->parameterDao->saveParameter( 'POELE_CONFIG', $value);
-		$poeleEtat = $this->parameterDao->getParameter( 'POELE_ETAT', $value);
-		$this->parameterDao->saveParameter( 'ORDRE_MANU', $poeleEtat->value);
+		$this->parameterDao->saveParameter( Constants::POELE_CONFIG, $value);
+		$poeleEtat = $this->parameterDao->getParameter( Constants::POELE_ETAT, $value);
+		$this->parameterDao->saveParameter( Constants::ORDRE_MANU, $poeleEtat->value);
 	}
 	
 

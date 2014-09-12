@@ -34,8 +34,8 @@
 		
 		myLoading.showPleaseWait();
 
-		$( document ).ready(function() {
-			myLoading.hidePleaseWait();
-		});
+		//$( document ).ready(function() {
+		//	myLoading.hidePleaseWait();
+		//});
 	</script>
 	
