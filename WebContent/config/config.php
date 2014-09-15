@@ -25,7 +25,7 @@
 	/* Les commandes externes */
 	if (PHP_OS == "Linux"){
 		//$externalCommandTemp = '/home/pi/scripts/capteurs/tmp102/tmp102.py';
-		$externalCommandTemp = '/home/pi/scripts/domoCore/com/nestof/domocore/service/TempService.py';
+		$externalCommandTemp = 'python /home/pi/scripts/domoCore/com/nestof/domocore/service/TempService.py';
 		$externalCommandMcz = 'sudo python /home/pi/scripts/domoCore/run.py  >> /home/pi/log/domocore.log 2>&1';
 	}else{
 		$externalCommandTemp = 'C:\Python34\python.exe D:\Documents\Work\domocore\com\nestof\domocore\service\TempServiceDev.py';
