@@ -148,7 +148,10 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 	</script>
 	<!-- Clock picker -->
 	<script>
-		$('.clockpicker').clockpicker();
+		$('.clockpicker').clockpicker({
+			align : 'left',
+			placement : 'bottom'
+		});
 	</script>
 	
 	<script>
