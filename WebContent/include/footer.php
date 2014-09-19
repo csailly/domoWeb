@@ -16,6 +16,10 @@
 	<!-- Bootstrap-switch -->
 	<script type="text/javascript" src="/js/bootstrap-switch.js"></script>
 	
+	<!-- Bootstrap-select -->
+	<script type="text/javascript" src="/js/bootstrap-select.js"></script>
+	<script type="text/javascript" src="/js/i18n/bootstrap-select-fr_FR.js" charset="UTF-8"></script>
+	
 	<script>
 		<!-- Fenêtre de chargement -->
 		var myLoading;

@@ -132,6 +132,28 @@ class DataService {
 	}
 	
 	/**
+	 * Renvoie les paramètres
+	 * @return multitype:Parameter
+	 */
+	function getAllParameters() {
+		// TODO Renvoyer json
+		$response = array (
+				'result' => 'success'
+		);
+		try {
+			return $this->parameterDao->getAllParameters ();
+		} catch ( PDOException $e ) {
+			$response ['result'] = 'error';
+			$errorsMsgs = array ();
+			$errorsMsgs ["exception"] = $e->getMessage ();
+			$errors = array (
+					'errorsMsgs' => $errorsMsgs
+			);
+			$response ['errors'] = $errors;
+		}
+	}
+	
+	/**
 	 * Crée une nouvelle période.
 	 *
 	 * @param
@@ -512,24 +534,25 @@ class DataService {
 		return $response;
 	}
 	
-	// function test() {
-	// $response = array (
-	// 'result' => 'success'
-	// );
-	// try {
+	function saveParameter($code, $value){
+		$response = array (
+				'result' => 'success'
+		);
+		try {
+			$this->parameterDao->saveParameter( $code, $value );
+		} catch ( PDOException $e ) {
+			$response ['result'] = 'error';
+			$errorsMsgs = array ();
+			$errorsMsgs ["exception"] = $e->getMessage ();
+			$errors = array (
+					'errorsMsgs' => $errorsMsgs
+			);
+			$response ['errors'] = $errors;
+		}
+		
+		return $response;		
+	}
 	
-	// } catch ( PDOException $e ) {
-	// $response ['result'] = 'error';
-	// $errorsMsgs = array ();
-	// $errorsMsgs ["exception"] = $e->getMessage ();
-	// $errors = array (
-	// 'errorsMsgs' => $errorsMsgs
-	// );
-	// $response ['errors'] = $errors;
-	// }
-	
-	// return $response;
-	// }
 }
 
 ?>

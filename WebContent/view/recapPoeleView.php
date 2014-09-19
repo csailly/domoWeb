@@ -11,6 +11,9 @@
 <?php
 
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/navbar.php';
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/ParameterUtils.php';
+
+
 
 
 $currentPeriode = $dataService->getCurrentPeriode ();
@@ -26,6 +29,8 @@ $offForced = $dataService->getParameter(Constants::POELE_ARRET_FORCE)->value;
 
 $consForced = $dataService->getParameter(Constants::TEMP_CONSIGNE_MARCHE_FORCEE)->value;
 $maxiForced = $dataService->getParameter(Constants::TEMP_MAXI_MARCHE_FORCEE)->value;
+
+$parameters = $dataService->getAllParameters();
 
 ?>
 
@@ -113,7 +118,33 @@ $maxiForced = $dataService->getParameter(Constants::TEMP_MAXI_MARCHE_FORCEE)->va
 			</div>		
 		</td>		
 	</tr>
-	
+	<?php if ($parameters != null){ ?>
+	<tr>
+		<td colspan="2">
+		<table class="table">
+		<?php 
+		foreach ($parameters as $parameter) {?>
+		<tr>
+			<td><?=$parameter->code ?></td>
+			<td>
+			<?php if (ParameterUtils::isBooleanParameter($parameter)){?>
+				<input type="checkbox" name="param_<?=$parameter->code ?>">
+			<?php }else if (ParameterUtils::isSelectParameter($parameter)){?>
+				<select name="param_<?=$parameter->code ?>" class="selectpicker">
+			<?php foreach (ParameterUtils::getSelectValues($parameter) as $value){?>
+					<option value="<?=$value ?>"  <?php echo $parameter->value === $value?'selected':''?>><?=$value ?></option>			
+			<?php }?>
+				</select>
+			<?php }else{?>
+				<input type="text" name="param_<?=$parameter->code ?>" value="<?=$parameter->value ?>">			
+			<?php }?>
+			</td>
+		<tr>	
+		<?php } ?>
+		</table>
+		</td>
+	</tr>
+	<?php } ?>
 	
 </tbody>
 </table>
@@ -149,7 +180,7 @@ $maxiForced = $dataService->getParameter(Constants::TEMP_MAXI_MARCHE_FORCEE)->va
 		$('input[name="onForcedCheckBox"]').bootstrapSwitch('state', <?php echo ($onForced === Constants::POELE_MARCHE_FORCEE_ON)?  'true':   'false';?>);
 
 		$('input[name="onForcedCheckBox"]').on('switchChange.bootstrapSwitch', function(event, state) {
-			$.post( "/service/DataWService.php", {action : "onForced", value : state})
+			$.post( "/service/DataWService.php", {action : "onOrder", value : state})
 			.done(	function( data ) {
 						readPoeleStatus();
 					}
@@ -165,7 +196,7 @@ $maxiForced = $dataService->getParameter(Constants::TEMP_MAXI_MARCHE_FORCEE)->va
 		
 	
 		$('input[name="offForcedCheckBox"]').on('switchChange.bootstrapSwitch', function(event, state) {
-			$.post( "/service/DataWService.php", {action : "offForced", value : state})
+			$.post( "/service/DataWService.php", {action : "offOrder", value : state})
 			.done(	function( data ) {
 						readPoeleStatus();
 					}
@@ -173,15 +204,36 @@ $maxiForced = $dataService->getParameter(Constants::TEMP_MAXI_MARCHE_FORCEE)->va
 			});
 
 
-
-
-
-
-	
+		<?php 
+		if ($parameters != null){ 
+			foreach ($parameters as $parameter) {
+				if (ParameterUtils::isBooleanParameter($parameter)){?>
+					$('input[name="param_<?=$parameter->code ?>"]').bootstrapSwitch();
+					$('input[name="param_<?=$parameter->code ?>"]').bootstrapSwitch('size', 'mini');
+					$('input[name="param_<?=$parameter->code ?>"]').bootstrapSwitch('onColor', 'success');
+					$('input[name="param_<?=$parameter->code ?>"]').bootstrapSwitch('offColor', 'danger');
+					$('input[name="param_<?=$parameter->code ?>"]').bootstrapSwitch('state', <?php echo ParameterUtils::isTrueValue($parameter)? 'true' : 'false';?>);
+					$('input[name="param_<?=$parameter->code ?>"]').bootstrapSwitch('onText', '1');
+					$('input[name="param_<?=$parameter->code ?>"]').bootstrapSwitch('offText', '0');
+					$('input[name="param_<?=$parameter->code ?>"]').on('switchChange.bootstrapSwitch', function(event, state) {
+						var booleanValue = null;
+						if (state){
+							booleanValue = '<?=ParameterUtils::getBooleanTrueValue($parameter)?>';
+						}else{
+							booleanValue = '<?=ParameterUtils::getBooleanFalseValue($parameter)?>';
+						}
+						
+						$.post( "/service/DataWService.php", {action : "saveParameter", code : "<?=$parameter->code ?>" , value : booleanValue});
+						});	
+		<?php
+ 				}
+			}
+		}?>
+		
 </script>
 
 	
-<script type="text/javascript">
+<script>
 
 	//Cons Forced
 	function upConsForced(){
@@ -259,7 +311,7 @@ $maxiForced = $dataService->getParameter(Constants::TEMP_MAXI_MARCHE_FORCEE)->va
 					$('input[name="poeleStatusCheckBox"]').bootstrapSwitch('readonly', true);
 
 					//TODO appeler un ws de récupératio des états forcés
-					showHideForcedLines(decode.poeleStatus, $('input[name="onForcedCheckBox"]').bootstrapSwitch('state'), $('input[name="offForcedCheckBox"]').bootstrapSwitch('state'));
+					//showHideForcedLines(decode.poeleStatus, $('input[name="onForcedCheckBox"]').bootstrapSwitch('state'), $('input[name="offForcedCheckBox"]').bootstrapSwitch('state'));
 					
 				}else{
 					$('#currentTemp').text('--');

@@ -154,7 +154,7 @@ try {
 			);
 			try {
 				$poeleService->saveConsForced ( $value );
-				$externalService->launchPoeleScript ();
+				//$externalService->launchPoeleScript ();
 			} catch ( PDOException $e ) {
 				$response ['result'] = 'error';
 				$errorsMsgs = array ();
@@ -176,7 +176,7 @@ try {
 			);
 			try {
 				$poeleService->saveConsForced ( $value );
-				$externalService->launchPoeleScript ();
+				//$externalService->launchPoeleScript ();
 			} catch ( PDOException $e ) {
 				$response ['result'] = 'error';
 				$errorsMsgs = array ();
@@ -198,7 +198,7 @@ try {
 			);
 			try {
 				$poeleService->saveMaxiForced ( $value );
-				$externalService->launchPoeleScript ();
+				//$externalService->launchPoeleScript ();
 			} catch ( PDOException $e ) {
 				$response ['result'] = 'error';
 				$errorsMsgs = array ();
@@ -220,7 +220,7 @@ try {
 			);
 			try {
 				$poeleService->saveMaxiForced ( $value );
-				$externalService->launchPoeleScript ();
+				//$externalService->launchPoeleScript ();
 			} catch ( PDOException $e ) {
 				$response ['result'] = 'error';
 				$errorsMsgs = array ();
@@ -353,6 +353,29 @@ try {
 				// Send response
 				echo json_encode ( $response );
 				break;
+		case "saveParameter":
+			// Get parameters
+			$code = $_POST ["code"];
+			$value = $_POST ["value"];
+			// Call services
+			$response = array (
+					'result' => 'success'
+			);
+			try {
+				$dataService->saveParameter($code, $value);
+			} catch ( PDOException $e ) {
+				$response ['result'] = 'error';
+				$errorsMsgs = array ();
+				$errorsMsgs ["exception"] = $e->getMessage ();
+				$errors = array (
+						'errorsMsgs' => $errorsMsgs
+				);
+				$response ['errors'] = $errors;
+			}
+			// Send response
+			echo json_encode ( $response );
+			break;
+			break;				
 		default :
 			http_response_code ( 500 );
 			die ( "Bad action" );
