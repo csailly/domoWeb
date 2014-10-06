@@ -486,8 +486,8 @@ class DataService {
 		return $response;
 	}
 	
-	function getAllTemperatures() {
-		return $this->temperatureDao->getAllTemperatures ();
+	function getAllTemperatures($startDate) {
+		return $this->temperatureDao->getAllTemperatures ($startDate);
 	}
 	
 	function ckeckLogin($login,$password) {

@@ -1,13 +1,15 @@
 <?php
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/GenericDAO.php';
 class TemperatureDAO extends GenericDAO {
-	function getAllTemperatures() {
+	function getAllTemperatures($startDate) {
 		date_default_timezone_set ( 'Europe/Paris' );
 	
-		$queryString = "SELECT * FROM histo_temp h order by date, heure";
+		$queryString = "SELECT * FROM histo_temp h  where date >= :startDate order by date, heure";
 		
 		$stmt = $this->connexion->prepare ( $queryString ); // on va chercher tous les membres de la table qu'on trie par ordre croissant
-		$stmt->execute ();
+		$stmt->execute ( array (
+				'startDate' => $startDate->format('Y-m-d') 
+		) );
 		$stmt->setFetchMode ( PDO::FETCH_OBJ ); // on dit qu'on veut que le résultat soit récupérable sous forme d'objet
 		$ligne = $stmt->fetch ();
 		

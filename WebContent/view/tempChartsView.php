@@ -14,9 +14,13 @@
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
 
 $dataService = new DataService ( $databaseConnexion );
-$result = $dataService->getAllTemperatures ();
 
 date_default_timezone_set ( 'Europe/Paris' );
+$datetime = new DateTime();
+$datetime->sub(new DateInterval('P1M'));
+$result = $dataService->getAllTemperatures ($datetime);
+
+
 
 ?>
 
