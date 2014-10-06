@@ -1,6 +1,11 @@
 <?php
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/GenericDAO.php';
 class TemperatureDAO extends GenericDAO {
+	/**
+	 * 
+	 * @param DateTime $startDate
+	 * @return multitype:number multitype:number
+	 */
 	function getAllTemperatures($startDate) {
 		date_default_timezone_set ( 'Europe/Paris' );
 	

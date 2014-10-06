@@ -7,6 +7,9 @@ include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/PoeleService.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/ExternalService.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/Constants.php';
 
+
+date_default_timezone_set ( 'Europe/Paris' );
+
 $dataService = new DataService ( $databaseConnexion );
 $poeleService = new PoeleService ( $databaseConnexion );
 $externalService = new ExternalService ( $externalCommandTemp, $externalCommandMcz );
@@ -375,7 +378,29 @@ try {
 			// Send response
 			echo json_encode ( $response );
 			break;
-			break;				
+		case "getHistoTemp":
+			// Get parameters
+			$startDate = $_POST ["startDate"];
+			// Call services
+			$response = array (
+					'result' => 'success'
+			);
+			try {
+				$result = $dataService->getAllTemperatures (new DateTime($startDate));
+				$response ['startTime'] = $result['startTime'];
+				$response ['datas'] = $result['datas'];
+			} catch ( PDOException $e ) {
+				$response ['result'] = 'error';
+				$errorsMsgs = array ();
+				$errorsMsgs ["exception"] = $e->getMessage ();
+				$errors = array (
+						'errorsMsgs' => $errorsMsgs
+				);
+				$response ['errors'] = $errors;
+			}
+			// Send response
+			echo json_encode ( $response );
+			break;
 		default :
 			http_response_code ( 500 );
 			die ( "Bad action" );
