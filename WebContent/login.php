@@ -32,7 +32,7 @@ if (isset ( $_POST ["login"] , $_POST ["password"] )) {
 	if ($response ['success'] === true && $response ['result'] === true) {
 		$_SESSION ['login'] = "ok";		
 		if (isset ( $_POST ["remember-me"])){
-			$expire = 24*3600;//24 heures
+			$expire = 7*24*3600;//7 jours
 			setcookie("logged",$_POST ["login"],time()+$expire);
 		}
 		header ( "Location: index.php" );
