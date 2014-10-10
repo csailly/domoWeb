@@ -32,7 +32,6 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 				<table class="table table-hover periodesTable">
 					<thead>
 						<tr>
-							<th>#</th>
 							<th>Jour</th>
 							<th>Date de début</th>
 							<th>Date de fin</th>
@@ -55,10 +54,7 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 							}else{
 							?>
 						<tr id="periodesRow_<?= $periode->id?>">	
-							<?php } ?>
-							<td>
-								<?=$periode->id?>
-							</td>				
+							<?php } ?>				
 							<td>
 								<?=CalendarUtils::getDayLabel($periode->jour)?>
 							</td>
@@ -75,7 +71,7 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 								<?=$periode->heureFin?>
 							</td>
 							<td>
-								<?=$mode->libelle?>
+								<span title="<?=$mode->cons?> - <?=$mode->max?>"><?=$mode->libelle?></span>
 							</td>
 							<td><span class="glyphicon glyphicon-trash" style="cursor: pointer;" onclick="deletePeriod(<?= $periode->id?>)"></span> 
 								<span class="glyphicon glyphicon-pencil" style="cursor: pointer;" onclick="showUpdatePeriodForm(<?=$periode->id?>,<?php echo isset($periode->jour)? $periode->jour : -1 ?>,'<?=CalendarUtils::transformDate2($periode->dateDebut)?>','<?=CalendarUtils::transformDate2($periode->dateFin)?>','<?=$periode->heureDebut?>','<?=$periode->heureFin?>',<?=$periode->modeId?>);"></span>

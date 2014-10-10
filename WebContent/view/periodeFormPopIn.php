@@ -4,6 +4,7 @@
 $modalId= "periodFormModal";
 $periodFormJsInstance = "periodForm";
 $periodFormId = "periodForm";
+$modes = $dataService->getAllModes();
 ?>
 
 
@@ -100,11 +101,13 @@ $periodFormId = "periodForm";
 					<div class="form-group">
 						<label for="<?=$periodFormId?>_mode" class="col-sm-2 control-label">Mode</label>
 						<div class="col-sm-10">
-							<select class="form-control" name="mode"
-								id="<?=$periodFormId?>_mode">
+							<select class="form-control" name="mode" id="<?=$periodFormId?>_mode">
 								<option value="-1">-</option>
-								<option value="1">Confort</option>
-								<option value="2">Eco</option>
+								<?php
+								foreach ($modes as $mode) {			
+								?>
+								<option value="<?=$mode->id?>"><?=$mode->libelle?>  <?=$mode->cons?> - <?=$mode->max?></option>								
+								<?php }?>
 							</select>
 						</div>
 					</div>

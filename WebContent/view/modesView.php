@@ -29,7 +29,6 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 			  <table class="table table-hover modesTable">
 					<thead>
 						<tr>
-							<th>#</th>
 							<th>Libellé</th>
 							<th>T° consigne</th>
 							<th>T° max</th>
@@ -42,16 +41,13 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 						?>
 						<tr id="modesRow_<?= $mode->id?>">
 							<td>
-								<?=$mode->id?>
-							</td>
-							<td>
 								<?=$mode->libelle?>
 							</td>
 							<td>
-								<?=$mode->cons?>
+								<?=$mode->cons?>°C
 							</td>
 							<td>
-								<?=$mode->max?>
+								<?=$mode->max?>°C
 							</td>
 							<td>
 								<span class="glyphicon glyphicon-trash" style="cursor: pointer;"
