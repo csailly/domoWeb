@@ -365,9 +365,9 @@ class DataService {
 		
 		$errorsMsgs = array ();
 		// Check mandatory fields
-		if ($day < 1) {
+		if ($day < 0) {
 			if (strlen ( $startDate ) == 0) {
-				$errorsMsgs ["startDate"] = "Field start date required";
+				$errorsMsgs ["startDate"] = "Field startDate required";
 			}
 			if (strlen ( $endDate ) == 0) {
 				$errorsMsgs ["endDate"] = "Field endDate required";
@@ -401,7 +401,7 @@ class DataService {
 		$checkFormatStartHour = true;
 		$checkFormatEndHour = true;
 		
-		if ($day < 1) {
+		if ($day < 0) {
 			$checkFormatStartDate = CalendarUtils::checkDate ( $startDate );
 			$checkFormatEndDate = CalendarUtils::checkDate ( $endDate );
 		}

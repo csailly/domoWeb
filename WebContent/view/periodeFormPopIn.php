@@ -188,8 +188,9 @@ $modes = $dataService->getAllModes();
 			
 			//Validate day or dates gestion rules
 			var g_dayOrDateOk = true;
-			
-			if ($("#"+this.formId+"_day").val() > 0) {				
+
+
+			if ($("#"+this.formId+"_day").val() >= 0) {				
 				g_dayOrDateOk = (startDateValue.length === 0) && (endDateValue.length === 0);
 			}else{
 				g_dayOrDateOk = (startDateValue.length > 0) && (endDateValue.length > 0) && g_datesOk;
