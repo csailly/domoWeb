@@ -2,7 +2,7 @@
 
 path=`dirname $0`
 cd ${path}
-cd ../..
+cd ..
 
 git fetch origin
 git reset --hard origin/master
