@@ -24,6 +24,7 @@
 						<li><a href="/view/periodesView.php">Périodes</a></li>
 						<li><a href="/view/modesView.php">Modes</a></li>
 						<li><a href="/view/recapPoeleView.php">Paramètres</a></li>
+						<li><span id="update" >Update</span></li>
 					</ul></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -33,3 +34,4 @@
 		<!--/.nav-collapse -->
 	</div>
 </div>
+

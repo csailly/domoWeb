@@ -230,5 +230,24 @@
 	});
 
 </script>
+
+
+<script>
+function updateWebApp(){
+	$.post( "/service/DataWService.php", {action : "updateWebApp"})
+	.done(	function( data ) {
+			var decode = $.parseJSON(data);
+			var result = decode.result;
+			if (result === "success"){
+													
+			}
+		});		
+};
+
+$("#update").click(function() {updateWebApp();});
+
+</script>
+
+
 </body>
 </html>

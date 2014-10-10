@@ -12,7 +12,7 @@ date_default_timezone_set ( 'Europe/Paris' );
 
 $dataService = new DataService ( $databaseConnexion );
 $poeleService = new PoeleService ( $databaseConnexion );
-$externalService = new ExternalService ( $externalCommandTemp, $externalCommandMcz );
+$externalService = new ExternalService ( $externalCommandTemp, $externalCommandMcz, $externalCommandUpdateWebApp );
 
 $action = null;
 if (isset ( $_POST ["action"] )) {
@@ -401,6 +401,25 @@ try {
 			// Send response
 			echo json_encode ( $response );
 			break;
+		case "updateWebApp" :
+				// Call services
+				$response = array (
+						'result' => 'success'
+				);
+				try {				
+					$response ['value'] = $externalService->updateWebApp ();
+				} catch ( PDOException $e ) {
+					$response ['result'] = 'error';
+					$errorsMsgs = array ();
+					$errorsMsgs ["exception"] = $e->getMessage ();
+					$errors = array (
+							'errorsMsgs' => $errorsMsgs
+					);
+					$response ['errors'] = $errors;
+				}
+				// Send response
+				echo json_encode ( $response );
+				break;
 		default :
 			http_response_code ( 500 );
 			die ( "Bad action" );

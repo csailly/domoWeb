@@ -33,5 +33,5 @@ include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/Constants.php';
 
 $dataService = new DataService($databaseConnexion);
 $poeleService = new PoeleService($databaseConnexion);
-$externalService = new ExternalService($externalCommandTemp, $externalCommandMcz);
+$externalService = new ExternalService($externalCommandTemp, $externalCommandMcz, $externalCommandUpdateWebApp);
 ?>

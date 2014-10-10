@@ -2,9 +2,10 @@
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/config/config.php';
 class ExternalService {	
 	
-	function __construct($externalCommandTemp, $externalCommandMcz) {
+	function __construct($externalCommandTemp, $externalCommandMcz, $externalCommandUpdateWebApp) {
 		$this->externalCommandTemp = $externalCommandTemp;
 		$this->externalCommandMcz = $externalCommandMcz;
+		$this->externalCommandUpdateWebApp = $externalCommandUpdateWebApp; 
 	}
 	
 		
@@ -21,6 +22,13 @@ class ExternalService {
 	
 	function launchPoeleScript(){
 		$command = escapeshellcmd($this->externalCommandMcz);
+		$output = shell_exec($command);
+		
+		return $output;
+	}
+	
+	function updateWebApp(){
+		$command = escapeshellcmd($this->externalCommandUpdateWebApp);
 		$output = shell_exec($command);
 		
 		return $output;
