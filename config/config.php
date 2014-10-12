@@ -27,7 +27,7 @@
 		//$externalCommandTemp = '/home/pi/scripts/capteurs/tmp102/tmp102.py';
 		$externalCommandTemp = 'python /home/pi/scripts/domoCore/com/nestof/domocore/service/TempService.py';
 		$externalCommandMcz = 'sudo python /home/pi/scripts/domoCore/run.py  >> /home/pi/log/domocore.log 2>&1';
-		$externalCommandUpdateWebApp = 'sudo '.__DIR__.'/updateWebApp.sh';
+		$externalCommandUpdateWebApp = __DIR__.'/updateWebApp.sh';
 	}else{
 		//$externalCommandTemp = 'C:\Python34\python.exe D:\Documents\Work\domocore\com\nestof\domocore\service\TempServiceDev.py';
 		//$externalCommandMcz = 'C:\Python34\python.exe D:\Documents\Work\domocore\run.py';
