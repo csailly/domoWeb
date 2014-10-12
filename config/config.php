@@ -34,7 +34,7 @@
 		
 		$externalCommandTemp = 'D:\+sandbox\python3.4.0\python.exe D:\+sandbox\work\domocore\com\nestof\domocore\service\TempServiceDev.py';
 		$externalCommandMcz = 'D:\+sandbox\python3.4.0\python.exe D:\+sandbox\work\domocore\run.py';
-		$externalCommandUpdateWebApp = __DIR__.'\updateWebApp.sh';
+		$externalCommandUpdateWebApp = 'sh '.__DIR__.'\updateWebApp.sh';
 	}
 	
 	
