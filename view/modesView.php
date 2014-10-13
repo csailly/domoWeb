@@ -51,7 +51,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 							</td>
 							<td>
 								<span class="glyphicon glyphicon-trash" style="cursor: pointer;"
-									onclick="deletemode(<?= $mode->id?>)" ></span>
+									onclick="deleteMode(<?= $mode->id?>)" ></span>
 								<span class="glyphicon glyphicon-pencil" style="cursor: pointer;" onclick="showUpdateModeForm(<?=$mode->id?>,'<?=$mode->libelle?>','<?=$mode->cons?>','<?=$mode->max?>');"></span>
 							</td>
 						</tr>
@@ -94,20 +94,20 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 
 <script>
 function deleteMode(modeId) {
-	$.ajax({
-		type: "POST",
-		url: "/service/DataWService.php",
-		data: { modeId: modeId, action: "deleteMode" }
-	})
-	.done(
-		function(data){			
-			var decode = $.parseJSON(data);
-			var result = decode.result;
-			if (result === "success"){
-				$("tr[id=modesRow_"+modeId+"]").remove();
-			}													
-		}
-	);
+	bootbox.confirm("T'es sûr de ton coup ?", function(choice) {
+		if (choice){
+			$.post( "/service/DataWService.php", {action : "deleteMode", modeId: modeId})
+			.done(function(data){
+				var decode = $.parseJSON(data);
+				var result = decode.result;
+				if (result === "error"){
+					null;
+				}else{
+					$("tr[id=modesRow_"+modeId+"]").remove();
+				};
+			});
+		};
+	});
 }	
 </script>
 	

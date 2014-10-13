@@ -27,7 +27,7 @@
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">Administrer <b class="caret"></b></a>
 					<ul class="dropdown-menu">						
-						<li><a href="/view/recapPoeleView.php">Paramètres</a></li>
+						<li><a href="/view/parametersView.php">Paramètres</a></li>
 						<li><a id="update" href="#">Mettre à jour</a></li>
 					</ul>
 				</li>

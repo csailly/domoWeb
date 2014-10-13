@@ -33,7 +33,7 @@ class ModeDAO extends GenericDAO {
 	 * @return multitype:Mode
 	 */
 	function getAllModes() {
-		$queryString = "SELECT * FROM mode";
+		$queryString = "SELECT * FROM mode ORDER BY libelle ASC";
 		$list = array ();
 		
 		$resultats = $this->connexion->query ( $queryString );

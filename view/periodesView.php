@@ -49,37 +49,27 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 			
 							if ($currentPeriode != null && $currentPeriode->id == $periode->id) {
 							?>
-						<tr id="periodesRow_<?= $periode->id?>" style="font-weight: bold;">
+								<tr id="periodesRow_<?= $periode->id?>" style="font-weight: bold;">
 							<?php 
 							}else{
 							?>
-						<tr id="periodesRow_<?= $periode->id?>">	
-							<?php } ?>				
-							<td>
-								<?=CalendarUtils::getDayLabel($periode->jour)?>
-							</td>
-							<td>
-								<?=CalendarUtils::transformDate2($periode->dateDebut)?>
-							</td>
-							<td>
-								<?=CalendarUtils::transformDate2($periode->dateFin)?>
-							</td>
-							<td>
-								<?=$periode->heureDebut?>
-							</td>
-							<td>
-								<?=$periode->heureFin?>
-							</td>
-							<td>
-								<span title="<?=$mode->cons?> - <?=$mode->max?>"><?=$mode->libelle?></span>
-							</td>
-							<td><span class="glyphicon glyphicon-trash" style="cursor: pointer;" onclick="deletePeriod(<?= $periode->id?>)"></span> 
-								<span class="glyphicon glyphicon-pencil" style="cursor: pointer;" onclick="showUpdatePeriodForm(<?=$periode->id?>,<?php echo isset($periode->jour)? $periode->jour : -1 ?>,'<?=CalendarUtils::transformDate2($periode->dateDebut)?>','<?=CalendarUtils::transformDate2($periode->dateFin)?>','<?=$periode->heureDebut?>','<?=$periode->heureFin?>',<?=$periode->modeId?>);"></span>
-							</td>
-						</tr>
+								<tr id="periodesRow_<?= $periode->id?>">	
+							<?php 
+							} ?>				
+									<td><?=CalendarUtils::getDayLabel($periode->jour)?></td>
+									<td><?=CalendarUtils::transformDate2($periode->dateDebut)?></td>
+									<td><?=CalendarUtils::transformDate2($periode->dateFin)?></td>
+									<td><?=$periode->heureDebut?></td>
+									<td><?=$periode->heureFin?></td>
+									<td>
+										<span title="<?=$mode->cons?> - <?=$mode->max?>"><?=$mode->libelle?></span>
+									</td>
+									<td><span class="glyphicon glyphicon-trash" style="cursor: pointer;" onclick="deletePeriod(<?= $periode->id?>)"></span> 
+										<span class="glyphicon glyphicon-pencil" style="cursor: pointer;" onclick="showUpdatePeriodForm(<?=$periode->id?>,<?php echo isset($periode->jour)? $periode->jour : -1 ?>,'<?=CalendarUtils::transformDate2($periode->dateDebut)?>','<?=CalendarUtils::transformDate2($periode->dateFin)?>','<?=$periode->heureDebut?>','<?=$periode->heureFin?>',<?=$periode->modeId?>);"></span>
+									</td>
+								</tr>
 						<?php
-						}
-						?>
+						} ?>
 			
 			
 					</tbody>
@@ -96,21 +86,20 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 	<script>
 			function deletePeriod(periodId)
 			{
-				$.ajax({
-					type: "POST",
-					url: "/service/DataWService.php",
-					data: { periodId: periodId, action: "deletePeriod" }
-				})
-				.done(function(data){
-					var decode = $.parseJSON(data);
-					var result = decode.result;
-					if (result === "error"){
-						null;
-					}else{
-						$("tr[id=periodesRow_"+periodId+"]").remove();
-					}
-				}
-				);
+				bootbox.confirm("T'es sûr de ton coup ?", function(choice) {
+					if (choice){
+						$.post( "/service/DataWService.php", {action : "deletePeriod", periodId: periodId})
+						.done(function(data){
+							var decode = $.parseJSON(data);
+							var result = decode.result;
+							if (result === "error"){
+								null;
+							}else{
+								$("tr[id=periodesRow_"+periodId+"]").remove();
+							};
+						});
+					};
+				});
 			}	
 	</script>
 
@@ -128,32 +117,29 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 
 	<!-- Date picker -->
 	<script>
-			    $('#'+<?=$periodFormJsInstance?>.formId+'_datepicker').datepicker({
-					language: "fr",
-					autoclose: true,
-					todayHighlight: true,
-					clearBtn: true,
-					beforeShowDay: function (date){
-						var nowTemp = new Date();
-						var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
-						if (date.valueOf() < now.valueOf()){
-							return false;
+	$('#'+<?=$periodFormJsInstance?>.formId+'_datepicker').datepicker({
+		language: "fr",
+		autoclose: true,
+		todayHighlight: true,
+		clearBtn: true,
+		beforeShowDay: function (date){
+							var nowTemp = new Date();
+							var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+							if (date.valueOf() < now.valueOf()){
+								return false;
+							};
 						}
-					}
-				});		
-	</script>
+		});		
+
 	<!-- Clock picker -->
-	<script>
-		$('.clockpicker').clockpicker({
-			align : 'left',
-			placement : 'bottom'
-		});
-	</script>
-	
-	<script>
-		$( document ).ready(function() {
-			myLoading.hidePleaseWait();
-		});
+	$('.clockpicker').clockpicker({
+		align : 'left',
+		placement : 'bottom'
+	});
+
+	$( document ).ready(function() {
+		myLoading.hidePleaseWait();
+	});
 	</script>
 
 </body>

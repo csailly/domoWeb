@@ -7,18 +7,21 @@
 		src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 		
 	<!-- Date picker -->
-	<script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
-	<script type="text/javascript" src="/js/locales/bootstrap-datepicker.fr.js" charset="UTF-8"></script>
+	<script src="/js/bootstrap-datepicker.js"></script>
+	<script src="/js/locales/bootstrap-datepicker.fr.js" charset="UTF-8"></script>
 	
 	<!-- Clock picker -->
-	<script type="text/javascript" src="/js/bootstrap-clockpicker.js"></script>
+	<script src="/js/bootstrap-clockpicker.js"></script>
 	
 	<!-- Bootstrap-switch -->
-	<script type="text/javascript" src="/js/bootstrap-switch.js"></script>
+	<script src="/js/bootstrap-switch.js"></script>
 	
 	<!-- Bootstrap-select -->
-	<script type="text/javascript" src="/js/bootstrap-select.js"></script>
-	<script type="text/javascript" src="/js/i18n/bootstrap-select-fr_FR.js" charset="UTF-8"></script>
+	<script src="/js/bootstrap-select.js"></script>
+	<script src="/js/i18n/bootstrap-select-fr_FR.js" charset="UTF-8"></script>
+	
+	<!-- Bootbox -->
+	<script src="/js/bootbox.js"></script>
 	
 	<script>
 		<!-- Fenêtre de chargement -->
@@ -38,8 +41,29 @@
 		
 		myLoading.showPleaseWait();
 
-		//$( document ).ready(function() {
-		//	myLoading.hidePleaseWait();
-		//});
+
+		function updateWebApp(){
+			myLoading.showPleaseWait();
+			$.post( "/service/DataWService.php", {action : "updateWebApp"})
+			.done(	function( data ) {
+						var decode = $.parseJSON(data);
+						var result = decode.result;
+						if (result === "success"){
+							bootbox.alert("Mise à jour effectuée");			
+						}
+						myLoading.hidePleaseWait();
+					});		
+		};
+
+		$("#update").click(function() {
+			bootbox.confirm("T'es sûr de ton coup ?", function(choice) {
+				if (choice){
+					updateWebApp();
+				}
+			});
+		});
+
+
+
 	</script>
 	

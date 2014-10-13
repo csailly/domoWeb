@@ -83,7 +83,7 @@ $parameters = $dataService->getAllParameters();
 				<?php 
 				foreach ($parameters as $parameter) {?>
 				<tr>
-					<td><?=$parameter->code ?></td>
+					<td title="<?=$parameter->comment ?>"><?=$parameter->code ?></td>
 					<td>
 					<?php if (ParameterUtils::isBooleanParameter($parameter)){?>
 						<input type="checkbox" name="param_<?=$parameter->code ?>">

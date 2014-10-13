@@ -1,5 +1,4 @@
 ﻿<?php
-//@TODO Récupérer la liste des modes
 //@See http://www.eyecon.ro/bootstrap-datepicker/
 $modalId= "periodFormModal";
 $periodFormJsInstance = "periodForm";
@@ -106,7 +105,7 @@ $modes = $dataService->getAllModes();
 								<?php
 								foreach ($modes as $mode) {			
 								?>
-								<option value="<?=$mode->id?>"><?=$mode->libelle?>  <?=$mode->cons?> - <?=$mode->max?></option>								
+								<option value="<?=$mode->id?>"><?=$mode->libelle?>  (<?=$mode->cons?>°C - <?=$mode->max?>°C)</option>								
 								<?php }?>
 							</select>
 						</div>
