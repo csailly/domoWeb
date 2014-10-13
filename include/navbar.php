@@ -16,16 +16,21 @@
 <!-- 				<li><a href="#about">About</a></li> -->
 <!-- 				<li><a href="#contact">Contact</a></li> -->
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown">Menu <b class="caret"></b></a>
+					data-toggle="dropdown">Configurer <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="/view/tempChartsView.php">Historique des températures</a></li>
 						<li class="divider"></li>
-						<li class="dropdown-header">Administration</li>
 						<li><a href="/view/periodesView.php">Périodes</a></li>
 						<li><a href="/view/modesView.php">Modes</a></li>
+					</ul>
+				</li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown">Administrer <b class="caret"></b></a>
+					<ul class="dropdown-menu">						
 						<li><a href="/view/recapPoeleView.php">Paramètres</a></li>
-						<li><a id="update" href="#">Update</a></li>
-					</ul></li>
+						<li><a id="update" href="#">Mettre à jour</a></li>
+					</ul>
+				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="/logout.php">Déconnexion</a></li>
