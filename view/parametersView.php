@@ -14,15 +14,6 @@ include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/navbar.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/ParameterUtils.php';
 
 
-
-
-$currentPeriode = $dataService->getCurrentPeriode ();
-
-$currentMode = null;
-if ($currentPeriode != null){
-	$currentMode = $dataService->getModeById ( $currentPeriode->modeId );
-}
-
 $parameters = $dataService->getAllParameters();
 
 ?>
@@ -30,47 +21,6 @@ $parameters = $dataService->getAllParameters();
 
 <table class="table"  style="margin: auto; max-width: 290px;">
 <tbody>	
-	<tr>
-		<td colspan="2">		
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					<h3 class="panel-title">Températures</h3>
-				</div>
-					<table class="table table-hover">
-					<tbody>
-						<tr>
-							<td>Salon :</td>
-							<td><span id="currentTemp"><?=$externalService->getCurrentTemp()?></span>°C</td>
-						</tr>								
-					</tbody>
-					</table>
-			</div>		
-		</td>		
-	</tr>
-	
-	<?php  if ($currentMode != null){ ?>
-	<tr>
-		<td colspan="2">		
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					<h3 class="panel-title">Mode en cours - <?=$currentMode->libelle?></h3>
-				</div>
-					<table class="table table-hover">
-					<tbody>
-						<tr>
-							<td>Consigne :</td>
-							<td><?=$currentMode->cons ?>°C</td>
-						</tr>
-						<tr>
-							<td>Maxi :</td>
-							<td><?=$currentMode->max ?>°C</td>
-						</tr>								
-					</tbody>
-					</table>				
-			</div>		
-		</td>		
-	</tr>
-	<?php }?>
 	<?php if ($parameters != null){ ?>
 	<tr>
 		<td colspan="2">
@@ -158,27 +108,6 @@ $parameters = $dataService->getAllParameters();
 			}
 		}?>
 		
-</script>
-
-	
-<script>
-
-
-	//Current Temp
-	function readCurrentTemp(){
-		$.post( "/service/DataWService.php", {action : "readCurrentTemp"})
-		.done(	function( data ) {
-				var decode = $.parseJSON(data);
-				var result = decode.result;
-				if (result === "success"){
-					$('#currentTemp').text(decode.currentTemp);
-				}else{
-					$('#currentTemp').text('--');
-				}
-			});
-	}
-	setInterval(readCurrentTemp, 30000);
-
 	
 
 	$( document ).ready(function() {
