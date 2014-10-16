@@ -43,8 +43,9 @@ $datetime_1year->sub(new DateInterval('P1Y'));
 <script>
 
 	function showGraph(startTime, datas){
-		$('#container').highcharts({
+		var options = {
 	        chart: {
+	        	renderTo: 'container',
 	            zoomType: 'x',
 	            spacingRight: 20
 	        },
@@ -98,14 +99,22 @@ $datetime_1year->sub(new DateInterval('P1Y'));
 	            }
 	        },
 	
-	        series: [{
+	        series: []
+	    };
+
+
+		options.series[0] = {
 	            type: 'area',
 	            name: 'Temp',
 	            pointStart: Number(startTime),
 				data: datas
 				
-	        }]
-	    });	
+	    };
+		
+
+
+		
+		chart = new Highcharts.Chart(options);	
 	}
 
 
