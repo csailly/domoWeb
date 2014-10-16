@@ -381,12 +381,13 @@ try {
 		case "getHistoTemp":
 			// Get parameters
 			$startDate = $_POST ["startDate"];
+			$sonde = $_POST ["sonde"];
 			// Call services
 			$response = array (
 					'result' => 'success'
 			);
 			try {
-				$result = $dataService->getAllTemperatures (new DateTime($startDate));
+				$result = $dataService->getAllTemperatures (new DateTime($startDate), $sonde);
 				$response ['startTime'] = $result['startTime'];
 				$response ['datas'] = $result['datas'];
 			} catch ( PDOException $e ) {

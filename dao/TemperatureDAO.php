@@ -6,14 +6,15 @@ class TemperatureDAO extends GenericDAO {
 	 * @param DateTime $startDate
 	 * @return multitype:number multitype:number
 	 */
-	function getAllTemperatures($startDate) {
+	function getAllTemperatures($startDate, $sonde) {
 		date_default_timezone_set ( 'Europe/Paris' );
 	
-		$queryString = "SELECT * FROM histo_temp h  where date >= :startDate order by date, heure";
+		$queryString = "SELECT * FROM histo_temp h  where date >= :startDate and sonde = :sonde order by date, heure";
 		
 		$stmt = $this->connexion->prepare ( $queryString ); // on va chercher tous les membres de la table qu'on trie par ordre croissant
 		$stmt->execute ( array (
-				'startDate' => $startDate->format('Y-m-d') 
+				'startDate' => $startDate->format('Y-m-d'),
+				'sonde' => $sonde
 		) );
 		$stmt->setFetchMode ( PDO::FETCH_OBJ ); // on dit qu'on veut que le résultat soit récupérable sous forme d'objet
 		$ligne = $stmt->fetch ();
