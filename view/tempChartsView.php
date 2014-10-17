@@ -28,6 +28,7 @@ $datetime_1year->sub(new DateInterval('P1Y'));
 <select id="sonde">
 	<option value="1">Sonde 1</option>
 	<option value="2">Sonde 2</option>
+	<option value="1,2">Toutes</option>
 </select>
 
 
@@ -42,7 +43,7 @@ $datetime_1year->sub(new DateInterval('P1Y'));
 
 <script>
 
-	function showGraph(startTime, datas){
+	function showGraph(histosList){
 		var options = {
 	        chart: {
 	        	renderTo: 'container',
@@ -102,29 +103,27 @@ $datetime_1year->sub(new DateInterval('P1Y'));
 	        series: []
 	    };
 
-
-		options.series[0] = {
-	            type: 'area',
-	            name: 'Temp',
-	            pointStart: Number(startTime),
-				data: datas
-				
-	    };
-		
-
-
+		for(i=0;i<histosList.length;i++){
+			options.series[i] = {
+		            type: 'area',
+		            name: histosList[i]['sonde'],
+		            pointStart: Number(histosList[i]['histos']['startTime']),
+					data: histosList[i]['histos']['datas']
+					
+		    };
+		}
 		
 		chart = new Highcharts.Chart(options);	
 	}
 
 
 	function refreshHistoTemp(){
-		$.post( "/service/DataWService.php", {action : "getHistoTemp", startDate : $('#tempChartInterval').val(), sonde : $('#sonde').val()})
+		$.post( "/service/DataWService.php", {action : "getHistoTemp", startDate : $('#tempChartInterval').val(), sondes : $('#sonde').val()})
 		.done(	function( data ) {
 				var decode = $.parseJSON(data);
 				var result = decode.result;
 				if (result === "success"){
-					showGraph(decode.startTime,decode.datas);		
+					showGraph(decode.histosList);		
 				}
 			});
 	}

@@ -486,14 +486,12 @@ class DataService {
 		return $response;
 	}
 	
-	function getAllTemperatures($startDate, $sonde) {
-		
-		$datas = $this->temperatureDao->getAllTemperatures ($startDate, $sonde);
-		
-		//$result = array();
-		//$result[0] = ['sonde' => $sonde, 'datas' => $datas];
-		
-		return $datas;
+	function getAllTemperatures($startDate, $sondes) {
+		$result = array();
+		for($i=0;$i<sizeof($sondes);$i++){
+			$result[$i] = ['sonde' => $sondes[$i], 'histos' => $this->temperatureDao->getAllTemperatures ($startDate, $sondes[$i])];			
+		}
+		return $result;
 	}
 	
 	function ckeckLogin($login,$password) {
