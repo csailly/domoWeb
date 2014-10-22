@@ -77,27 +77,15 @@ $modeFormId = "modeForm";
 	
 	GenericForm.prototype = {
 		submitForm: function (){
-			$.post( "/service/DataWService.php", $( '#'+this.formId ).serialize())
+			$.post( "/service/DomoWebWS.php", $( '#'+this.formId ).serialize())
 				.done(	function( data ) {
 							<?=$modeFormJsInstance?>.treatServerResult(data);							
 						});
 		},						
 				
 		checkFormValues: function (){
-			//TODO for server side check debug only
-			//this.submitForm();
-			//return;
-			//END
-
-		
 			//Clear error mesages
 			this.clearMessages();	
-		
-			
-// 			if (!g_modeOk){
-// 				this.setFieldOnError(this.formId+"_mode");
-// 				this.addErrorMessage("La saisie du mode est obligatoire");
-// 			}
 		
 			//Submit form if all it's ok.
 			if (true) {

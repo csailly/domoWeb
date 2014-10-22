@@ -1,16 +1,16 @@
 <?php
-include_once $_SERVER ['DOCUMENT_ROOT'] . '/config/config.php';
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/conf/DomoWebConfig.php';
+
 class ExternalService {	
+	private $domoWebConfig;
 	
-	function __construct($externalCommandTemp, $externalCommandMcz, $externalCommandUpdateWebApp) {
-		$this->externalCommandTemp = $externalCommandTemp;
-		$this->externalCommandMcz = $externalCommandMcz;
-		$this->externalCommandUpdateWebApp = $externalCommandUpdateWebApp; 
+	function __construct() {
+		$this->domoWebConfig = new DomoWebConfig();
 	}
 	
 		
 	function getCurrentTemp() {
-		$command = escapeshellcmd($this->externalCommandTemp);
+		$command = escapeshellcmd($this->domoWebConfig->externalCommandTemp);
 		$output = shell_exec($command);
 		
 		if (!isset($output)){
@@ -21,14 +21,14 @@ class ExternalService {
 	}
 	
 	function launchPoeleScript(){
-		$command = escapeshellcmd($this->externalCommandMcz);
+		$command = escapeshellcmd($this->domoWebConfig->externalCommandMcz);
 		$output = shell_exec($command);
 		
 		return $output;
 	}
 	
 	function updateWebApp(){
-		$command = escapeshellcmd($this->externalCommandUpdateWebApp);
+		$command = escapeshellcmd($this->domoWebConfig->externalCommandUpdateWebApp);
 		$output = shell_exec($command);
 		
 		return $output;

@@ -23,15 +23,10 @@
 <!-- Main css -->
 <link rel="stylesheet" href="/css/main.css" />
 
-<?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/config/config.php';?>
-
 <?php 
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/conf/DomoWebConfig.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/DataService.php';
-include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/PoeleService.php';
-include_once $_SERVER ['DOCUMENT_ROOT'] . '/service/ExternalService.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/Constants.php';
 
-$dataService = new DataService($databaseConnexion);
-$poeleService = new PoeleService($databaseConnexion);
-$externalService = new ExternalService($externalCommandTemp, $externalCommandMcz, $externalCommandUpdateWebApp);
+$dataService = new DataService();
 ?>

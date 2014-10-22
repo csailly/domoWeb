@@ -1,10 +1,10 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/conf/DomoWebConfig.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/service/DataService.php';
 
-$dataService = new DataService($databaseConnexion);
+$dataService = new DataService();
 
 $action = null;
 if (isset($_POST["action"])){

@@ -3,8 +3,7 @@
 
 <head>
 	<?php include $_SERVER ['DOCUMENT_ROOT'] . '/include/header.php'; ?>
-	<!-- Site CSS -->
-<link rel="stylesheet" href="/css/signin.css" />
+	<link rel="stylesheet" href="/css/signin.css" />
 </head>
 
 <body>
@@ -20,13 +19,15 @@ if (session_status () !== PHP_SESSION_ACTIVE) {
 }
 
 if ((isset ( $_SESSION ['login'] ) && $_SESSION ['login'] === 'ok') || isset($_COOKIE["logged"])) {
+	$expire = 7*24*3600;//7 jours
+	setcookie("logged",$_COOKIE["logged"],time()+$expire);
 	header ( "Location: index.php" );
 }
 if (isset ( $_POST ["login"] , $_POST ["password"] )) {
 	$login = $_POST ["login"];
 	$password = $_POST ["password"];
 	
-	$dataService = new DataService ( $databaseConnexion );
+	$dataService = new DataService (  );
 	$response = $dataService->ckeckLogin ( $login, $password );
 	
 	if ($response ['success'] === true && $response ['result'] === true) {
@@ -43,8 +44,6 @@ if (isset ( $_POST ["login"] , $_POST ["password"] )) {
 
 ?>
 
-
-
 	<div class="container">
 		<form id="loginForm" class="form-signin" role="form" method="post">
 			<h2 class="form-signin-heading">Authentification</h2>
@@ -57,16 +56,12 @@ if (isset ( $_POST ["login"] , $_POST ["password"] )) {
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Me connecter</button>
 		</form>
 	</div>
-	<!-- /container -->
-
-
 
 <?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/footer.php'; ?>
 
 <script>
-myLoading.hidePleaseWait();
+	myLoading.hidePleaseWait();
 </script>
-
 
 </body>
 </html>

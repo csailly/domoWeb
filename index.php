@@ -88,7 +88,7 @@
 <script type="text/javascript">
 	//Current Temp
 	function readCurrentTemp(currentMode){
-		$.post( "/service/DataWService.php", {action : "readCurrentTemp"})
+		$.post( "/service/DomoWebWS.php", {action : "readCurrentTemp"})
 		.done(	function( data ) {
 				var decode = $.parseJSON(data);
 				var result = decode.result;
@@ -111,7 +111,7 @@
 	
 	//Poele status
 	function readPoeleStatus(){
-		$.post( "/service/DataWService.php", {action : "readPoeleStatus"})
+		$.post( "/service/DomoWebWS.php", {action : "readPoeleStatus"})
 		.done(	function( data ) {
 				var decode = $.parseJSON(data);
 				var result = decode.result;
@@ -127,7 +127,7 @@
 	
 	//Current Periode and Mode
 	function readCurrentPeriodeAndMode(){
-		$.post( "/service/DataWService.php", {action : "readCurrentPeriodeAndMode"})
+		$.post( "/service/DomoWebWS.php", {action : "readCurrentPeriodeAndMode"})
 		.done(	function( data ) {
 				var decode = $.parseJSON(data);
 				var result = decode.result;
@@ -162,7 +162,7 @@
 
 	//Poele configuration
 	function readPoeleConfig(){	
-		$.post( "/service/DataWService.php", {action : "readPoeleConfiguration"})
+		$.post( "/service/DomoWebWS.php", {action : "readPoeleConfiguration"})
 		.done(	function( data ) {
 				var decode = $.parseJSON(data);
 				var result = decode.result;
@@ -187,7 +187,7 @@
 				myLoading.showPleaseWait();
 				if($('#poelePowerButton').attr('src')  === "/img/power-green1.png"){
 					$('#poelePowerButton').attr('src', "/img/power-blue1.png" );
-					$.post( "/service/DataWService.php", {action : "offOrder", value : true})
+					$.post( "/service/DomoWebWS.php", {action : "offOrder", value : true})
 					.done(	function( data ) {
 								readPoeleStatus();
 								myLoading.hidePleaseWait();
@@ -195,7 +195,7 @@
 						);				
 				}else if($('#poelePowerButton').attr('src')  === "/img/power-red1.png"){
 					$('#poelePowerButton').attr('src', "/img/power-blue1.png" );
-					$.post( "/service/DataWService.php", {action : "onOrder", value : true})
+					$.post( "/service/DomoWebWS.php", {action : "onOrder", value : true})
 					.done(	function( data ) {
 								readPoeleStatus();
 								myLoading.hidePleaseWait();
@@ -208,7 +208,7 @@
 	$('#poeleConfigAuto, #poeleConfigManu, #poeleConfigStop').click(
 		function(e){
 			myLoading.showPleaseWait();
-			$.post( "/service/DataWService.php", {action : "savePoeleConfiguration", value : $(this).children().attr('value')})
+			$.post( "/service/DomoWebWS.php", {action : "savePoeleConfiguration", value : $(this).children().attr('value')})
 			.done(	function( data ) {
 						init();
 						myLoading.hidePleaseWait();

@@ -1,23 +1,27 @@
 <?php
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/conf/DomoWebConfig.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/CalendarUtils.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/AccountDAO.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/ModeDAO.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/ParameterDAO.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/PeriodeDAO.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/TemperatureDAO.php';
+
 class DataService {
+	private $domoWebConfig;
 	private $accountDao;
 	private $periodeDao;
 	private $modeDao;
 	private $temperatureDao;
 	private $parameterDao;
 	
-	function __construct($connexion) {
-		$this->accountDao = new AccountDAO ( $connexion );
-		$this->periodeDao = new PeriodeDAO ( $connexion );
-		$this->modeDao = new ModeDAO ( $connexion );
-		$this->temperatureDao = new TemperatureDAO ( $connexion );
-		$this->parameterDao = new ParameterDAO($connexion);
+	function __construct() {
+		$this->domoWebConfig = new DomoWebConfig();
+		$this->accountDao = new AccountDAO ( $this->domoWebConfig->databaseConnexion );
+		$this->periodeDao = new PeriodeDAO ( $this->domoWebConfig->databaseConnexion );
+		$this->modeDao = new ModeDAO ( $this->domoWebConfig->databaseConnexion );
+		$this->temperatureDao = new TemperatureDAO ( $this->domoWebConfig->databaseConnexion );
+		$this->parameterDao = new ParameterDAO($this->domoWebConfig->databaseConnexion);
 	}
 	
 	/**
@@ -66,22 +70,7 @@ class DataService {
 	 *        	periodId : identifiant de la période à supprimer.
 	 */
 	function deletePeriode($periodId) {
-		$response = array (
-				'result' => 'success' 
-		);
-		try {
-			$this->periodeDao->deletePeriode ( $periodId );
-		} catch ( PDOException $e ) {
-			$response ['result'] = 'error';
-			$errorsMsgs = array ();
-			$errorsMsgs ["exception"] = $e->getMessage ();
-			$errors = array (
-					'errorsMsgs' => $errorsMsgs 
-			);
-			$response ['errors'] = $errors;
-		}
-		
-		return $response;
+		$this->periodeDao->deletePeriode ( $periodId );
 	}
 	
 	/**
@@ -186,25 +175,9 @@ class DataService {
 		$_startHour = CalendarUtils::transformHour ( $startHour );
 		$_endHour = CalendarUtils::transformHour ( $endHour );
 		
-		try {
-			$this->periodeDao->createPeriode ( $day, $_startDate, $_endDate, $_startHour, $_endHour, $modeId );
-		} catch ( PDOException $e ) {
-			$response ['result'] = 'error';
-			$errorsMsgs = array ();
-			$errorsMsgs ["exception"] = $e->getMessage ();
-			$errors = array (
-					'errorsMsgs' => $errorsMsgs 
-			);
-			$response ['errors'] = $errors;
-		} catch ( Exception $e ) {
-			$response ['result'] = 'error';
-			$errorsMsgs = array ();
-			$errorsMsgs ["exception"] = $e->getMessage ();
-			$errors = array (
-					'errorsMsgs' => $errorsMsgs 
-			);
-			$response ['errors'] = $errors;
-		}
+
+		$this->periodeDao->createPeriode ( $day, $_startDate, $_endDate, $_startHour, $_endHour, $modeId );
+
 		
 		return $response;
 	}
@@ -240,17 +213,9 @@ class DataService {
 		$_startHour = CalendarUtils::transformHour ( $startHour );
 		$_endHour = CalendarUtils::transformHour ( $endHour );
 		
-		try {
-			$this->periodeDao->updatePeriode ( $periodId, $day, $_startDate, $_endDate, $_startHour, $_endHour, $modeId );
-		} catch ( PDOException $e ) {
-			$response ['result'] = 'error';
-			$errorsMsgs = array ();
-			$errorsMsgs ["exception"] = $e->getMessage ();
-			$errors = array (
-					'errorsMsgs' => $errorsMsgs 
-			);
-			$response ['errors'] = $errors;
-		}
+
+		$this->periodeDao->updatePeriode ( $periodId, $day, $_startDate, $_endDate, $_startHour, $_endHour, $modeId );
+
 		
 		return $response;
 	}
@@ -267,22 +232,7 @@ class DataService {
 	 */
 	function createMode($label, $cons, $max) {
 		// TODO check parameters
-		$response = array (
-				'result' => 'success' 
-		);
-		try {
-			return $this->modeDao->createMode ( $label, $cons, $max );
-		} catch ( PDOException $e ) {
-			$response ['result'] = 'error';
-			$errorsMsgs = array ();
-			$errorsMsgs ["exception"] = $e->getMessage ();
-			$errors = array (
-					'errorsMsgs' => $errorsMsgs 
-			);
-			$response ['errors'] = $errors;
-		}
-		
-		$response;
+		$this->modeDao->createMode ( $label, $cons, $max );
 	}
 	
 	/**
@@ -299,21 +249,7 @@ class DataService {
 	 */
 	function updateMode($modeId, $label, $cons, $max) {
 		// TODO check parameters
-		$response = array (
-				'result' => 'success' 
-		);
-		try {
-			return $this->modeDao->updateMode ( $modeId, $label, $cons, $max );
-		} catch ( PDOException $e ) {
-			$response ['result'] = 'error';
-			$errorsMsgs = array ();
-			$errorsMsgs ["exception"] = $e->getMessage ();
-			$errors = array (
-					'errorsMsgs' => $errorsMsgs 
-			);
-			$response ['errors'] = $errors;
-		}
-		return $response;
+		$this->modeDao->updateMode ( $modeId, $label, $cons, $max );
 	}
 	
 	/**
@@ -322,23 +258,8 @@ class DataService {
 	 * @param
 	 *        	modeId : l'identifiant du mode à supprimer.
 	 */
-	function delete($modeId) {
-		$response = array (
-				'result' => 'success' 
-		);
-		try {
-			return $this->modeDao->delete ( $modeId );
-		} catch ( PDOException $e ) {
-			$response ['result'] = 'error';
-			$errorsMsgs = array ();
-			$errorsMsgs ["exception"] = $e->getMessage ();
-			$errors = array (
-					'errorsMsgs' => $errorsMsgs 
-			);
-			$response ['errors'] = $errors;
-		}
-		
-		return $response;
+	function deleteMode($modeId) {
+		$this->modeDao->delete ( $modeId );
 	}
 	
 	/**

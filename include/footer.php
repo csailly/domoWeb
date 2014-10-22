@@ -44,7 +44,7 @@
 
 		function updateWebApp(){
 			myLoading.showPleaseWait();
-			$.post( "/service/DataWService.php", {action : "updateWebApp"})
+			$.post( "/service/DomoWebWS.php", {action : "updateWebApp"})
 			.done(	function( data ) {
 						var decode = $.parseJSON(data);
 						var result = decode.result;

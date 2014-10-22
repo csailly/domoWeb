@@ -68,7 +68,7 @@ $parameters = $dataService->getAllParameters();
 <?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/footer.php'; ?>
 
 <!-- Bootstrap-switch -->
-<script type="text/javascript">
+<script>
 
 		<?php 
 		if ($parameters != null){ 
@@ -89,19 +89,19 @@ $parameters = $dataService->getAllParameters();
 						}else{
 							booleanValue = '<?=ParameterUtils::getBooleanFalseValue($parameter)?>';
 						}						
-						$.post( "/service/DataWService.php", {action : "saveParameter", code : "<?=$parameter->code ?>" , value : booleanValue});
+						$.post( "/service/DomoWebWS.php", {action : "saveParameter", code : "<?=$parameter->code ?>" , value : booleanValue});
 						});	
 		<?php
  				}elseif (ParameterUtils::isSelectParameter($parameter)) {
 		?>
 					$('select[name="param_<?=$parameter->code ?>"]').on('change', function() {
-						$.post( "/service/DataWService.php", {action : "saveParameter", code : "<?=$parameter->code ?>" , value : this.value});						
+						$.post( "/service/DomoWebWS.php", {action : "saveParameter", code : "<?=$parameter->code ?>" , value : this.value});						
 					});
 		<?php
 				}else{
 		?>
 					$('input[name="param_<?=$parameter->code ?>"]').on('change', function() {
-						$.post( "/service/DataWService.php", {action : "saveParameter", code : "<?=$parameter->code ?>" , value : this.value});						
+						$.post( "/service/DomoWebWS.php", {action : "saveParameter", code : "<?=$parameter->code ?>" , value : this.value});						
 					});
 		<?php
 				}

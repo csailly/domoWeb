@@ -143,19 +143,13 @@ $modes = $dataService->getAllModes();
 	
 	GenericForm.prototype = {
 		submitForm: function (){
-			$.post( "/service/DataWService.php", $( '#'+this.formId ).serialize())
+			$.post( "/service/DomoWebWS.php", $( '#'+this.formId ).serialize())
 				.done(	function( data ) {
 							<?=$periodFormJsInstance?>.treatServerResult(data);							
 						});
 		},						
 				
 		checkFormValues: function (){
-			//TODO for server side check debug only
-			//this.submitForm();
-			//return;
-			//END
-
-		
 			//Clear error mesages
 			this.clearMessages();	
 		
@@ -170,7 +164,6 @@ $modes = $dataService->getAllModes();
 			if (endDateValue && !this.validateDate(endDateValue)){
 				f_endDateOk = false;
 			}
-			
 			
 			//Validate start date and end date gestion rules
 			if (startDateValue && !endDateValue){
@@ -188,15 +181,12 @@ $modes = $dataService->getAllModes();
 			//Validate day or dates gestion rules
 			var g_dayOrDateOk = true;
 
-
 			if ($("#"+this.formId+"_day").val() >= 0) {				
 				g_dayOrDateOk = (startDateValue.length === 0) && (endDateValue.length === 0);
 			}else{
 				g_dayOrDateOk = (startDateValue.length > 0) && (endDateValue.length > 0) && g_datesOk;
 			}
-			
-		
-		
+					
 			//Validate start hour and end hour format
 			var f_startHourOk = true;
 			var startHourValue = $("#"+this.formId+"_startHour").val();

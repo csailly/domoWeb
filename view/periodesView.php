@@ -3,7 +3,7 @@
 <html>
 
 <head>
-		<?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/header.php'; ?>
+	<?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/header.php'; ?>
 </head>
 
 <body>
@@ -88,7 +88,7 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 			{
 				bootbox.confirm("T'es sûr de ton coup ?", function(choice) {
 					if (choice){
-						$.post( "/service/DataWService.php", {action : "deletePeriod", periodId: periodId})
+						$.post( "/service/DomoWebWS.php", {action : "deletePeriod", periodId: periodId})
 						.done(function(data){
 							var decode = $.parseJSON(data);
 							var result = decode.result;
@@ -100,7 +100,7 @@ $currentPeriode = $dataService->getCurrentPeriode ();
 						});
 					};
 				});
-			}	
+			}
 	</script>
 
 		<?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/footer.php'; ?>

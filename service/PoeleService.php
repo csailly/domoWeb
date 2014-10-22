@@ -1,4 +1,5 @@
 <?php
+include_once $_SERVER ['DOCUMENT_ROOT'] . '/conf/DomoWebConfig.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/CalendarUtils.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/utils/Constants.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/AccountDAO.php';
@@ -7,11 +8,13 @@ include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/ParameterDAO.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/PeriodeDAO.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/dao/TemperatureDAO.php';
 
-class PoeleService {	
+class PoeleService {
+	private $domoWebConfig;
 	private $parameterDao;
 	
-	function __construct($connexion) {
-		$this->parameterDao = new ParameterDAO($connexion);
+	function __construct() {
+		$this->domoWebConfig = new DomoWebConfig();
+		$this->parameterDao = new ParameterDAO($this->domoWebConfig->databaseConnexion);
 	}
 	
 		

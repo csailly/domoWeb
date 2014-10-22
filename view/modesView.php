@@ -96,7 +96,7 @@ $maxiForced = $dataService->getParameter('TEMP_MAXI_MARCHE_FORCEE')->value;
 function deleteMode(modeId) {
 	bootbox.confirm("T'es sûr de ton coup ?", function(choice) {
 		if (choice){
-			$.post( "/service/DataWService.php", {action : "deleteMode", modeId: modeId})
+			$.post( "/service/DomoWebWS.php", {action : "deleteMode", modeId: modeId})
 			.done(function(data){
 				var decode = $.parseJSON(data);
 				var result = decode.result;
@@ -115,16 +115,11 @@ function deleteMode(modeId) {
 <?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/footer.php'; ?>
 	
 
-
-	<!-- Modal -->
 	<script>
 			var <?=$modeFormJsInstance?> = new GenericForm("<?=$modeFormId?>");
 			$('#<?=$modalId?>').on('hidden.bs.modal', function (e) {
 				<?=$modeFormJsInstance?>.clearForm();
 			});				
-	</script>
-	
-		<script type="text/javascript">
 
 	//Cons Forced
 	function upConsForced(){
@@ -134,16 +129,15 @@ function deleteMode(modeId) {
 		if (currentCons +1 >= currentMaxi){
 			return;
 		}
-
 		
-		$.post( "/service/DataWService.php", {action : "upConsForced", value : (parseFloat($('#consForced').text())+0.5) })
+		$.post( "/service/DomoWebWS.php", {action : "upConsForced", value : (parseFloat($('#consForced').text())+0.5) })
 		.done(	function( data ) {
 			$('#consForced').text((parseFloat($('#consForced').text())+0.5).toFixed(1));
 			});	
 	}
 
 	function downConsForced(){
-		$.post( "/service/DataWService.php", {action : "downConsForced", value : (parseFloat($('#consForced').text())-0.5) })
+		$.post( "/service/DomoWebWS.php", {action : "downConsForced", value : (parseFloat($('#consForced').text())-0.5) })
 		.done(	function( data ) {
 			$('#consForced').text((parseFloat($('#consForced').text())-0.5).toFixed(1));
 			});
@@ -153,7 +147,7 @@ function deleteMode(modeId) {
 
 	//Maxi Forced
 	function upMaxiForced(){
-		$.post( "/service/DataWService.php", {action : "upMaxiForced", value : (parseFloat($('#maxiForced').text())+0.5) })
+		$.post( "/service/DomoWebWS.php", {action : "upMaxiForced", value : (parseFloat($('#maxiForced').text())+0.5) })
 		.done(	function( data ) {
 			$('#maxiForced').text((parseFloat($('#maxiForced').text())+0.5).toFixed(1));
 			});
@@ -167,7 +161,7 @@ function deleteMode(modeId) {
 			return;
 		}
 		
-		$.post( "/service/DataWService.php", {action : "downMaxiForced", value : (parseFloat($('#maxiForced').text())-0.5) })
+		$.post( "/service/DomoWebWS.php", {action : "downMaxiForced", value : (parseFloat($('#maxiForced').text())-0.5) })
 		.done(	function( data ) {
 			$('#maxiForced').text((parseFloat($('#maxiForced').text())-0.5).toFixed(1));
 			});
