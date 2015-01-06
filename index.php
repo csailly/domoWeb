@@ -99,7 +99,7 @@
 					if(currentMode != null){						
 						var bottomValue = -83 + (decode.currentTemp - currentMode.cons) * 99 / (currentMode.max - currentMode.cons);					
 						bottomValue = Math.min(bottomValue, 110);
-						bottomValue = Math.min(bottomValue, 170);					
+						bottomValue = Math.max(bottomValue, -170);					
 						$('#currentTempDiv').css('bottom', bottomValue);
 					}
 				}else{
