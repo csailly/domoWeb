@@ -28,7 +28,7 @@ class ExternalService {
 	}
 	
 	function updateWebApp(){
-		$command = escapeshellcmd($this->domoWebConfig->externalCommandUpdateWebApp);
+		$command = escapeshellcmd($this->domoWebConfig->externalCommandUpdateDomoWeb);
 		$output = shell_exec($command);
 		
 		return $output;

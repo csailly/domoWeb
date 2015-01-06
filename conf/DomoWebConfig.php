@@ -34,7 +34,7 @@ class DomoWebConfig {
 			$this->externalCommandTemp = 'python /home/pi/scripts/domoCore/com/nestof/domocore/service/TempService.py';
 			$this->externalCommandMcz = 'sudo python /home/pi/scripts/domoCore/run.py  >> /home/pi/log/domocore.log 2>&1';
 			$this->externalCommandUpdateDomoWeb = 'sh '.__DIR__.'/update.sh';
-			$this->externalCommandUpdateDomoCore = 'sudo python /home/pi/scripts/domoCore/conf/update.sh';
+			$this->externalCommandUpdateDomoCore = 'sudo sh /home/pi/scripts/domoCore/conf/update.sh';
 		}else{
 			$this->externalCommandTemp = 'C:\Python34\python.exe D:\Documents\Work\domocore\com\nestof\domocore\service\TempServiceDev.py';
 			$this->externalCommandMcz = 'C:\Python34\python.exe D:\Documents\Work\domocore\run.py';
