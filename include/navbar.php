@@ -29,7 +29,7 @@
 					<ul class="dropdown-menu">						
 						<li><a href="/view/parametersView.php">Paramètres</a></li>
 						<li><a id="updateDomoWeb" href="#">Mettre à jour DomoWeb</a></li>
-						<li><a id="updateDomoCore" href="#">Mettre à jour DomoCore</a></li>
+						<li><a id="updateDomoCore" href="#">Mettre à jour DomoCore.</a></li>
 					</ul>
 				</li>
 			</ul>
