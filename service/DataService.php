@@ -478,6 +478,23 @@ class DataService {
 		return $response;		
 	}
 	
+	function changeCurrentMode($modeId){
+		$currentPeriode = $this->periodeDao->getCurrent ();
+		
+		$_startDate = date('Y-m-d');
+		$_endDate = $_startDate;
+		$_startHour= strftime('%H:%M');
+		
+		if ($currentPeriode->jour === null && $currentPeriode->dateDebut === $currentPeriode->dateFin){
+			$this->periodeDao->updatePeriode($currentPeriode->id, null, $currentPeriode->dateDebut, $currentPeriode->dateFin, $currentPeriode->heureDebut, $_startHour, $currentPeriode->modeId);
+			$this->periodeDao->createPeriode ( null, $_startDate, $_endDate, $_startHour, $currentPeriode->heureFin, $modeId );
+		}else{			
+			$this->periodeDao->createPeriode ( null, $_startDate, $_endDate, $_startHour, $currentPeriode->heureFin, $modeId );
+		}
+		
+		
+	}
+	
 }
 
 ?>
