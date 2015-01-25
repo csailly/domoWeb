@@ -491,8 +491,6 @@ class DataService {
 		}else{			
 			$this->periodeDao->createPeriode ( null, $_startDate, $_endDate, $_startHour, $currentPeriode->heureFin, $modeId );
 		}
-		
-		
 	}
 	
 }
