@@ -478,6 +478,16 @@ class DataService {
 		return $response;		
 	}
 	
+	function changeCurrentMode($modeId){
+		$currentPeriode = $this->periodeDao->getCurrent ();
+		
+		$_startDate = date('Y-m-d');
+		$_endDate = $_startDate;
+		$_startHour= strftime('%H:%M');;
+		
+		$this->periodeDao->createPeriode ( $day, $_startDate, $_endDate, $_startHour, $currentPeriode->heureFin, $modeId );
+	}
+	
 }
 
 ?>

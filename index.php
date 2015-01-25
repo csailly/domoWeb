@@ -10,6 +10,10 @@
 
 <?php include_once $_SERVER ['DOCUMENT_ROOT'] . '/include/navbar.php'; ?>
 
+<?php 
+$modes = $dataService->getAllModes();
+?>
+
 <div id="main">
 
 <table class="table"  style="margin: auto; max-width: 305px;">
@@ -20,7 +24,7 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">Salon</h3>
 				</div>
-					<table class="table table-hover">
+					<table class="table table-hover" style="white-space: nowrap;">
 					<tbody>
 						<tr>
 							<td colspan="2" style="text-align: center;">
@@ -68,7 +72,17 @@
 						<tr id="currentPeriodeDatetime" style="display: none;">
 							<td>Période :</td>							
 							<td><span id="currentPeriodeDatetimeDebut"></span> - <span id="currentPeriodeDatetimeFin"></span></td>																				
-						</tr>						
+						</tr>
+						<tr id="modesList" style="display: none;">
+							<td>Mode :</td>							
+							<td>
+								<select id="modes" name="modes" class="selectpicker">
+									<?php foreach ($modes as $mode) {?>
+										<option value="<?=$mode->id ?>"><?=$mode->libelle?></option>			
+									<?php }?>
+								</select>							
+							</td>																				
+						</tr>					
 					</tbody>
 					</table>
 			</div>
@@ -138,10 +152,14 @@
 						$('#allTempView').show();
 						$('#oneTempView').hide();
 						$('#maxTemp').text(decode.currentMode.max);
-						$('#consTemp').text(decode.currentMode.cons);
+						$('#consTemp').text(decode.currentMode.cons);						
+						$('#modes option[value="'+decode.currentMode.id+'"]').prop('selected', true);
+						$('#modes').selectpicker('refresh');
+						$('#modesList').show();
 					}else{
 						$('#allTempView').hide();
 						$('#oneTempView').show();
+						$('#modesList').hide();						
 					}
 					if(decode.currentPeriode){
 						$('#currentPeriodeDatetime').show();
@@ -216,6 +234,19 @@
 				);
 		}
 	);
+
+	$("#modes").change(
+			function(){
+				$.post( "/service/DomoWebWS.php", {action : "changeCurrentMode", value : $( "#modes option:selected" ).attr('value')})
+				.done(	function( data ) {
+							init();
+							myLoading.hidePleaseWait();
+						}
+					);
+				
+			}
+	);
+	
 
 	function init(){
 		readPoeleConfig();

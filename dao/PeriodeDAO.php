@@ -80,9 +80,9 @@ class PeriodeDAO extends GenericDAO {
 	 * @param
 	 *        	day		:	le jour concerné par la période
 	 * @param
-	 *        	startDate	:	la date de début de la période (incluse) Format : DD/MM/YYYY
+	 *        	startDate	:	la date de début de la période (incluse) Format : YYYY-MM-DD
 	 * @param
-	 *        	endDate	:	la date de fin de la période (incluse) Format : DD/MM/YYYY
+	 *        	endDate	:	la date de fin de la période (incluse) Format : YYYY-MM-DD
 	 * @param
 	 *        	startHour	:	l'heure de début de la période (incluse) Format : (H)H:MM
 	 * @param
@@ -114,9 +114,9 @@ class PeriodeDAO extends GenericDAO {
 	 * @param
 	 *        	day		:	le jour concerné par la période
 	 * @param
-	 *        	startDate	:	la date de début de la période (incluse) Format : DD/MM/YYYY
+	 *        	startDate	:	la date de début de la période (incluse) Format : YYYY-MM-DD
 	 * @param
-	 *        	endDate	:	la date de fin de la période (incluse) Format : DD/MM/YYYY
+	 *        	endDate	:	la date de fin de la période (incluse) Format : YYYY-MM-DD
 	 * @param
 	 *        	startHour	:	l'heure de début de la période (incluse) Format : (H)H:MM
 	 * @param

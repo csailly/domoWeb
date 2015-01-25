@@ -458,6 +458,16 @@ class DomoWebWs {
 		// Send response
 		return json_encode ( $response );
 	}
+	
+	function changeCurrentMode(){
+		$value = $_POST ["value"];
+		// Call services
+		$response = array (
+				'result' => 'success'
+		);
+		$this->dataService->changeCurrentMode($value);
+		return json_encode ( $response );
+	}
 }
 
 
@@ -539,6 +549,9 @@ try {
 			break;
 		case "updateCore" :
 			echo $domoWebWs->updateDomoCore();
+			break;
+		case "changeCurrentMode" :
+			echo $domoWebWs->changeCurrentMode();
 			break;
 		default :
 			http_response_code ( 500 );
