@@ -264,9 +264,5 @@ $modes = $dataService->getAllModes();
 
 </script>
 
-
-
-
-
 </body>
 </html>
