@@ -55,7 +55,20 @@
 					});		
 		};
 
-		$("#update").click(function() {
+		function updateCore(){
+			myLoading.showPleaseWait();
+			$.post( "/service/DomoWebWS.php", {action : "updateCore"})
+			.done(	function( data ) {
+						var decode = $.parseJSON(data);
+						var result = decode.result;
+						if (result === "success"){
+							bootbox.alert("Mise à jour effectuée");			
+						}
+						myLoading.hidePleaseWait();
+					});		
+		};
+
+		$("#updateDomoWeb").click(function() {
 			bootbox.confirm("T'es sûr de ton coup ?", function(choice) {
 				if (choice){
 					updateWebApp();
@@ -63,7 +76,13 @@
 			});
 		});
 
-
+		$("#updateDomoCore").click(function() {
+			bootbox.confirm("T'es sûr de ton coup ?", function(choice) {
+				if (choice){
+					updateCore();
+				}
+			});
+		});
 
 	</script>
 	

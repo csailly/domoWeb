@@ -33,6 +33,13 @@ class ExternalService {
 		
 		return $output;
 	}
+	
+	function updateCore(){
+		$command = escapeshellcmd($this->domoWebConfig->externalCommandUpdateDomoCore);
+		$output = shell_exec($command);
+	
+		return $output;
+	}
 
 }
 

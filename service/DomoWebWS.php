@@ -449,6 +449,15 @@ class DomoWebWs {
 		return json_encode ( $response );
 	}
 	
+	function updateDomoCore(){
+		// Call services
+		$response = array (
+				'result' => 'success'
+		);
+		$response ['value'] = $this->externalService->updateCore ();
+		// Send response
+		return json_encode ( $response );
+	}
 }
 
 
@@ -527,6 +536,9 @@ try {
 			break;
 		case "updateWebApp" :
 			echo $domoWebWs->updateDomoWeb();	
+			break;
+		case "updateCore" :
+			echo $domoWebWs->updateDomoCore();
 			break;
 		default :
 			http_response_code ( 500 );
