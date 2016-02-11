@@ -1,0 +1,95 @@
+.therm {
+
+  border: solid 1px grey;
+  width: 15rem;
+
+  display: flex;
+  flex-direction: column;
+
+  ul {
+    justify-content: space-around;
+
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%
+  }
+
+  .button {
+    border: solid 1px #ddd;
+    border-radius: 5px;
+    background-color: #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    padding: .3rem;
+    white-space: nowrap;
+  }
+
+  .header {
+    display: flex;
+    border: solid 1px grey;
+    .fonctions {
+      display: flex;
+      .fonction.current {
+        color: red;
+      }
+    }
+
+  }
+
+  .main {
+    display: flex;
+    border: solid 1px grey;
+
+    .sensor {
+      .temp {
+        font-size: 5rem;
+
+        .ext {
+          .label {
+
+          }
+          .value {
+
+          }
+        }
+      }
+    }
+
+    .setpoint {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .arrow {
+        text-align: center;
+
+      }
+
+      .temp {
+        margin: 0.3rem 0;
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: row;
+    border: solid 1px grey;
+
+    .modes {
+      display: flex;
+      .mode.current {
+        color: red;
+      }
+    }
+
+    .profils {
+      display: flex;
+      .profil.current {
+        color: red;
+      }
+    }
+  }
+}

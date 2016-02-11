@@ -1,0 +1,41 @@
+<div class="therm">
+  <div class="header">
+    <ul class="fonctions">
+      <li class="fonction button" ng-click="mainController.updateConfig('AUTO')"
+          ng-class="mainController.currentConfig === 'AUTO' ? 'current' : ''"><i class="fa fa-clock-o"></i></li>
+      <li class="fonction button" ng-click="mainController.updateConfig('MANU')"
+          ng-class="mainController.currentConfig === 'MANU' ? 'current' : ''">Manu
+      </li>
+      <li class="fonction button" ng-click="mainController.updateConfig('STOP')"
+          ng-class="mainController.currentConfig === 'STOP' ? 'current' : ''"><i class="fa fa-power-off"></i></li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <div class="status">Flamme</div>
+    <div class="sensor">
+      <div class="temp">19.6°</div>
+      <div class="ext"><span class="label">Ext.</span><span class="value">7°</span></div>
+    </div>
+    <div class="setpoint">
+      <div class="arrow up button"><i class="fa fa-sort-up"></i></div>
+      <div class="temp">19°</div>
+      <div class="arrow down button"><i class="fa fa-sort-down"></i></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <ul class="modes" ng-repeat="mode in mainController.modes">
+      <li class="mode button" ng-class="mode.id === mainController.currentPeriod.idMode ? 'current' : '' ">
+        {{::mode.label}}
+      </li>
+    </ul>
+    <ul class="profils" ng-repeat="profil in mainController.profils">
+      <li class="profil button" ng-class="profil.id === mainController.currentProfil.id ? 'current' : '' "
+          ng-click="mainController.activateProfil(profil.id)">
+        {{::profil.name}}
+      </li>
+    </ul>
+  </div>
+
+</div>
