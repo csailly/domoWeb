@@ -1,13 +1,11 @@
 {
-  "name": "webapp",
+  "name": "DomoWebapp",
   "version": "0.0.0",
   "dependencies": {
     "angular": "~1.5.0",
     "font-awesome": "~4.5.0",
     "google-open-sans": "~1.0.0",
-    "ionicons": "~2.0.1",
     "lodash": "~4.2.1",
-    "weather-icons": "~2.0.10",
     "angular-ui-router": "~0.2.17",
     "restangular": "~1.5.1"
   },

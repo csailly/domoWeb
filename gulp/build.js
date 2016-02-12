@@ -33,12 +33,7 @@ gulp.task('html', ['inject:dist'], function () {
         .pipe(assets.restore())
         .pipe($.useref())
         .pipe(htmlFilter)
-        .pipe($.minifyHtml({
-            empty: true,
-            spare: true,
-            quotes: true,
-            conditionals: true
-        }))
+        .pipe($.htmlmin({collapseWhitespace: true}))
         .pipe(htmlFilter.restore())
         .pipe(gulp.dest(options.dist + '/'))
         .pipe($.size({title: options.dist + '/', showFiles: true}));
