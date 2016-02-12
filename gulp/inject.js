@@ -1,3 +1,6 @@
+/**
+ * Tasks used to inject js and css to index.html
+ **/
 'use strict';
 
 var gulp = require('gulp');
@@ -11,7 +14,6 @@ module.exports = function (options) {
   var scripts = [
     options.src + '/app/app.js',
     options.src + '/app/**/*.js',
-    options.src + '/partials/*.js',
     '!' + options.src + '/app/**/*.spec.js',
     '!' + options.src + '/app/**/*.mock.js'
   ];
@@ -29,7 +31,7 @@ module.exports = function (options) {
       addRootSlash: false
     };
 
-    return gulp.src(options.src + '/*.html')
+    return gulp.src(options.src + '/index.html')
       .pipe($.inject(injectStyles, injectOptions))
       .pipe($.inject(injectScripts, injectOptions))
       .pipe(wiredep(options.wiredep))
@@ -37,10 +39,6 @@ module.exports = function (options) {
   }
 
   gulp.task('inject:dist', function () {
-    // FIXME: uncomment below code in order to avoid to embed the main js demo files
-    // ignore main js files, which are used in dev mode
-    //scripts.push('!' + options.src + '/app/main/*.js');
-
     return runInject();
   });
 

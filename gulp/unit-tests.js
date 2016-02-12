@@ -1,3 +1,7 @@
+/**
+ * Tasks used to run unit tests.
+ */
+
 'use strict';
 
 var gulp = require('gulp');

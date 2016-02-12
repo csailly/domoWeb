@@ -1,3 +1,7 @@
+/**
+ * Task used to clean build directories.
+ */
+
 'use strict';
 
 var gulp = require('gulp');
