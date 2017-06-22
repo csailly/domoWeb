@@ -13,7 +13,7 @@ class DomoWebConfig {
 	function __construct(){
 		/* Configuration de la base de données */
 		if (PHP_OS == "Linux"){
-			$this->databaseDirectory = '/home/pi/syno/';
+			$this->databaseDirectory = '/home/pi/usb/';
 			$this->databaseFilename = 'domotique.sqlite';
 		}else{
 			$this->databaseDirectory = dirname(__FILE__).'/../';
